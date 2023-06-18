@@ -1,4 +1,4 @@
-@include('hello_world')
+@include('completeOrder')
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
