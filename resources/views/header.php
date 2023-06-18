@@ -4,7 +4,7 @@
    <head>
       <meta charset="utf-8">
       <title>Responsive Navbar with Search Box | CodingNepal</title>
-      <link rel="stylesheet" href="/header.css">
+      <link rel="stylesheet" href="/css/header.css">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
    </head>
@@ -16,7 +16,7 @@
          </div>
          <div class="logo">
         <a href="">
-          <img src="/images/UKM OMELET LOGO.png" width="150" alt="">
+          <img src="/img/UKM OMELET LOGO.png" width="150" alt="">
           </a>
          </div>
          <div class="nav-items">
