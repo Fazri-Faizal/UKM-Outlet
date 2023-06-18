@@ -20,3 +20,11 @@ Route::get('/', function () {
 Route::get('/completeOrder', function () {
     return view('completeOrder');
 });
+
+Route::get('/product-list-web', function () {
+    return view('product-list-web');
+});
+
+Route::get('/product-list-web', function () {
+    return view('product-list-web');
+});
