@@ -1,4 +1,4 @@
-@include('completeOrder')
+@include('header')
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -11,6 +11,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/footer.css">
 
         <!-- Styles -->
         <style>
@@ -136,7 +137,9 @@
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
                 </div>
-            </div>
+            </div>    
         </div>
-    </body>
+        @include('footer')  
+    </body> 
 </html>
+
