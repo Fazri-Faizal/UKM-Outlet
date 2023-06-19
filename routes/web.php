@@ -21,19 +21,26 @@ Route::get('/header', function () {
     return view('header');
 });
 
+Route::get('/footer', function () {
+    return view('footer');
+});
+
 Route::get('/completeOrder', function () {
     return view('completeOrder');
 });
+
 Route::get('/product-list-web', function () {
     return view('product-list-web');
 });
+
 Route::get('/product-list-college-web', function () {
     return view('product-list-college-web');
 });
+
 Route::get('/product-list-ukm-web', function () {
     return view('product-list-ukm-web');
 });
 
-Route::get('/footer', function () {
-    return view('footer');
+Route::get('/product-details', function () {
+    return view('product-details');
 });
