@@ -1,6 +1,4 @@
-<?php include 'header.php';
-?>
-
+<?php include 'header.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,3 +133,4 @@
 </body>
 <script type="text/javascript" src="javascript.js"></script>
 </html>
+<?php include 'footer.php' ?>
