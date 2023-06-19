@@ -169,7 +169,7 @@ nav ul li span:nth-child(4) {
   padding: 0;
   } */
 
-  .grid-container {
+  /* .grid-container {
     display: grid;
     grid-template-areas:
       '  img1 img1 img1 img1 img1 img1 img1 img1 img1 img1 img1 img1 img1 img1 img1'
@@ -184,7 +184,7 @@ nav ul li span:nth-child(4) {
     margin-left: 350px;
     border: 3.5px solid black;
     border-radius: 13px;
-  }
+  } */
 
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -223,11 +223,12 @@ nav ul li span:nth-child(4) {
   .card button:hover {
     opacity: 0.7;
   }
+
   .product-list {
     align-items: center;
     position: absolute;
- 
-    margin-left: 12%;
+    justify-content: center;
+    margin-left: 21%;
   }
 
   h3 {
