@@ -28,6 +28,11 @@ Route::get('/completeOrder', function () {
 Route::get('/product-list-web', function () {
     return view('product-list-web');
 });
-Route::get('/header', function () {
-    return view('header');
+
+Route::get('/product-list-college-web', function () {
+    return view('product-list-college-web');
+});
+
+Route::get('/product-list-ukm-web', function () {
+    return view('product-list-ukm-web');
 });
