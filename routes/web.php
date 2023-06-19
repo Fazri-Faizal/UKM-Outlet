@@ -28,3 +28,6 @@ Route::get('/completeOrder', function () {
 Route::get('/product-list-web', function () {
     return view('product-list-web');
 });
+Route::get('/header', function () {
+    return view('header');
+});
