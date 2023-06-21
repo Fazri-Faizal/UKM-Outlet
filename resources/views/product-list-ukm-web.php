@@ -132,6 +132,7 @@
             </td>
         </tr>
     </table>  
+    <?php include 'footer.php' ?>
 </body>
 <script type="text/javascript" src="javascript.js"></script>
 </html>
