@@ -40,7 +40,7 @@
             <td>Color | Maroon | Blue</td>
         </tr>
         <tr>
-            <td> + | 2 | - </td>
+            <td><?php include 'button_counter.php' ?></td>
         </tr>
         <tr>
             <td style="display: inline"><?php include 'button_addtocartv1.php' ?> | <?php include 'button_place_order.php' ?> </td>
