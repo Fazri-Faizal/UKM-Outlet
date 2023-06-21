@@ -6,6 +6,9 @@
     <link rel="stylesheet" type="text/css" href="/css/login-web.scss.css"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
   </head>
   <body>
+    <video autoplay muted loop id="myVideo">
+      <source src="/img/login2.mp4" type="video/mp4">
+    </video>
     <div class="main">
       <div class="container a-container" id="a-container">
         <form class="form" id="a-form" method="" action="">
@@ -30,11 +33,13 @@
         <div class="switch__circle"></div>
         <div class="switch__circle switch__circle--t"></div>
         <div class="switch__container" id="switch-c1">
+          <img src="/img/UKM-OUTLET-LOGO.png" alt="Ukm Outlet">
           <h2 class="switch__title title">Welcome Back !</h2>
           <p class="switch__description description">To keep connected with us please login with your personal info</p>
           <button class="switch__button button switch-btn">SIGN IN</button>
         </div>
         <div class="switch__container is-hidden" id="switch-c2">
+          <img src="/img/UKM-OUTLET-LOGO.png" alt="Ukm Outlet">
           <h2 class="switch__title title">Hello Friend !</h2>
           <p class="switch__description description">Enter your personal details and start journey with us</p>
           <button class="switch__button button switch-btn">SIGN UP</button>
