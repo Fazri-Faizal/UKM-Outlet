@@ -18,10 +18,11 @@
           </a>
          </div>
          <div class="nav-items">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Faculty</a></li>
-            <li><a href="#">College</a></li>
-            <li><a href="#">UKM</a></li>
+            <li><a onclick="window.location.href='home'">Home</li>
+            <li><a onclick="window.location.href='faculty-list-web'">Faculty</a></li>
+            <li><a onclick="window.location.href='college-list-web'">College</a></li>
+            <li><a onclick="window.location.href='product-list-ukm-web'">UKM</a></li>
+            
          </div>
          <div class="search-icon">
             <span class="fas fa-search"></span>
