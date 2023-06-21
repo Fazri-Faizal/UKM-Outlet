@@ -40,7 +40,7 @@ nav .nav-items li a{
   text-decoration: none;
 }
 nav .nav-items li a:hover{
-  color: #EBDBDB;
+  color: #e68d8d;
 }
 nav form{
   display: flex;
@@ -73,7 +73,7 @@ nav form button{
   cursor: pointer;
 }
 nav form button:hover{
-  background: #ffffff;
+  background: #e68d8d;
 }
 nav .menu-icon,
 nav .cancel-icon,
