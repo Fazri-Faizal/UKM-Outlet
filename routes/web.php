@@ -44,3 +44,59 @@ Route::get('/product-list-ukm-web', function () {
 Route::get('/product-details', function () {
     return view('product-details');
 });
+
+Route::get('/college-list-web', function () {
+    return view('college-list-web');
+});
+
+Route::get('/faculty-list-web', function () {
+    return view('faculty-list-web');
+});
+
+Route::get('/button_complete_order', function () {
+    return view('button_complete_order');
+});
+
+Route::get('/rating', function () {
+    return view('rating');
+});
+
+Route::get('/button_bubbly', function () {
+    return view('button_bubbly');
+});
+
+Route::get('/button_order', function () {
+    return view('button_order');
+});
+
+Route::get('/button_place_order', function () {
+    return view('button_place_order');
+});
+
+Route::get('/title-logo', function () {
+    return view('title-logo');
+});
+
+Route::get('/button_addtocartv1', function () {
+    return view('button_addtocartv1');
+});
+
+Route::get('/button_addtocartv2', function () {
+    return view('button_addtocartv2');
+});
+
+Route::get('/login-web', function () {
+    return view('login-web');
+});
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::get('/chekout', function () {
+    return view('chekout');
+});
+
+Route::get('/button_counter', function () {
+    return view('button_counter');
+});
