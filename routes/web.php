@@ -44,3 +44,11 @@ Route::get('/product-list-ukm-web', function () {
 Route::get('/product-details', function () {
     return view('product-details');
 });
+
+Route::get('/college-list-web', function () {
+    return view('college-list-web');
+});
+
+Route::get('/faculty-list-web', function () {
+    return view('faculty-list-web');
+});
