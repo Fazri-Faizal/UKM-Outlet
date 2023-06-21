@@ -12,10 +12,10 @@
 <body style="text-align:center;">
     <table class="product-list">
         <tr style="bgcolor: #556B2F;" >
-            <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; padding-bottom: 20px">College</h2>
+            <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; padding-bottom: 20px;">College</h2>
         </tr>
         <tr> 
-            <nav style="text-align: center; display: inline-block ">
+            <nav style="text-align: center; display: inline-block; background-color:#FFFFFF; ">
                 <ul>
                     <a href="#"><li>Jersey<span></span><span></span><span></span><span></span></li></a>
                     <a href="#"><li>Lanyard<span></span><span></span><span></span><span></span></li></a>

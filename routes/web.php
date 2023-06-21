@@ -100,3 +100,12 @@ Route::get('/chekout', function () {
 Route::get('/button_counter', function () {
     return view('button_counter');
 });
+Route::get('/cart', function () {
+    return view('cart');
+});
+Route::get('/button_delete', function () {
+    return view('button_delete');
+});
+Route::get('/cart', function () {
+    return view('cart');
+});
