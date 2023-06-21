@@ -11,7 +11,7 @@
 
 <body>
     <div class="title">
-        <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; font-size: 50px;">College</h2>
+        <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; font-size: 30px;">College</h2>
         <br>
         <h3 style="color: #846565; face: verdana; text-align: center; padding-bottom: 20px; font-size: 20px;">Choose your college !</h3>
     </div>
@@ -102,3 +102,4 @@
         </div>
     </div>
 </body>
+<?php include 'footer.php'?>
