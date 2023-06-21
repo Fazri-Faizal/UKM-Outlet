@@ -13,7 +13,7 @@
             <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; padding-bottom: 20px">Faculty</h2>
         </tr>
         <tr> 
-            <nav style="text-align: center; display: inline-block ">
+            <nav style="text-align: center; display: inline-block; background-color:#ffffff;">
                 <ul>
                     <a href="#"><li>Jersey<span></span><span></span><span></span><span></span></li></a>
                     <a href="#"><li>Lanyard<span></span><span></span><span></span><span></span></li></a>
