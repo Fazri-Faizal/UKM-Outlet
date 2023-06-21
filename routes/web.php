@@ -88,3 +88,9 @@ Route::get('/button_addtocartv2', function () {
 Route::get('/login-web', function () {
     return view('login-web');
 });
+Route::get('/home', function () {
+    return view('home');
+});
+Route::get('/chekout', function () {
+    return view('chekout');
+});

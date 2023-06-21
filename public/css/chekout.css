@@ -1,0 +1,84 @@
+
+  /* .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 2000px;
+    max-height:200px;
+     margin-left: 50px; 
+    text-align: center;
+    font-family: arial;
+    border-radius: 13px;
+    margin-top: 30px;
+     gap: 10px; 
+  } */
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 1100px;
+    height: 200px;
+    margin-left:450px; 
+    text-align: left;
+    font-family: arial;
+    border-radius: 13px;
+    margin-top: 50px;
+  }
+h4{
+  margin-top: 20px;
+  font-family: Source Han Serif;
+  color:#333333;
+  margin-left:50px;
+}
+
+h3{
+
+  font-family: Source Han Serif;
+  color:#333333;
+
+}
+h5{
+ 
+  font-family: Source Han Serif;
+  color:#777777;
+
+}
+
+.name{grid-area:name;}
+.add{grid-area: adds;}
+.update {grid-area: btn;}
+
+
+  .grid {
+    display: grid;
+    grid-template-areas:
+      'name  adds btn'
+      'name  adds btn'
+      ;
+    gap: 5px;
+    background-color: #ffffff;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+  
+  .update{
+    border-radius: 12px;
+    border-color: #ab8262 ;
+    background-color: #f2f2f2;
+    width:50%;
+  }
+.prodimage{grid-area:prodimage;}
+.prodname{grid-area:prodname;}
+.variation{grid-area: var;}
+.pricecross{grid-area: pricecross;}
+.price{grid-area:price;}
+
+
+  .grid_product{
+    display: grid;
+    grid-template-areas:
+      'prodimage  prodname pricecross price'
+      'prodimage  var pricecross price'
+      ;
+   
+    background-color: #ffffff;
+
+  }
+  
