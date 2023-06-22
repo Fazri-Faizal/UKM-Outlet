@@ -16,102 +16,79 @@
     </div>
    <div class="faculty">
         <div>
-            <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FSSK</label>
-                    <br>
-                    <label class="fullname">Faculty of Social Sciences and Humanities</label>
+            <button class="facultybutton" onclick=window.location.href="product-list-web">
+                <span>FSSK<br><b>Faculty of Social Sciences and Humanities</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FUU</label>
-                    <br>
-                    <label class="fullname">Faculty of Law</label>
+                <span>FUU<br><b>Faculty of Law</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FPERG</label>
-                    <br>
-                    <label class="fullname">Faculty of Dentistry</label>
+                <span>FPERG<br><b>Faculty of Dentistry</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FKAB</label>
-                    <br>
-                    <label class="fullname">Faculty of Engineering and Built Environment</label>
+                <span>FKAB<br><b>Faculty of Engineering and Built Environment</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FST</label>
-                    <br>
-                    <label class="fullname">Faculty of Science and Technology</label>
+                <span>FST<br><b>Faculty of Science and Technology</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FPEND</label>
-                    <br>
-                    <label class="fullname">Faculty of Education</label>
+                <span>FPEND<br><b>Faculty of Education</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FEP</label>
-                    <br>
-                    <label class="fullname">Faculty of Economics and Management</label>
+                <span>FEP<br><b>Faculty of Economics and Management</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FPER</label>
-                    <br>
-                    <label class="fullname">Faculty of Medicine</label>
+                <span>FPER<br><b>Faculty of Medicine</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FARMASI</label>
-                    <br>
-                    <label class="fullname">Faculty of Pharmacy</label>
+                <span>FARMASI<br><b>Faculty of Pharmacy</b</span>
             </button>
         </div>
        <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FTSM</label>
-                    <br>
-                    <label class="fullname">Faculty of Information Science and Technology</label>
+                <span>FTSM<br><b>Faculty of Information Science and Technology</b</span>
             </button>
        </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FPI</label>
-                    <br>
-                    <label class="fullname">Faculty of Islamic Studies</label>
+                <span>FPI<br><b>Faculty of Islamic Studies</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">FSK</label>
-                    <br>
-                    <label class="fullname">Faculty of Health Sciences</label>
+                <span>FSK<br><b>Faculty of Health Sciences</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
-                    <label class="shortform">GSB</label>
-                    <br>
-                    <label class="fullname">UKM-GSB Graduate School of Business</label>
+                <span>GSB<br><b>UKM-GSB Graduate School of Business</b</span>
             </button>
         </div>
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
+                <span>CITRA<br><b>Pusat Pengajian Citra Universiti</b</span>
+            </button>
+            <!-- <button class="facultybutton" onclick=window.location.href="#">
                     <label class="shortform">CITRA</label>
                     <br>
                     <label class="fullname">Pusat Pengajian Citra Universiti</label>
-            </button>
+            </button> -->
         </div>
     </div>
 </body>
