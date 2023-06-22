@@ -37,7 +37,7 @@ body{
   margin-left: 50px;
   text-align: center;
   border-radius: 13px;
-  margin-top: 20px;
+  margin-top: -35px;
   background-color: #ffffff;
 }
 
@@ -317,3 +317,26 @@ nav ul li span:nth-child(4) {
   display: inline;
   align-items: center;
 }
+
+.card-checkout {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 1100px;
+    height: 150px;
+    text-align: left;
+    font-family: arial;
+    border-radius: 13px;
+    margin-top: 20px;
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0;
+    background-color: #ffffff;
+  }
+  .checkout-content{
+    width:100%;
+    text-align : center;
+  }
+  td {
+    padding: 15px;
+  }
+  
+
