@@ -93,19 +93,23 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('/chekout', function () {
-    return view('chekout');
+Route::get('/checkout', function () {
+    return view('checkout');
 });
 
 Route::get('/button_counter', function () {
     return view('button_counter');
 });
-Route::get('/cart', function () {
-    return view('cart');
-});
+
 Route::get('/button_delete', function () {
     return view('button_delete');
 });
 Route::get('/cart', function () {
     return view('cart');
+});
+Route::get('/test3d', function () {
+    return view('test3d');
+});
+Route::get('/button_checkout', function () {
+    return view('button_checkout');
 });
