@@ -18,86 +18,62 @@
    <div class="college">
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KIY</label>
-                    <br>
-                    <label class="fullname">Kolej Ibrahim Yaakub</label>
+                <span>KIY<br><b>Kolej Ibrahim Yaakub</b</span>
             </button>
         </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KDO</label>
-                    <br>
-                    <label class="fullname">Kolej Dato' Onn</label>
+                <span>KDO<br><b>Kolej Dato' Onn</b</span>
             </button>
         </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KAB</label>
-                    <br>
-                    <label class="fullname">Kolej Aminuddin Baki</label>
+                <span>KAB<br><b>Kolej Aminuddin Baki</b</span>
             </button>
         </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KUO</label>
-                    <br>
-                    <label class="fullname">Kolej Ungku Omar</label>
+                <span>KUO<br><b>Kolej Ungku Omar</b</span>
             </button>
         </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KBH</label>
-                    <br>
-                    <label class="fullname">Kolej Burhanuddin Helmi</label>
+                <span>KBH<br><b>Kolej Burhanuddin Helmi</b</span>
             </button>
         </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KRK</label>
-                    <br>
-                    <label class="fullname">Kolej Rahim Kajai</label>
+                <span>KRK<br><b>Kolej Rahim Kajai</b</span>
             </button>
         </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KIZ</label>
-                    <br>
-                    <label class="fullname">Kolej Ibu Zain</label>
+                <span>KIZ<br><b>Kolej Ibu Zain</b</span>
             </button>
         </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KKM</label>
-                    <br>
-                    <label class="fullname">Kolej Keris Mas</label>
+                <span>KKM<br><b>Kolej Keris Mas</b</span>
             </button>
         </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KPZ</label>
-                    <br>
-                    <label class="fullname">Kolej Pendeta Za'ba</label>
+                <span>KPZ<br><b>Kolej Pendeta Za'ba</b</span>
             </button>
         </div>
        <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KTHO</label>
-                    <br>
-                    <label class="fullname">Kolej Tun Hussein Onn</label>
+                <span>KTHO<br><b>Kolej Tun Hussein Onn</b</span>
             </button>
        </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KTSN</label>
-                    <br>
-                    <label class="fullname">Kolej Tun Syed Nasir</label>
+                <span>KTSN<br><b>Kolej Tun Syed Nasir</b</span>
             </button>
         </div>
         <div>
             <button class="collegebutton" onclick=window.location.href="#">
-                    <label class="shortform">KTDI</label>
-                    <br>
-                    <label class="fullname">Kolej Tun Dr. Ismail</label>
+                <span>KTDI<br><b>Kolej Tun Dr. Ismail</b</span>
             </button>
         </div>
     </div>

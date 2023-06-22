@@ -18,13 +18,58 @@
     cursor: pointer;
 }
 
-.collegebutton:hover {
-    opacity: 0.9;
-    box-shadow: -1px 1px 8px 8px #a88a74;
-    transition: 0.4s;
-  }
+.collegebutton {
+    background-color: #ffffff;
+    border: none;
+    text-align: center;
+    color: #9e735a;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 42px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 25%;
+    height: 75px;
+    box-shadow: 9px 13px 17px 1px #AB8287;
+}
+  
+.collegebutton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.collegebutton span:after {
+    /* content: '\00bb'; */
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
 
-.shortform {
+.collegebutton:hover {
+    background-color: rgb(153, 115, 88);
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+  
+.collegebutton:hover span {
+    padding-right: 25px;
+}
+  
+.collegebutton:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+span b { font-size: 15px; font-weight: 50;}
+span { font-size: 20px; font-weight: 700; }
+
+
+/* .shortform {
     font-size: 20px;
     font-weight: 700;
     color: #382323;
@@ -37,4 +82,4 @@
     color: #382323;
     cursor: pointer;
     margin-top: 30px;
-}
+} */
