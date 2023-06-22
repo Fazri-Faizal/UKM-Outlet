@@ -32,7 +32,7 @@
          </div>
          <form action="#">
             <input type="search" class="search-data" placeholder="Search UKM Outlet" required>
-            <button type="submit" class="fas fa-search"></button>
+            <button type="submit" class="fas fa-search" ></button>
          </form> 
          <div class="cart-icon">
             <a href="#">
