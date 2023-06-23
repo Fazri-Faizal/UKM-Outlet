@@ -128,3 +128,6 @@ Route::get('/button_size', function () {
 Route::get('/button_fpx', function () {
     return view('button_fpx');
 });
+Route::get('/Test3d', function () {
+    return view('Test3d');
+});
