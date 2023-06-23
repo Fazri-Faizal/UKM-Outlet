@@ -7,9 +7,10 @@
   font-family: 'Poppins',sans-serif;
 }
 .wrapper{
+  margin-left: 90px;
   height: 42px;
   min-width: 160px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   background: #FFF;
