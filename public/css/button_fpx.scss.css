@@ -96,7 +96,7 @@ body {
   margin-left: 20px;
 }
 
-.card {
+.card_btn_fpx {
   width: 70px;
   height: 46px;
   background-color: var(--card);

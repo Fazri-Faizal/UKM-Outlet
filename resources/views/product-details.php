@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="/css/product-details.css"/>
 </head>
 <body>
+
     <div class="card">
         <table class="table">
             <tr>
-                <td rowspan="7"> <img src="/img/Jersey-1.png" alt="Denim Jeans" style="width:100%"></td>
+                <td rowspan="7"><image id="pic" src="/img/3d/1.png" alt="Denim Jeans" style="width:100%"> </td>
+                
                 <td style="font-family: Source Han Serif; font-size: 40px;">JERSEY UKM 2022</td>
             </tr>
             <tr>
@@ -49,8 +51,44 @@
             <tr>
                 <td style="display: inline"><?php include 'button_addtocartv1.php' ?> | <?php include 'button_place_order.php' ?> </td>
             </tr>
+            <tr>
+            <td> <input type="range" class="slider" name="height" id="heightId" min = "1" max = "9" value = "3" oninput="myFunction()" ></td><td><output id="outputId" ></output></td>
+            </tr>
         </table>
     </div>
+
     <?php include 'footer.php' ?>
+<script>
+   function myFunction() {
+    var num=document.getElementById("heightId").value;
+    var num =parseInt(num);
+    if(num==1){
+        document.getElementById("pic").src = "/img/3d/1.png";
+    }
+    if(num==2){
+        document.getElementById("pic").src = "/img/3d/2.png";
+    }
+    if(num==3){
+        document.getElementById("pic").src = "/img/3d/3.png";
+    }
+    if(num==4){
+        document.getElementById("pic").src = "/img/3d/4.png";
+    }
+    if(num==5){
+        document.getElementById("pic").src = "/img/3d/5.png";
+    }
+    if(num==6){
+        document.getElementById("pic").src = "/img/3d/6.png";
+    }
+
+    if(num==8){
+        document.getElementById("pic").src = "/img/3d/8.png";
+    }
+    if(num==9){
+        document.getElementById("pic").src = "/img/3d/9.png";
+    }
+   
+}
+</script>
 </body>
 </html>
