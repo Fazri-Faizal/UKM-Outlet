@@ -101,15 +101,30 @@ Route::get('/button_counter', function () {
     return view('button_counter');
 });
 
-Route::get('/button_delete', function () {
-    return view('button_delete');
-});
 Route::get('/cart', function () {
     return view('cart');
 });
+
 Route::get('/test3d', function () {
     return view('test3d');
 });
+
 Route::get('/button_checkout', function () {
     return view('button_checkout');
+});
+
+Route::get('/button_color', function () {
+    return view('button_color');
+});
+
+Route::get('/button_delete', function () {
+    return view('button_delete');
+});
+
+Route::get('/button_size', function () {
+    return view('button_size');
+});
+
+Route::get('/button_fpx', function () {
+    return view('button_fpx');
 });

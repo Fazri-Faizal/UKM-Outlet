@@ -7,4 +7,3 @@
     <span class="plus">+</span>
 </div>
 <script type="text/javascript" src="/js/button_counter.js"></script>
-</html>
