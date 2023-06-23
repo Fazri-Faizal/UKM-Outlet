@@ -4,7 +4,7 @@
 
 <div class="container">
  <div class="left-side">
-  <div class="card">
+  <div class="card_btn_fpx">
    <div class="card-line"></div>
    <div class="buttons"></div>
   </div>
