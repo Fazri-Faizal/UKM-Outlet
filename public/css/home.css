@@ -5,17 +5,19 @@
 body{
     margin: 0;
     padding: 0;
-    background: #ffffff;
+    background: #fffdfd;
     
 }
 h1{
-    color: #804444;
+    color: #ab8262;  
     font-family: fang song;
-    text-align:center
+    text-align:center;
+    margin-top: 28px;
+    /* #804444 */
     
 }
 .seeall{
-    color: #804444;
+    color: #ab8262;
     font-family: fang song;
     text-align: right;
     margin-right: 7.5%;
@@ -43,6 +45,16 @@ h1{
     animation: slide 20s infinite;
 
 }
+
+.bg-top{
+  background-image: url(/img/home.jpg);
+}
+
+.img{
+  margin-left: 38%;
+  filter: drop-shadow(2px 4px 6px whitesmoke);
+}
+
 .img1{
     
     width :350px;
