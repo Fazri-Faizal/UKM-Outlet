@@ -48,9 +48,9 @@
   transition: all 0.4s;
 }
 
-.btn-white::after {
+/* .btn-white::after {
   background-color: #fff;
-}
+} */
 
 .btn:hover::after {
   /* transform: scaleX(1.4) scaleY(1.6); */
@@ -60,6 +60,13 @@
 .btn-animated {
   animation: moveInBottom 5s ease-out;
   animation-fill-mode: backwards;
+}
+
+a.selected {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  color:  #804444;
 }
 
 @keyframes moveInBottom {

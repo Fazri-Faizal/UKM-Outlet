@@ -1,4 +1,13 @@
-<?php include 'header.php'; ?>
+<?php 
+    include 'header.php'; 
+
+    include 'database.php';
+    $conn = new mysqli($servername, $username, $password,$dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,16 +19,16 @@
     <link rel="stylesheet" href="/css/product-details.css"/>
 </head>
 <body>
-
-    <div class="card">
-        <table class="table">
+    <center>
+        <table class="table" style="border: solid black">
+            <td style="border: solid red">Test</td>
             <tr>
-                <td rowspan="7"><image id="pic" src="/img/3d/1.png" alt="Denim Jeans" style="width:100%"> </td>
+                <td rowspan="7"><image id="pic" src="/img/3d/1.png" alt="Denim Jeans" style="width:100%; filter: drop-shadow(5px 5px 5px black); border: solid red;"> </td>
                 
-                <td style="font-family: Source Han Serif; font-size: 40px;">JERSEY UKM 2022</td>
+                <td style="font-size: 40px; border: solid red">JERSEY UKM 2022</td>
             </tr>
             <tr>
-                <td>
+                <td style="border: solid red">
                     4.5
                     <?php
                         $rate = 4.5;
@@ -36,26 +45,34 @@
                 </td>
             </tr>
             <tr>
-                <td>RM 40</td>
+                <td style="border: solid red">RM 40</td>
             </tr>
             <tr>
-                <td>Size | &nbsp <?php include 'button_size.php' ?></td>
+                <td style="border: solid red">Size | &nbsp <?php include 'button_size.php' ?></td>
             </tr>
             <tr style="display : inline">
-                <td>Colour | </td>
-                <td>&nbsp <?php include 'button_color.php' ?></td>
+                <td style="border: solid red">Colour | </td>
+                <td style="border: solid red">&nbsp <?php include 'button_color.php' ?></td>
             </tr>
             <tr>
-                <td><?php include 'button_counter.php' ?></td>
+                <td style="border: solid red"><?php include 'button_counter.php' ?></td>
             </tr>
             <tr>
-                <td style="display: inline"><?php include 'button_addtocartv1.php' ?> | <?php include 'button_place_order.php' ?> </td>
+                <td style="display: inline; border: solid red;"><?php include 'button_addtocartv1.php' ?> | <?php include 'button_place_order.php' ?> </td>
             </tr>
             <tr>
-            <td> <input type="range" class="slider" name="height" id="heightId" min = "1" max = "9" value = "3" oninput="myFunction()" ></td><td><output id="outputId" ></output></td>
+                <td style="border: solid red"> <input type="range" class="slider" name="height" id="heightId" min = "1" max = "9" value = "3" oninput="myFunction()" ></td><td><output id="outputId" ></output></td>
             </tr>
         </table>
-    </div>
+    </center>
+
+    <!-- <div class="card">
+        <table class="table">
+            <tr>
+                <td><center></center><textarea style="margin: 10px; background: rgba(171,130,98,0.5); box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2); border-radius: 13px; max-width: 1447px;" name="desc" cols="230" rows="5" class="form-control" id="desc" placeholder="Insert Product Description" required></textarea></td>
+            </tr>
+        </table>
+    </div> -->
 
     <?php include 'footer.php' ?>
 <script>
@@ -80,14 +97,12 @@
     if(num==6){
         document.getElementById("pic").src = "/img/3d/6.png";
     }
-
     if(num==8){
         document.getElementById("pic").src = "/img/3d/8.png";
     }
     if(num==9){
         document.getElementById("pic").src = "/img/3d/9.png";
-    }
-   
+    }  
 }
 </script>
 </body>
