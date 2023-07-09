@@ -1,4 +1,20 @@
-<?php include 'header.php' ?>
+<?php 
+include 'database.php';
+include 'header.php';
+
+$mysqli = new mysqli($servername, $username, $password, $dbname);
+
+$stmt = $mysqli->prepare("SELECT * FROM tbl_faculty");
+$stmt->execute();
+
+$arr = $stmt->get_result() ->fetch_all(MYSQLI_ASSOC);
+
+if(!$arr) exit("No rows");
+
+
+$stmt->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +25,26 @@
 </head>
 
 <body>
+    <!-- Html for desktop view -->
     <div class="title">
         <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; font-size: 30px;">Faculty</h2>
         <br>
         <h3 style="color: #846565; face: verdana; text-align: center; padding-bottom: 20px; font-size: 20px;">Choose your faculty !</h3>
-    </div>
-   <div class="faculty">
-        <div>
-            <button class="facultybutton" onclick=window.location.href="product-list-web">
-                <span>FSSK<br><b>Faculty of Social Sciences and Humanities</b</span>
-            </button>
+    </div> 
+    <div class="faculty">
+            <?php	
+				foreach($arr as $facultyrow) {
+				?>
+                <div>
+                <button class="facultybutton" onclick=window.location.href="product-list-web">
+                        <span><?php echo $facultyrow['faculty_SName'];?><br><b><?php echo $facultyrow['faculty_Name'];?></b</span>
+                    </button>
+                </div>      
+				<?php
+				}
+			?>
         </div>
-        <div>
+        <!-- <div>
             <button class="facultybutton" onclick=window.location.href="#">
                 <span>FUU<br><b>Faculty of Law</b</span>
             </button>
@@ -83,13 +107,15 @@
         <div>
             <button class="facultybutton" onclick=window.location.href="#">
                 <span>CITRA<br><b>Pusat Pengajian Citra Universiti</b</span>
-            </button>
+            </button> -->
             <!-- <button class="facultybutton" onclick=window.location.href="#">
                     <label class="shortform">CITRA</label>
                     <br>
                     <label class="fullname">Pusat Pengajian Citra Universiti</label>
-            </button> -->
-        </div>
+            </button>
+        </div>-->
+    </div>
+    <div style="position: sticky;position: -webkit-sticky;">
+        <?php include 'footer.php'?>
     </div>
 </body>
-<?php include 'footer.php'?>
