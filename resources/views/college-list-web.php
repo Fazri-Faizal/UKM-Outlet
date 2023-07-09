@@ -33,9 +33,13 @@
    <div class="college">
         <?php foreach($arr as $college) { ?>
             <div>
-                <button class="collegebutton" onclick=window.location.href="#">
-                    <span><?php echo $college['college_SName'] ?><br><b><?php echo $college['college_Name'] ?></b</span>
-                </button>
+                <?php $collegeId = $college['college_Id']; ?>
+
+                <form action="/product-list-college-web" method="get">
+                    <button class="collegebutton" onclick="window.location.href='product-list-college-web'" name="collegebtn" <?php echo "value = '$collegeId'" ?> type="submit">
+                        <span><?php echo $college['college_SName'] ?><br><b><?php echo $college['college_Name'] ?></b</span>
+                    </button>
+                </form> 
             </div>
         <?php } ?>
     </div>

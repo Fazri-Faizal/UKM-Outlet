@@ -29,8 +29,8 @@ Route::get('/completeOrder', function () {
     return view('completeOrder');
 });
 
-Route::get('/product-list-web', function () {
-    return view('product-list-web');
+Route::get('/product-list-faculty-web', function () {
+    return view('product-list-faculty-web');
 });
 
 Route::get('/product-list-college-web', function () {
