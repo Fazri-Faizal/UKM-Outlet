@@ -93,11 +93,56 @@
 
     include 'database.php';
 
-    $conn = new mysqli($servername, $username, $password,$dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    $mysqli1 = new mysqli($servername, $username, $password,$dbname);
+    
+    $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_product_variation where fld_product_id='1'");
+    $stmt1->execute();
+   
+    $variation1 = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
+   
+    if(!$variation1) exit('No rows');
+   
+    $stmt1->close();  
+    $min = 99999999;
+    $max=0;
+     foreach( $variation1  as $row2) {
+                                    
+      if($row2['fld_producy_price']<$min){
+         $min=$row2['fld_producy_price'];
+        }
+        if($row2['fld_producy_price']>$max){
+            $max=$row2['fld_producy_price'];
+           }
+     }
+    $mysqli2 = new mysqli($servername, $username, $password,$dbname);
+    
+    $stmt12 = $mysqli2->prepare("SELECT  * FROM tbl_products where product_Id ='1'");
+    $stmt12->execute();
+   
+    $variation2 = $stmt12->get_result()->fetch_all(MYSQLI_ASSOC);
+   
+    if(!$variation2) exit('No rows');
+   
+    $stmt12->close();  
+    $productname="";
+    $productpic="";
+    $productrating=0;
+    foreach($variation2 as $pname){
+        $productname=$pname['product_Name'];
+        $productpic=$pname['pic'];
+        $productrating=$pname['product_Rating'];
     }
+
+    $mysqli3 = new mysqli($servername, $username, $password,$dbname);
+    
+    $stmt13 = $mysqli3->prepare("SELECT  * FROM tbl_product_3d_pic where fld_product_id='1'");
+    $stmt13->execute();
+   
+    $variation3 = $stmt13->get_result()->fetch_all(MYSQLI_ASSOC);
+   
+    if(!$variation3) exit('No rows');
+   
+    $stmt13->close();
 ?>
 
 <!DOCTYPE html>
@@ -121,24 +166,26 @@
               <!-- Product Description -->
               <div class="product-description">
                 <span>Jersey</span>
-                <h1>JERSEY UKM 2022</h1>
+                <h1><?php echo $productname ?></h1>
                 <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
                 <!-- Product Pricing -->
                 <div class="product-price">
-                    <span>RM 40</span>
+                    <span>RM <?php echo $min ?> - RM <?php echo $max ?></span>
                 </div>
               </div>
           </td>
           <td class="mid-column">
-            <img class="img-custom" id="pic" src="/img/3d/1.png">
-            <input type="range" class="slider" name="height" id="heightId" min = "1" max = "9" value = "3" oninput="myFunction()" ></td><td><output id="outputId" ></output><br>
+            <img class="img-custom" id="pic" src="/img/<?php echo $productpic ?>">
+            <input type="range" class="slider" name="height" id="heightId" min = "1" max = "24" value = "12" oninput="myFunction()" ></td><td><output id="outputId" ></output><br>
           </td>
           <td class="right-column">
               <!-- rating -->
               <div style=" color: #86939E; font-size: 17px; margin-top: 20px;">
-                4.5
+                <?php echo $productrating ?>
+                
                 <?php
-                  $rate = 4.5;
+                  $rate = $productrating;
+
                   for($i=1; $i<=$rate; $i++) {
                     if($i>0.5)
                       echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#FEC20C" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
@@ -178,35 +225,86 @@
     <?php include 'footer.php'?>
   </body>
 
-  <!-- Scripts -->
   <script>
+    <?php foreach( $variation3 as $another) {?>
       function myFunction() {
-          var num=document.getElementById("heightId").value;
-          var num =parseInt(num);
-          if(num==1){
-              document.getElementById("pic").src = "/img/3d/1.png";
-          }
-          if(num==2){
-              document.getElementById("pic").src = "/img/3d/2.png";
-          }
-          if(num==3){
-              document.getElementById("pic").src = "/img/3d/3.png";
-          }
-          if(num==4){
-              document.getElementById("pic").src = "/img/3d/4.png";
-          }
-          if(num==5){
-              document.getElementById("pic").src = "/img/3d/5.png";
-          }
-          if(num==6){
-              document.getElementById("pic").src = "/img/3d/6.png";
-          }
-          if(num==8){
-              document.getElementById("pic").src = "/img/3d/8.png";
-          }
-          if(num==9){
-              document.getElementById("pic").src = "/img/3d/9.png";
-          }  
+        var num=document.getElementById("heightId").value;
+        var num =parseInt(num);
+        
+        if(num==1){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_1']?>";
+        }
+        if(num==2){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_2']?>";
+        }
+        if(num==3){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_3']?>";
+        }
+        if(num==4){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_4']?>";
+        }
+        if(num==5){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_5']?>";
+        }
+        if(num==6){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_6']?>";
+        }
+        if(num==7){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_7']?>";
+        }
+        if(num==8){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_8']?>";
+        }  
+        if(num==9){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_9']?>";
+        }  
+        if(num==10){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_10']?>";
+        }  
+        if(num==11){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_11']?>";
+        }  
+        if(num==12){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_12']?>";
+        }  
+        if(num==13){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_13']?>";
+        }  
+        if(num==14){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_14']?>";
+        }  
+        if(num==15){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_15']?>";
+        }  
+        if(num==16){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_16']?>";
+        }  
+        if(num==17){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_17']?>";
+        }  
+        if(num==18){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_18']?>";
+        }  
+        if(num==19){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_19']?>";
+        }  
+        if(num==20){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_20']?>";
+        }  
+        if(num==21){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_21']?>";
+        }  
+        if(num==22){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_22']?>";
+        }  
+        if(num==23){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_23']?>";
+        } 
+        if(num==24){
+            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_24']?>";
+        }   
+
       }
+    <?php } ?>
   </script>
 </html>
