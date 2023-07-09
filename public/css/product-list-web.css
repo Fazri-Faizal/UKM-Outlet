@@ -228,7 +228,8 @@ nav ul li span:nth-child(4) {
   .product-list {
     align-items: center;
     justify-content: center;
-    margin-left: 21%;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 10%;
   }
 
