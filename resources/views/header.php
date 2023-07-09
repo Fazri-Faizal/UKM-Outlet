@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
    <head>
@@ -30,8 +32,8 @@
          <div class="cancel-icon">
             <span class="fas fa-times"></span>
          </div>
-         <form action="#">
-            <input type="search" class="search-data" placeholder="Search UKM Outlet" required>
+         <form action="/search" method="get">
+            <input type="text" name="ProductSearchBar" class="search-data" placeholder="Search UKM Outlet" required>
             <button type="submit" class="fas fa-search" ></button>
          </form> 
          <div class="cart-icon">
@@ -58,6 +60,7 @@
         </div>
       </nav>
       <hr class="header2">
+      <script src="app.js"></script>
       <script>
          const menuBtn = document.querySelector(".menu-icon span");
          const searchBtn = document.querySelector(".search-icon");
