@@ -11,12 +11,13 @@ a p{
     margin-top: 42vh; */
   }
   
-  .btn:link,
-  .btn:visited {
+  .button-color:link,
+  .button-color:visited {
     text-transform: uppercase;
     text-decoration: none;
     /* padding: 15px 40px; */
     line-height : 42px;
+    height: 42px;
     width: 42px;
     display: inline-block;
     border-radius: 100px;
@@ -24,22 +25,22 @@ a p{
     /* position: absolute; */
   }
   
-  .btn:hover {
+  .button-color:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
   
-  .btn:active {
+  .button-color:active {
     transform: translateY(-1px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   }
   
-  /* .btn-white {
+  /* .button-color-white {
     background-color: #804444;
     color: white;
   } */
   
-  .btn::after {
+  .button-color::after {
     content: "";
     display: inline-block;
     height: 100%;
@@ -52,16 +53,16 @@ a p{
     transition: all 0.4s;
   }
   
-  /* .btn-white::after {
+  /* .button-color-white::after {
     background-color: #fff;
   } */
   
-  .btn:hover::after {
+  .button-color:hover::after {
     /* transform: scaleX(1.4) scaleY(1.6); */
     opacity: 0;
   }
   
-  .btn-animated {
+  .button-color-animated {
     animation: moveInBottom 5s ease-out;
     animation-fill-mode: backwards;
   }
