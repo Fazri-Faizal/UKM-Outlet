@@ -48,6 +48,11 @@ h1{
 
 .bg-top{
   background-image: url(/img/home.jpg);
+  margin-top: -20px;
+}
+
+.bg-top-2{
+  background-image:url(/img/bg2.jpg);
 }
 
 .img{
@@ -221,4 +226,17 @@ nav ul li span:nth-child(4) {
 .button-animate{
   margin-right: 0px;
   display: inline-block;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  vertical-align: middle;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
