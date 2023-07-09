@@ -22,7 +22,7 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
-.container {
+.container-custom {
   max-width: 1600px;
   margin: 1px auto;
   /* padding: 9px; */
@@ -51,7 +51,7 @@ html, body {
 
 /* left-column */
 
-img{
+.img-custom{
   min-width: 60%; 
   filter: drop-shadow(5px 5px 5px black);
 }
@@ -149,7 +149,7 @@ img{
 
 /* Responsive */
 @media (max-width: 940px) {
-  .container {
+  .container-custom {
     flex-direction: column;
     margin-top: 60px;
   }
@@ -173,8 +173,9 @@ img{
 
 .slider {
   -webkit-appearance: none;
-  width: 80%;
-  height: 25px;
+  border-radius: 2px;
+  width: 60%;
+  height: 10px;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
@@ -187,6 +188,7 @@ img{
 }
 
 .slider::-webkit-slider-thumb {
+  border-radius: 100%;
   -webkit-appearance: none;
   appearance: none;
   width: 25px;
