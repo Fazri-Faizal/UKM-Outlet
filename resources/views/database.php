@@ -3,6 +3,6 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "ukmoutlet";
+$dbname = "ukm_outlet";
  
 ?>

@@ -206,7 +206,8 @@ nav ul li span:nth-child(4) {
   .price {
     color: grey;
     font-size: 16px;
-    margin-right: 200px;
+    text-align: left;
+    padding-left: 10px;
   }
   
   .card button {
@@ -234,5 +235,6 @@ nav ul li span:nth-child(4) {
   }
 
   h3 {
-    margin-right: 130px;
+    text-align: left;
+    padding-left: 10px;
   }
