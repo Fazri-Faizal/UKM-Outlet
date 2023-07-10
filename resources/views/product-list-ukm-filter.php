@@ -1,11 +1,10 @@
 <?php 
 include('header.php');
 include('database.php');
-
+$type = $_GET['prodtype'];
 $mysqli = new mysqli($servername, $username, $password,$dbname);
 
-
-$stmt = $mysqli->prepare("SELECT * FROM tbl_products");
+$stmt = $mysqli->prepare("SELECT * FROM tbl_products WHERE product_Type LIKE '%$type%'");
 $stmt->execute();
 
 $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -32,11 +31,13 @@ $stmt->close();
         <tr> 
             <nav style="text-align: center; display: inline-block; background-color:#FFFFFF ">
                 <ul>
-                    <a href="#"><li>Jersey<span></span><span></span><span></span><span></span></li></a>
-                    <a href="#"><li>Lanyard<span></span><span></span><span></span><span></span></li></a>
-                    <a href="#"><li>Tote Bag<span></span><span></span><span></span><span></span></li></a>
-                    <a href="#"><li>Hoodie<span></span><span></span><span></span><span></span></li></a>
-                    <a href="#"><li>Cap<span></span><span></span><span></span><span></span></li></a>
+                <form action="/product-list-ukm-filter" method="get" style="border:none; filter:none">
+                    <button name="prodtype" value="Jersey" style="cursor:pointer; background-color: transparent; border: none;"><li>Jersey<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Lanyard"style="cursor:pointer; background-color: transparent; border: none;"><li>Lanyard<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Tote Bag" style="cursor:pointer; background-color: transparent; border: none;"><li>Tote Bag<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Hoodie" style="cursor:pointer; background-color: transparent; border: none;"><li>Hoodie<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Cap" style="cursor:pointer; background-color: transparent; border: none;"><li>Cap<span></span><span></span><span></span><span></span></li></button>
+                </form>
                 </ul>
             </nav>
         </tr>
