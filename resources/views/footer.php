@@ -71,7 +71,7 @@ designed specifically for UKM students to promote their business where everyone 
     
     <div class="legal__links">
       <span>
-      <a href="https://www.instagram.com/nualsyr/"><i class="fa fa-instagram" style="font-size:24px;"></i></a> &nbsp
+      <a href="#"><i class="fa fa-instagram" style="font-size:24px;"></i></a> &nbsp
       <i class="fa fa-twitter" style="font-size:24px;"></i> &nbsp
       <i class="fa fa-facebook" style="font-size:24px;"></i> &nbsp
     </span>
