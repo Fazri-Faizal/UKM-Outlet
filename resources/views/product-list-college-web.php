@@ -16,11 +16,12 @@
         exit;
     }
 
-    $stmt->close(); 
+    $stmt->close();  
 
     foreach($arr as $collegelist) { 
         $collegeSName = $collegelist['college_Id'];
         $collegeName = $collegelist['college_Name'];
+        
     }
 ?>
 
@@ -42,11 +43,12 @@
             <nav style="text-align: center; display: inline-block; background-color:#FFFFFF; ">
                 <ul>
                 <form action="/product-list-filter" method="get" style="border:none; filter:none">
-                    <button name="prodtype" value="kab" style="cursor:pointer; background-color: transparent; border: none;"><li>Jersey<span></span><span></span><span></span><span></span></li></button>
-                    <button name="prodtype" value="<?php $collegeId ?>"style="cursor:pointer; background-color: transparent; border: none;"><li>Lanyard<span></span><span></span><span></span><span></span></li></button>
-                    <button name="prodtype" value="<?php $collegeId ?>" style="cursor:pointer; background-color: transparent; border: none;"><li>Tote Bag<span></span><span></span><span></span><span></span></li></button>
-                    <button name="prodtype" value="<?php $collegeId ?>" style="cursor:pointer; background-color: transparent; border: none;"><li>Hoodie<span></span><span></span><span></span><span></span></li></button>
-                    <button name="prodtype" value="<?php $collegeId ?>" style="cursor:pointer; background-color: transparent; border: none;"><li>Cap<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Jersey" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Jersey<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Lanyard" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Lanyard<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Tote Bag" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Tote Bag<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Hoodie" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Hoodie<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Cap" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Cap<span></span><span></span><span></span><span></span></li></button>
+                    <input type="hidden" name="orderby" value="<?= $collegeId ?>"/>
                 </form>
                 </ul>
             </nav>
