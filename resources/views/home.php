@@ -50,11 +50,13 @@
 
 <nav style="text-align: center; display: inline-block; background-color:#ffffff; margin-left: 28%; margin-top: 2%;" >
     <ul>
-        <a href="#"><li>Jersey<span></span><span></span><span></span><span></span></li></a>
-        <a href="#"><li>Lanyard<span></span><span></span><span></span><span></span></li></a>
-        <a href="#"><li>Tote Bag<span></span><span></span><span></span><span></span></li></a>
-        <a href="#"><li>Hoodie<span></span><span></span><span></span><span></span></li></a>
-        <a href="#"><li>Cap<span></span><span></span><span></span><span></span></li></a>
+        <form action="/product-list-ukm-filter" method="get" style="border:none; filter:none">
+            <button name="prodtype" value="Jersey" style="cursor:pointer;"><li>Jersey<span></span><span></span><span></span><span></span></li></button>
+            <button name="prodtype" value="Lanyard"style="cursor:pointer;"><li>Lanyard<span></span><span></span><span></span><span></span></li></button>
+            <button name="prodtype" value="Tote Bag" style="cursor:pointer;"><li>Tote Bag<span></span><span></span><span></span><span></span></li></button>
+            <button name="prodtype" value="Hoodie" style="cursor:pointer;"><li>Hoodie<span></span><span></span><span></span><span></span></li></button>
+            <button name="prodtype" value="Cap" style="cursor:pointer;"><li>Cap<span></span><span></span><span></span><span></span></li></button>
+        </form>
     </ul>
 </nav>
 
@@ -132,3 +134,11 @@
   </body>
 
 </html>
+
+<script>
+    function sendVal(letter){
+     alert(letter);
+     header('Location: /product-list-ukm-filter');
+        exit;
+  }
+</script>
