@@ -148,3 +148,6 @@ Route::get('/product-list-ukm-filter', function () {
 Route::get('/product-list-filter', function () {
     return view('product-list-filter');
 });
+Route::get('/product-list-filter-faculty', function () {
+    return view('product-list-filter-faculty');
+});
