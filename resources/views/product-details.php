@@ -92,10 +92,10 @@
     // include 'header.php';
 
     include 'database.php';
-
+    $id=$_GET['id'];
     $mysqli1 = new mysqli($servername, $username, $password,$dbname);
     
-    $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_product_variation where fld_product_id='1'");
+    $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_product_variation where fld_product_id=$id");
     $stmt1->execute();
    
     $variation1 = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -116,7 +116,7 @@
      }
     $mysqli2 = new mysqli($servername, $username, $password,$dbname);
     
-    $stmt12 = $mysqli2->prepare("SELECT  * FROM tbl_products where product_Id ='1'");
+    $stmt12 = $mysqli2->prepare("SELECT  * FROM tbl_products where product_Id =$id");
     $stmt12->execute();
    
     $variation2 = $stmt12->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -135,13 +135,12 @@
 
     $mysqli3 = new mysqli($servername, $username, $password,$dbname);
     
-    $stmt13 = $mysqli3->prepare("SELECT  * FROM tbl_product_3d_pic where fld_product_id='1'");
+    $stmt13 = $mysqli3->prepare("SELECT  * FROM tbl_product_3d_pic where fld_product_id=$id");
     $stmt13->execute();
    
     $variation3 = $stmt13->get_result()->fetch_all(MYSQLI_ASSOC);
    
-    if(!$variation3) exit('No rows');
-   
+  
     $stmt13->close();
 ?>
 
@@ -170,13 +169,18 @@
                 <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
                 <!-- Product Pricing -->
                 <div class="product-price">
-                    <span>RM <?php echo $min ?> - RM <?php echo $max ?></span>
+                    <span>RM <?php if($min==$max){ echo $max;}else { echo $min.' - RM'.$max;}?></span>
                 </div>
               </div>
           </td>
           <td class="mid-column">
             <img class="img-custom" id="pic" src="/img/<?php echo $productpic ?>">
+            <?php   if(!$variation3){  
+
+            }else{
+   ?>
             <input type="range" class="slider" name="height" id="heightId" min = "1" max = "24" value = "12" oninput="myFunction()" ></td><td><output id="outputId" ></output><br>
+            <?php }?>
           </td>
           <td class="right-column">
               <!-- rating -->
