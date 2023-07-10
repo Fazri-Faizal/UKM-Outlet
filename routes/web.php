@@ -151,3 +151,7 @@ Route::get('/product-list-filter', function () {
 Route::get('/product-list-filter-faculty', function () {
     return view('product-list-filter-faculty');
 });
+
+Route::get('/button_fav', function () {
+    return view('button_fav');
+});
