@@ -3,20 +3,19 @@
     include('database.php');
 
     $mysqli = new mysqli($servername, $username, $password,$dbname);
+    $q = $_GET['prodtype'];
+    $r = $_GET['orderby']; 
 
-    $collegeId = $_GET['collegebtn'];
-    
-    $stmt = $mysqli->prepare("SELECT * FROM tbl_products INNER JOIN tbl_college ON tbl_products.origin_id = tbl_college.college_Id WHERE origin_id = '$collegeId'");
+    $stmt = $mysqli->prepare("SELECT * FROM tbl_products INNER JOIN tbl_college ON tbl_products.origin_id = tbl_college.college_Id where origin_Id LIKE '%$r%' AND product_Type LIKE '%$q%'");
     $stmt->execute();
 
     $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-    if(!$arr) {
-        header('Location: /college-list-web');
-        exit;
-    }
+    if(!$arr) exit('tak betul');
+    
 
-    $stmt->close();  
+    
+    $stmt->close(); 
 
     foreach($arr as $collegelist) { 
         $collegeSName = $collegelist['college_Id'];
@@ -24,10 +23,9 @@
         
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/product-list-web.css"/>
@@ -36,22 +34,8 @@
 <body style="text-align:center;">
     <table class="product-list">
         <tr style="bgcolor: #556B2F;" >
-            <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; padding-bottom: 0px"><?php echo $collegeSName ?></h2>
-            <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; padding-bottom: 40px"><?php echo $collegeName ?></h2>
-        </tr>
-        <tr> 
-            <nav style="text-align: center; display: inline-block; background-color:#FFFFFF; ">
-                <ul>
-                <form action="/product-list-filter" method="get" style="border:none; filter:none">
-                    <button name="prodtype" value="Jersey" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Jersey<span></span><span></span><span></span><span></span></li></button>
-                    <button name="prodtype" value="Lanyard" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Lanyard<span></span><span></span><span></span><span></span></li></button>
-                    <button name="prodtype" value="Tote Bag" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Tote Bag<span></span><span></span><span></span><span></span></li></button>
-                    <button name="prodtype" value="Hoodie" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Hoodie<span></span><span></span><span></span><span></span></li></button>
-                    <button name="prodtype" value="Cap" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Cap<span></span><span></span><span></span><span></span></li></button>
-                    <input type="hidden" name="orderby" value="<?= $collegeId ?>"/>
-                </form>
-                </ul>
-            </nav>
+            <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; padding-bottom: 0px"><?php echo $r ?></h2>
+            <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; padding-bottom: 40px"><?php echo $collegeName." ".$q?></h2>
         </tr>
         <tr>
            <?php
