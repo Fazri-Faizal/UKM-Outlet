@@ -7,7 +7,7 @@
     $count = 0;
     $mysqli = new mysqli($servername, $username, $password,$dbname);
  
-    $stmt = $mysqli->prepare("SELECT DISTINCT fld_product_color FROM tbl_product_variation where fld_product_id='1'");
+    $stmt = $mysqli->prepare("SELECT DISTINCT fld_product_color FROM tbl_product_variation where fld_product_id=$id");
     $stmt->execute();
    
     $colors = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

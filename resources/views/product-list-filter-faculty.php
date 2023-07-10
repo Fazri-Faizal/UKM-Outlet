@@ -50,10 +50,12 @@
                         echo '<tr>';
                     }
 
+                    $id=$facultylist['product_Id'];
                     $count++;
             ?>
                 <td>
-                    <button onclick="window.location.href='product-details'">
+                <form action="/product-details" method="get">
+                    <button onclick="window.location.href='product-details'" name="id" <?php echo "value = $id"?>>
                         <div class="card">
                             <p style="margin-left: 250px">
                                 <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: 20px;" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
@@ -70,6 +72,7 @@
                             <p class="price">RM 40.00</p><br>
                         </div>
                     </button>
+                </form>
                 </td>
             <?php
                 }
