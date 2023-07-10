@@ -140,3 +140,11 @@ Route::get('/button_color_v2', function () {
 Route::get('/search', function () {
     return view('search');
 });
+
+Route::get('/product-list-ukm-filter', function () {
+    return view('product-list-ukm-filter');
+});
+
+Route::get('/product-list-filter', function () {
+    return view('product-list-filter');
+});
