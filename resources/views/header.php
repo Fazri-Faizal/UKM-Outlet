@@ -33,7 +33,7 @@
             <span class="fas fa-times"></span>
          </div>
          <form action="/search" method="get">
-            <input type="text" name="ProductSearchBar" class="search-data" placeholder="Search UKM Outlet" required>
+            <input type="text" name="ProductSearchBar" class="search-data" placeholder="Search UKM Product" required>
             <button type="submit" class="fas fa-search" ></button>
          </form> 
          <div class="cart-icon">
