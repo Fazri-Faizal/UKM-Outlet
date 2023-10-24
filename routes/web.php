@@ -155,3 +155,7 @@ Route::get('/product-list-filter-faculty', function () {
 Route::get('/button_fav', function () {
     return view('button_fav');
 });
+
+Route::get('/chat', function () {
+    return view('chat');
+});
