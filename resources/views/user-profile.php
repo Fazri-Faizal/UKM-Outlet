@@ -34,19 +34,19 @@
                         </li> -->
                         <li>
                             <a href="#" class="text-decoration-none d-flex align-items-start">
-                                <div class="far fa-address-book pt-2 me-3"></div>
+                                <div class="far fa-user pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
-                                    <div class="link">Address Book</div>
-                                    <div class="link-desc">View & Manage Addresses</div>
+                                    <div class="link">My Profile</div>
+                                    <div class="link-desc">Change your profile details & password</div>
                                 </div>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="text-decoration-none d-flex align-items-start">
-                                <div class="far fa-user pt-2 me-3"></div>
+                                <div class="far fa-address-book pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
-                                    <div class="link">My Profile</div>
-                                    <div class="link-desc">Change your profile details & password</div>
+                                    <div class="link">Address Book</div>
+                                    <div class="link-desc">View & Manage Addresses</div>
                                 </div>
                             </a>
                         </li>
@@ -59,7 +59,8 @@
                                 </div>
                             </a>
                         </li>
-                        <li>
+                        <!-- Not needed -->
+                        <!-- <li>
                             <a href="#" class="text-decoration-none d-flex align-items-start">
                                 <div class="fas fa-headset pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
@@ -67,12 +68,12 @@
                                     <div class="link-desc">Contact Us for help and support</div>
                                 </div>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
             <!-- My Orders -->
-            <div class="col-lg-9 my-lg-0 my-1">
+            <div class="col-lg-9 my-lg-0 my-1" style="display:none">
                 <div id="main-content" class="bg-white border">
                     <div class="d-flex flex-column">
                         <div class="h5">Hello Abu Ahmad,</div>
@@ -204,6 +205,74 @@
                                     <div id="tracker"></div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Profile -->
+            <div class="col-lg-9 my-lg-0 my-1">
+                <div id="main-content" class="bg-white border">
+                    <div class="d-flex flex-column">
+                        <div class="h5">Hello Abu Ahmad,</div>
+                        <div>Logged in as: abu&ahmad@gmail.com</div>
+                        <button class="button-edit">Change Profile Information
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <img src="/img/user.jpg" class="profile" alt="profile picture">
+                    </div>
+                    <div class="bg-white border" style="border-radius: 20px;margin-top: 20px;">
+                        <div class="info-group">
+                            <label>Username</label>
+                            <p style="display:none">Kazi Mahbub</p>
+                            <!-- edit profile mode -->  
+                            <p><input type="text" name="login" value="" placeholder="Kazi Mahbub"></p>    
+                        </div>
+
+                        <div class="info-group">
+                            <label>Password</label>
+                            <p style="display:none">********</p>
+                            <!-- edit profile mode -->
+                            <p><input placeholder='Isazalyforever' type="text"></p>
+
+                        </div>
+
+                        <div class="info-group">
+                            <label>Date Of Birth</label>
+                            <p style="display:none">20/01/2022</p>
+                            <!-- edit profile mode -->
+                            <p><input placeholder='20/01/2022' type="text"></p>
+                        </div>
+
+                        <div class="info-group">
+                            <label>Gender</label>
+                            <p style="display:none">Male</p>
+                            <!-- edit mode -->
+                            <p>
+                                <input type="radio" name="gender" id="male" checked>
+                                <label for="male">Male</label>
+                                <input type="radio" name="gender" id="female">
+                                <label for="female">Female</label>
+                            </p>
+                        </div>
+
+                        <div class="info-group">
+                            <label>Phone Number</label>
+                            <p style="display:none">+90-123456789</p>
+                            <!-- edit profile mode -->
+                            <p><input placeholder='+90-123456789' type="text"></p>
+                        </div>
+
+                        <div class="info-group">
+                            <label>Email</label>
+                            <p style="display:none">abcd1234@email.com</p>
+                            <!-- edit profile mode -->
+                            <p><input placeholder='abcd1234@email.com' type="text"></p>
                         </div>
                     </div>
                 </div>
