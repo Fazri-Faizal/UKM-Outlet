@@ -159,3 +159,7 @@ Route::get('/button_fav', function () {
 Route::get('/chat', function () {
     return view('chat');
 });
+
+Route::get('/user-profile', function () {
+    return view('user-profile');
+});

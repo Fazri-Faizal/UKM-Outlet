@@ -14,9 +14,7 @@ body {
     min-height: 100vh;
     background: linear-gradient(#2196f3, #e91e63);
     overflow: hidden;
-    background-image:url("/img/Online Shopping.gif"); ;
-    /* background-size: 80%; */
-    background-size: cover;
+    background-image:url("/img/cart-v2-bg.gif");
     background-attachment: fixed;
     background-position: center center;
 }
