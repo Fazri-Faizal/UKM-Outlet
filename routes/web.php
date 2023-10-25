@@ -163,3 +163,11 @@ Route::get('/chat', function () {
 Route::get('/user-profile', function () {
     return view('user-profile');
 });
+
+Route::get('/register', function () {
+    return view('register');
+});
+
+Route::get('/destroy', function () {
+    return view('destroy');
+});
