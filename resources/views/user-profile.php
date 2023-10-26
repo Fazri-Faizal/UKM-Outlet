@@ -172,7 +172,7 @@
                         <div>Logged in as: abu&ahmad@gmail.com</div>         
                     </div>
                     <div class="address-section">
-                        <h2>Saved Addresses</h2>
+                        <h2 class="customh2">Saved Addresses</h2>
 
                         <div class="address-card">
                             <p>No 34 Jalan Laman Delfina 1/4, Laman Delfina,</p>
