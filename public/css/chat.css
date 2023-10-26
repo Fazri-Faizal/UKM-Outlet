@@ -346,7 +346,7 @@ body {
     font-size: 10px;
     color: #414141;
     font-size: 1.5em;
-    line-height: 2em;
+    /* line-height: 2em; */
   }
   
   .chat-box {
@@ -484,7 +484,7 @@ body {
     font-style: italic;
   }
   
-  .user-profile {
+  .chat-user-profile{
     width: 50px;
     height: 50px;
     display: inline-block;
@@ -497,23 +497,23 @@ body {
     cursor: pointer
   }
   
-  .user-profile:nth-child(1) {
+  .chat-user-profile:nth-child(1) {
     background-image: url(http://vignette3.wikia.nocookie.net/fairytail/images/0/02/Mugshot_of_Erza.png/revision/latest?cb=20130509171537);
   }
   
-  .user-profile:nth-child(3) {
+  .chat-user-profile:nth-child(3) {
     background-image: url(http://orig15.deviantart.net/8172/f/2016/079/7/2/natsu_xabused_reader_fire_within_the_heart_p1_by_minnibellsnow-d9vv2cy.jpg);
   }
   
-  .user-profile:nth-child(5) {
+  .chat-user-profile:nth-child(5) {
     background-image: url(http://vignette3.wikia.nocookie.net/fairytail/images/e/e7/Lucy_prof_2.jpg/revision/latest?cb=20111024225521);
   }
   
-  .user-profile:nth-child(7) {
+  .chat-user-profile:nth-child(7) {
     background-image: url(https://i.ytimg.com/vi/sROSCGZq1rA/hqdefault.jpg);
   }
   
-  .user-profile.active {
+  .chat-user-profile.active {
     -webkit-filter: grayscale(0%);
     filter: grayscale(0%);
   }

@@ -5,10 +5,10 @@
 // });
 
 $(document).ready(function(){
-	$('.user-profile').click(function() {
+	$('.chat-user-profile').click(function() {
 		if(!$(this).hasClass('active')){
 			
-			$('.user-profile.active').removeClass('active');
+			$('.chat-user-profile.active').removeClass('active');
 			$(this).addClass('active');
 			
 			var temp =   $('#'+$(this).attr('data-up'));
