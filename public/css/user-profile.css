@@ -470,7 +470,7 @@ input[type=text]:focus, input[type=password]:focus {
     border-radius: 8px;
 }
 
-customh2 {
+.customh2 {
     text-align: center;
     margin-bottom: 20px;
 }
