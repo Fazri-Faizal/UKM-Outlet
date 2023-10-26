@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-}
+} */
 
 /* .container{
     width: 100%;
@@ -16,7 +16,7 @@
     align-items: center;
 } */
 
-.custombtn{
+/* .custombtn{
     width: 270px;
     height: 80px;
     border: none;
@@ -49,9 +49,9 @@
 }
 
 svg path{
-    stroke-width: 3;
+    stroke-width: 3; */
     /* stroke: #fff; */
-    stroke-dasharray: 34;
+    /* stroke-dasharray: 34;
     stroke-dashoffset: 34;
     stroke-linecap: round;
 }
@@ -76,4 +76,90 @@ svg path{
     stroke-dashoffset: 0;
     transition: 1s;
     transition-delay: 1s;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* .container{
+    width: 100%;
+    height: 100vh;
+    background: #e3ebfe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+.button-save{
+    width: 164px;
+    height: 51px;
+    border: none;
+    outline: none;
+    background: #7a6c52;
+    color: #fff;
+    font-size: 17px;
+    border-radius: 40px;
+    text-align: center;
+    box-shadow: 0 6px 20px -5px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.check-box{
+    width: 58px;
+    height: 52px;
+    border-radius: 40px;
+    box-shadow: 0 0 12px -2px rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    right: -40px;
+    opacity: 0;
+}
+
+.check-box svg{
+    width: 36px;
+    margin: 7px;
+}
+
+.icon-svg-path{
+    stroke-width: 3;
+    stroke: #fff;
+    stroke-dasharray: 34;
+    stroke-dashoffset: 34;
+    stroke-linecap: round;
+}
+
+.active{
+    background: #a5998c;
+    transition: 1s;
+    outline: none;
+}
+
+.active .check-box{
+    right: 0;
+    opacity: 1;
+    transition: 1s;
+}
+
+.active p{
+    margin-right: 42px;
+    transition: 1s;
+    /* margin-bottom: 2px; */
+}
+
+.active svg path{
+    stroke-dashoffset: 0;
+    transition: 0.5s;
+    transition-delay: 0.5s;
+}
+
+button:focus{
+    outline: none;
 }
