@@ -41,7 +41,7 @@
 </head>
 <body>
     <div>
-        <button id="btn" class="button-save" style="margin-left:80%; margin-bottom:20px">
+        <button id="btnsave" class="button-save" style="margin-left:80%; margin-bottom:20px">
             <p id="btnText" style="margin-top: 13px;">Save</p>
             <div class="check-box">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
@@ -51,12 +51,12 @@
         </button>
     </div>
     <script type="text/javascript">
-        const btn = document.querySelector("#btn");
+        const btnsave = document.querySelector("#btnsave");
         const btnText = document.querySelector("#btnText");
 
-        btn.onclick = () => {
+        btnsave.onclick = () => {
             btnText.innerHTML = "Done !";
-            btn.classList.add("active");
+            btnsave.classList.add("active");
         };
     </script>
 </body>

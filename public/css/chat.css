@@ -340,12 +340,12 @@ body {
     padding: 0;
   }
   
-  body {
-    background: #DFDFEF;
-    font-family: 'Helvetica Neue';
+  .custombody {
+    background: #ffffff;
+    /* font-family: 'Helvetica Neue';
     font-size: 10px;
     color: #414141;
-    font-size: 1.5em;
+    font-size: 1.5em; */
     /* line-height: 2em; */
   }
   
@@ -387,9 +387,9 @@ body {
     opacity: 0;
   }
   
-  p {
+  /* p {
     margin: 0;
-  }
+  } */
   
   .bubble {
     float: left;
