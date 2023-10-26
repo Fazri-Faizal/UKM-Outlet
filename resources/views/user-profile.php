@@ -77,8 +77,8 @@
             <div class="col-lg-9 my-lg-0 my-1" id="id-profile" style="display: ">
                 <div id="main-content" class="bg-white border">
                     <div class="d-flex flex-column">
-                        <div class="h5">Hello Abu Ahmad,</div>
-                        <div>Logged in as: abu&ahmad@gmail.com</div>
+                        <div class="h5">Hello Kazi Mahbub,</div>
+                        <div>Logged in as: abcd1234@email.com</div>
                         <button class="button-edit" id="buttonEdit" onclick="editProfile()">Change Profile Information
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -99,7 +99,23 @@
 
                         <div class="info-group">
                             <label>Password</label>
-                            <p id="displaypassword">********</p>
+
+                            <br>
+
+                            <span id="spanpassword" style="display: inline-flex">
+                                <p style="width: fit-content" id="displaypassword">********</p>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16" style="cursor: pointer; margin-left: 10px; margin-top: 2px;" onclick="showPassword()" id="iconclosed">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                </svg>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16" style="display: none; cursor: pointer; margin-left: 10px; margin-top: 6px;" onclick="hidePassword()" id="iconopen">
+                                    <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                                    <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                                </svg>
+                            </span>
+                            
                             <!-- edit profile mode -->
                             <p id="editpassword" style="display:none"><input placeholder='Isazalyforever' type="text"></p>
 
@@ -138,6 +154,10 @@
                             <p id="editemail" style="display:none"><input placeholder='abcd1234@email.com' type="text"></p>
                         </div>
                     </div>
+
+                    <?php 
+                        include('button_save.php');
+                    ?>
                 </div>
             </div>
 
@@ -385,23 +405,41 @@
     function editProfile() {
         if(document.getElementById("buttonEdit").classList.contains("editactive")) {
 
-            document.getElementById("displayname").style.display = "none"
-            document.getElementById("displaypassword").style.display = "none"
-            document.getElementById("displaydob").style.display = "none"
-            document.getElementById("displaygender").style.display = "none"
-            document.getElementById("displayphone").style.display = "none"
-            document.getElementById("displayemail").style.display = "none"
+            document.getElementById("displayname").style.display = "none";
+            document.getElementById("displaypassword").style.display = "none";
+            document.getElementById("displaydob").style.display = "none";
+            document.getElementById("displaygender").style.display = "none";
+            document.getElementById("displayphone").style.display = "none";
+            document.getElementById("displayemail").style.display = "none";
 
-            document.getElementById("editname").style.display = ""
-            document.getElementById("editpassword").style.display = ""
-            document.getElementById("editdob").style.display = ""
-            document.getElementById("editgender").style.display = ""
-            document.getElementById("editphone").style.display = ""
-            document.getElementById("editemail").style.display = ""
+            // document.getElementById("iconclosed").style.display = "none";
+            // document.getElementById("iconopen").style.display = "none";
+            document.getElementById("spanpassword").style.display = "none";
+
+            document.getElementById("editname").style.display = "";
+            document.getElementById("editpassword").style.display = "";
+            document.getElementById("editdob").style.display = "";
+            document.getElementById("editgender").style.display = "";
+            document.getElementById("editphone").style.display = "";
+            document.getElementById("editemail").style.display = "";
         } else {
             document.getElementById("buttonEdit").classList.add('editactive');
             editProfile();
         }
+    }
+
+    function showPassword() {
+        document.getElementById("displaypassword").innerHTML = "Isazalyforever";;
+        
+        document.getElementById("iconclosed").style.display = "none";
+        document.getElementById("iconopen").style.display = "";
+    }
+
+    function hidePassword() {
+        document.getElementById("displaypassword").innerHTML = "********";;
+
+        document.getElementById("iconopen").style.display = "none";
+        document.getElementById("iconclosed").style.display = "";
     }
     </script>
 </html>
