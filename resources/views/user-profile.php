@@ -15,7 +15,7 @@
         include('header.php');
     ?>
    
-<body>
+<body style="background: #f2f2f2;">
 <div class="container mt-4 mb-4">
         <div class="row">
             <!-- Navbar -->
