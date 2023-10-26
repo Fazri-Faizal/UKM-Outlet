@@ -93,6 +93,11 @@ nav ul li a .cart::after {
     border-left: 5px solid transparent;
 }
 
+#sidebar ul li:hover {
+    border-left: 5px solid #f2f2f2;
+    background-color: #AB8262;
+}
+
 #sidebar ul li.active {
     border-left: 5px solid #f2f2f2;
     background-color: #AB8262;
@@ -457,6 +462,69 @@ input[type=text]:focus, input[type=password]:focus {
     border-color: #d9c9ae;
     outline-color: #d9c9ae;
     outline-offset: 2;
+}
+
+/* My Address */
+.address-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.address-card {
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.address-card input[type="radio"] {
+    margin-right: 10px;
+}
+
+.button-edit-address, .button-remove-address, .add-new {
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.button-edit-address {
+    position: absolute;
+    bottom: 55px;
+    right: 15px;
+    width: 88px;
+}
+
+.button-remove-address {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.button-add-new {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+textarea {
+    font-family: 'MONTSERRAT', Tahoma, Verdana, sans-serif;
+    font-size: 15px;
+    margin: 4px;
+    padding: 0 10px;
+    color: #404040;
+    background: white;
+    border: 2px solid;
+    border-color: #8a6d3b;
+    border-radius: 10px;
 }
 
   
