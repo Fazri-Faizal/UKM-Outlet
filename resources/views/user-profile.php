@@ -50,7 +50,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="#" class="text-decoration-none d-flex align-items-start">
                                 <div class="fas fa-box-open pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <!-- My Orders -->
-            <div class="col-lg-9 my-lg-0 my-1" style="display:none">
+            <div class="col-lg-9 my-lg-0 my-1">
                 <div id="main-content" class="bg-white border">
                     <div class="d-flex flex-column">
                         <div class="h5">Hello Abu Ahmad,</div>
@@ -211,7 +211,7 @@
             </div>
 
             <!-- My Profile -->
-            <div class="col-lg-9 my-lg-0 my-1">
+            <div class="col-lg-9 my-lg-0 my-1" style="display:none">
                 <div id="main-content" class="bg-white border">
                     <div class="d-flex flex-column">
                         <div class="h5">Hello Abu Ahmad,</div>
@@ -277,6 +277,45 @@
                     </div>
                 </div>
             </div>
+
+            <!-- My address -->
+            <div class="col-lg-9 my-lg-0 my-1"  style="display:none">
+                <div id="main-content" class="bg-white border">
+                    <div class="d-flex flex-column">
+                        <div class="h5">Hello Abu Ahmad,</div>
+                        <div>Logged in as: abu&ahmad@gmail.com</div>         
+                    </div>
+                    <div class="address-section">
+                        <h2>Saved Addresses</h2>
+
+                        <div class="address-card">
+                            <p>No 34 Jalan Laman Delfina 1/4, Laman Delfina,</p>
+                            <p>Nilai Impian,</p>
+                            <p>Nilai, 05, 71800</p>
+                            <input type="radio" name="default-address" id="address1" checked>
+                            <label for="address1">Default Delivery Address</label>
+                            <button class="button-edit-address">Edit</button>
+                            <button class="button-remove-address">Remove</button>
+                        </div>
+
+                        <div class="address-card">
+                            <p>No 17, Jalan 1/3C Seksyen 1</p>
+                            <p>Bandar Baru Bangi, 10, 43650</p>
+                            <input type="radio" name="default-address" id="address2">
+                            <label for="address2">Default Delivery Address</label>
+                            <button class="button-edit-address">Edit</button>
+                            <button class="button-remove-address">Remove</button>
+                        </div>
+                        <button class="add-new">+ Add New Address</button>
+                        <div class="info-group"  style="display:none">
+                            <label>Address</label>
+                            <!-- <p><input placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian' style="width:100%" type="text" id=address></p> -->
+                            <p><textarea id=address cols="90" rows="5" placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian'></textarea></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
     </div>
