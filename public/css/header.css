@@ -248,3 +248,7 @@ hr.header2 {
   margin-bottom: 0%;
   height: 0px;
 }
+
+svg :hover {
+  fill: #e68d8d;
+}
