@@ -153,11 +153,14 @@
                             <!-- edit profile mode -->
                             <p id="editemail" style="display:none"><input placeholder='abcd1234@email.com' type="text"></p>
                         </div>
+
+                        <div id="button-save" style="display:none">
+                            <?php 
+                                include('button_save.php');
+                            ?>
+                        </div>   
                     </div>
 
-                    <?php 
-                        include('button_save.php');
-                    ?>
                 </div>
             </div>
 
@@ -411,6 +414,7 @@
             document.getElementById("displaygender").style.display = "none";
             document.getElementById("displayphone").style.display = "none";
             document.getElementById("displayemail").style.display = "none";
+            
 
             // document.getElementById("iconclosed").style.display = "none";
             // document.getElementById("iconopen").style.display = "none";
@@ -422,6 +426,7 @@
             document.getElementById("editgender").style.display = "";
             document.getElementById("editphone").style.display = "";
             document.getElementById("editemail").style.display = "";
+            document.getElementById("button-save").style.display = "";
         } else {
             document.getElementById("buttonEdit").classList.add('editactive');
             editProfile();
