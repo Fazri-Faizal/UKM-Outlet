@@ -6,7 +6,7 @@
     <title>Chat Mockup</title>
     <link rel="stylesheet" href="/css/chat.css">
 </head>
-<body>
+<body class="custombody">
   <div class="chat-box">
     <div class="chat-header">
       <div class="chat-user-profile active" data-up='cont1'></div>
