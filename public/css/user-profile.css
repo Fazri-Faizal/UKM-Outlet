@@ -85,17 +85,17 @@ nav ul li a .cart::after {
     padding-left: 0rem;
 }
 
+#sidebar ul :hover {
+    background-color: #AB8262;
+    cursor: pointer;
+}
+
 #sidebar ul li {
     padding: 10px 0;
     display: block;
     padding-left: 1rem;
     padding-right: 1rem;
     border-left: 5px solid transparent;
-}
-
-#sidebar ul li:hover {
-    border-left: 5px solid #f2f2f2;
-    background-color: #AB8262;
 }
 
 #sidebar ul li.active {
