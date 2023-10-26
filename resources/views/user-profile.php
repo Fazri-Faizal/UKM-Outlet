@@ -24,7 +24,7 @@
                     <div class="h4 text-white">Account</div>
                     <ul>
                         <!-- <li class="active">
-                            <a href="#" class="text-decoration-none d-flex align-items-start">
+                            <a class="text-decoration-none d-flex align-items-start">
                                 <div class="fas fa-box pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
                                     <div class="link">My Account</div>
@@ -32,8 +32,8 @@
                                 </div>
                             </a>
                         </li> -->
-                        <li>
-                            <a href="#" class="text-decoration-none d-flex align-items-start">
+                        <li id="navprofile" class="active">
+                            <a class="text-decoration-none d-flex align-items-start" onclick="navprofile()">
                                 <div class="far fa-user pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
                                     <div class="link">My Profile</div>
@@ -41,8 +41,8 @@
                                 </div>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="text-decoration-none d-flex align-items-start">
+                        <li id="navaddress">
+                            <a class="text-decoration-none d-flex align-items-start" onclick="navaddress()">
                                 <div class="far fa-address-book pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
                                     <div class="link">Address Book</div>
@@ -50,8 +50,8 @@
                                 </div>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="text-decoration-none d-flex align-items-start">
+                        <li id="navorder">
+                            <a class="text-decoration-none d-flex align-items-start" onclick="navorder()">
                                 <div class="fas fa-box-open pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
                                     <div class="link">My Orders</div>
@@ -72,8 +72,115 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- My Profile -->
+            <div class="col-lg-9 my-lg-0 my-1" id="id-profile" style="display: ">
+                <div id="main-content" class="bg-white border">
+                    <div class="d-flex flex-column">
+                        <div class="h5">Hello Abu Ahmad,</div>
+                        <div>Logged in as: abu&ahmad@gmail.com</div>
+                        <button class="button-edit" id="buttonEdit" onclick="editProfile()">Change Profile Information
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <img src="/img/user.jpg" class="profile" alt="profile picture">
+                    </div>
+                    <div class="bg-white border" style="border-radius: 20px;margin-top: 20px;">
+                        <div class="info-group">
+                            <label>Username</label>
+                            <p id="displayname">Kazi Mahbub</p>
+                            <!-- edit profile mode -->  
+                            <p id="editname" style="display:none"><input type="text" name="login" value="" placeholder="Kazi Mahbub"></p>    
+                        </div>
+
+                        <div class="info-group">
+                            <label>Password</label>
+                            <p id="displaypassword">********</p>
+                            <!-- edit profile mode -->
+                            <p id="editpassword" style="display:none"><input placeholder='Isazalyforever' type="text"></p>
+
+                        </div>
+
+                        <div class="info-group">
+                            <label>Date Of Birth</label>
+                            <p id="displaydob">20/01/2022</p>
+                            <!-- edit profile mode -->
+                            <p id="editdob" style="display:none"><input placeholder='20/01/2022' type="text"></p>
+                        </div>
+
+                        <div class="info-group">
+                            <label>Gender</label>
+                            <p id="displaygender">Male</p>
+                            <!-- edit mode -->
+                            <p id="editgender" style="display:none">
+                                <input type="radio" name="gender" id="male" checked>
+                                <label for="male">Male</label>
+                                <input type="radio" name="gender" id="female">
+                                <label for="female">Female</label>
+                            </p>
+                        </div>
+
+                        <div class="info-group">
+                            <label>Phone Number</label>
+                            <p id="displayphone">+90-123456789</p>
+                            <!-- edit profile mode -->
+                            <p id="editphone" style="display:none"><input placeholder='+90-123456789' type="text"></p>
+                        </div>
+
+                        <div class="info-group">
+                            <label>Email</label>
+                            <p id="displayemail">abcd1234@email.com</p>
+                            <!-- edit profile mode -->
+                            <p id="editemail" style="display:none"><input placeholder='abcd1234@email.com' type="text"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My address -->
+            <div class="col-lg-9 my-lg-0 my-1" id="id-address" style="display: none">
+                <div id="main-content" class="bg-white border">
+                    <div class="d-flex flex-column">
+                        <div class="h5">Hello Abu Ahmad,</div>
+                        <div>Logged in as: abu&ahmad@gmail.com</div>         
+                    </div>
+                    <div class="address-section">
+                        <h2>Saved Addresses</h2>
+
+                        <div class="address-card">
+                            <p>No 34 Jalan Laman Delfina 1/4, Laman Delfina,</p>
+                            <p>Nilai Impian,</p>
+                            <p>Nilai, 05, 71800</p>
+                            <input type="radio" name="default-address" id="address1" checked>
+                            <label for="address1">Default Delivery Address</label>
+                            <button class="button-edit-address">Edit</button>
+                            <button class="button-remove-address">Remove</button>
+                        </div>
+
+                        <div class="address-card">
+                            <p>No 17, Jalan 1/3C Seksyen 1</p>
+                            <p>Bandar Baru Bangi, 10, 43650</p>
+                            <input type="radio" name="default-address" id="address2">
+                            <label for="address2">Default Delivery Address</label>
+                            <button class="button-edit-address">Edit</button>
+                            <button class="button-remove-address">Remove</button>
+                        </div>
+                        <button class="add-new">+ Add New Address</button>
+                        <div class="info-group"  style="display:none">
+                            <label>Address</label>
+                            <!-- <p><input placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian' style="width:100%" type="text" id=address></p> -->
+                            <p><textarea id=address cols="90" rows="5" placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian'></textarea></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- My Orders -->
-            <div class="col-lg-9 my-lg-0 my-1">
+            <div class="col-lg-9 my-lg-0 my-1" id="id-order" style="display: none">
                 <div id="main-content" class="bg-white border">
                     <div class="d-flex flex-column">
                         <div class="h5">Hello Abu Ahmad,</div>
@@ -209,112 +316,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- My Profile -->
-            <div class="col-lg-9 my-lg-0 my-1" style="display:none">
-                <div id="main-content" class="bg-white border">
-                    <div class="d-flex flex-column">
-                        <div class="h5">Hello Abu Ahmad,</div>
-                        <div>Logged in as: abu&ahmad@gmail.com</div>
-                        <button class="button-edit">Change Profile Information
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div>
-                        <img src="/img/user.jpg" class="profile" alt="profile picture">
-                    </div>
-                    <div class="bg-white border" style="border-radius: 20px;margin-top: 20px;">
-                        <div class="info-group">
-                            <label>Username</label>
-                            <p style="display:none">Kazi Mahbub</p>
-                            <!-- edit profile mode -->  
-                            <p><input type="text" name="login" value="" placeholder="Kazi Mahbub"></p>    
-                        </div>
-
-                        <div class="info-group">
-                            <label>Password</label>
-                            <p style="display:none">********</p>
-                            <!-- edit profile mode -->
-                            <p><input placeholder='Isazalyforever' type="text"></p>
-
-                        </div>
-
-                        <div class="info-group">
-                            <label>Date Of Birth</label>
-                            <p style="display:none">20/01/2022</p>
-                            <!-- edit profile mode -->
-                            <p><input placeholder='20/01/2022' type="text"></p>
-                        </div>
-
-                        <div class="info-group">
-                            <label>Gender</label>
-                            <p style="display:none">Male</p>
-                            <!-- edit mode -->
-                            <p>
-                                <input type="radio" name="gender" id="male" checked>
-                                <label for="male">Male</label>
-                                <input type="radio" name="gender" id="female">
-                                <label for="female">Female</label>
-                            </p>
-                        </div>
-
-                        <div class="info-group">
-                            <label>Phone Number</label>
-                            <p style="display:none">+90-123456789</p>
-                            <!-- edit profile mode -->
-                            <p><input placeholder='+90-123456789' type="text"></p>
-                        </div>
-
-                        <div class="info-group">
-                            <label>Email</label>
-                            <p style="display:none">abcd1234@email.com</p>
-                            <!-- edit profile mode -->
-                            <p><input placeholder='abcd1234@email.com' type="text"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- My address -->
-            <div class="col-lg-9 my-lg-0 my-1"  style="display:none">
-                <div id="main-content" class="bg-white border">
-                    <div class="d-flex flex-column">
-                        <div class="h5">Hello Abu Ahmad,</div>
-                        <div>Logged in as: abu&ahmad@gmail.com</div>         
-                    </div>
-                    <div class="address-section">
-                        <h2>Saved Addresses</h2>
-
-                        <div class="address-card">
-                            <p>No 34 Jalan Laman Delfina 1/4, Laman Delfina,</p>
-                            <p>Nilai Impian,</p>
-                            <p>Nilai, 05, 71800</p>
-                            <input type="radio" name="default-address" id="address1" checked>
-                            <label for="address1">Default Delivery Address</label>
-                            <button class="button-edit-address">Edit</button>
-                            <button class="button-remove-address">Remove</button>
-                        </div>
-
-                        <div class="address-card">
-                            <p>No 17, Jalan 1/3C Seksyen 1</p>
-                            <p>Bandar Baru Bangi, 10, 43650</p>
-                            <input type="radio" name="default-address" id="address2">
-                            <label for="address2">Default Delivery Address</label>
-                            <button class="button-edit-address">Edit</button>
-                            <button class="button-remove-address">Remove</button>
-                        </div>
-                        <button class="add-new">+ Add New Address</button>
-                        <div class="info-group"  style="display:none">
-                            <label>Address</label>
-                            <!-- <p><input placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian' style="width:100%" type="text" id=address></p> -->
-                            <p><textarea id=address cols="90" rows="5" placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian'></textarea></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
         </div>
 
@@ -322,4 +323,85 @@
 
     <?php include 'footer.php' ?>
   </body>
+
+  <script>
+    function navprofile() {
+        if(document.getElementById("navprofile").classList.contains("active")) {
+            document.getElementById("navaddress").classList.remove('active');
+            document.getElementById("navorder").classList.remove('active');
+            
+            document.getElementById("id-profile").style.display = "";
+            document.getElementById("id-address").style.display = "none";
+            document.getElementById("id-order").style.display = "none";
+        } else {
+            document.getElementById("navprofile").classList.add('active');
+            document.getElementById("navaddress").classList.remove('active');
+            document.getElementById("navorder").classList.remove('active');
+
+            document.getElementById("id-profile").style.display = "";
+            document.getElementById("id-address").style.display = "none";
+            document.getElementById("id-order").style.display = "none";
+        }
+    }
+
+    function navaddress() {
+        if(document.getElementById("navaddress").classList.contains("active")) {
+            document.getElementById("navprofile").classList.remove('active');
+            document.getElementById("navorder").classList.remove('active');
+
+            document.getElementById("id-address").style.display = "";
+            document.getElementById("id-profile").style.display = "none";
+            document.getElementById("id-order").style.display = "none";
+        } else {
+            document.getElementById("navaddress").classList.add('active');
+            document.getElementById("navprofile").classList.remove('active');
+            document.getElementById("navorder").classList.remove('active');
+
+            document.getElementById("id-address").style.display = "";
+            document.getElementById("id-profile").style.display = "none";
+            document.getElementById("id-order").style.display = "none";
+        }
+    }
+
+    function navorder() {
+        if(document.getElementById("navorder").classList.contains("active")) {
+            document.getElementById("navprofile").classList.remove('active');
+            document.getElementById("navaddress").classList.remove('active');
+
+            document.getElementById("id-order").style.display = "";
+            document.getElementById("id-profile").style.display = "none";
+            document.getElementById("id-address").style.display = "none";
+        } else {
+            document.getElementById("navorder").classList.add('active');
+            document.getElementById("navprofile").classList.remove('active');
+            document.getElementById("navaddress").classList.remove('active');
+
+            document.getElementById("id-order").style.display = "";
+            document.getElementById("id-profile").style.display = "none";
+            document.getElementById("id-address").style.display = "none";
+        }
+    }
+
+    function editProfile() {
+        if(document.getElementById("buttonEdit").classList.contains("editactive")) {
+
+            document.getElementById("displayname").style.display = "none"
+            document.getElementById("displaypassword").style.display = "none"
+            document.getElementById("displaydob").style.display = "none"
+            document.getElementById("displaygender").style.display = "none"
+            document.getElementById("displayphone").style.display = "none"
+            document.getElementById("displayemail").style.display = "none"
+
+            document.getElementById("editname").style.display = ""
+            document.getElementById("editpassword").style.display = ""
+            document.getElementById("editdob").style.display = ""
+            document.getElementById("editgender").style.display = ""
+            document.getElementById("editphone").style.display = ""
+            document.getElementById("editemail").style.display = ""
+        } else {
+            document.getElementById("buttonEdit").classList.add('editactive');
+            editProfile();
+        }
+    }
+    </script>
 </html>
