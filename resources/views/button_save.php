@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <button id="btn">
+        <button id="btn" class="custombtn">
             <p id="btnText">Submit</p>
             <div class="check-box">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
