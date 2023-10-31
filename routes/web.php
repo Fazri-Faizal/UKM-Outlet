@@ -171,3 +171,24 @@ Route::get('/register', function () {
 Route::get('/destroy', function () {
     return view('destroy');
 });
+Route::get('/seller_dashboard', function () {
+    return view('seller_dashboard');
+});
+Route::get('/seller_sidebar', function () {
+    return view('seller_sidebar');
+});
+Route::get('/seller_order', function () {
+    return view('seller_order');
+});
+Route::get('/seller_order_completed', function () {
+    return view('seller_order_completed');
+});
+Route::get('/seller_order_toship', function () {
+    return view('seller_order_toship');
+});
+Route::get('/seller_products', function () {
+    return view('seller_products');
+});
+Route::get('/seller_add_product', function () {
+    return view('seller_add_product');
+});
