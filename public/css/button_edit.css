@@ -1,0 +1,84 @@
+/* * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #ffffff;
+	background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+} */
+
+.noselect {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+          -webkit-tap-highlight-color: transparent;
+  }
+  
+  .btnedit {
+      width: 123px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      background: #ffc107;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  }
+  
+  .btnedit, .btnedit span {
+      transition: 220ms;
+  }
+  
+  .btnedit .text {
+      transform: translateX(25px);
+      color: white;
+      /* font-weight: bold; */
+      font-size: medium;
+  }
+  
+  .btnedit .icon {
+      position: absolute;
+      border-left: 1px solid #efe783;
+      transform: translateX(110px);
+      height: 40px;
+      width: 27px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: -17px;
+  }
+  
+  .btnedit svg {
+      width: 15px;
+      fill: #eee;
+      /* margin-right: 11px; */
+  }
+  
+  .btnedit:hover {
+      background: #ffc107;
+  }
+  
+  .btnedit:hover .text {
+      color: transparent;
+  }
+  
+  .btnedit:hover .icon {
+      width: 150px;
+      border-left: none;
+      transform: translateX(0);
+  }
+  
+  .btnedit:focus {
+      outline: none;
+  }
