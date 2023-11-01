@@ -198,3 +198,9 @@ Route::get('/seller_registration', function () {
 Route::get('/seller_registration_form', function () {
     return view('seller_registration_form');
 });
+Route::get('/button-delete-2', function () {
+    return view('button-delete-2');
+});
+Route::get('/button_edit', function () {
+    return view('button_edit');
+});
