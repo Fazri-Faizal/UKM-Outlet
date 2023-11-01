@@ -5,16 +5,16 @@
     border: 0;
     display: flex;
     align-items: center;
-    padding: 16px 20px 0px 15px;
-    height: 40px;
+    padding: 1px 32px 0px 49px;
+    height: 52px;
     position: relative;
     font-family: inherit;
     font-size: 1em;
-    width: 200px;
+    width: 229px;
     line-height: 1em;
     font-weight: 500;
     margin-bottom: -10px;
-    background-color: white;
+    background-color: #804444;
     cursor: pointer;
     border-radius: 32px;
     
@@ -26,7 +26,7 @@
     }
     
     &:hover, &:active {
-      background-color: #eee;
+      background-color: #9e735a;
     }
   }
   
@@ -65,12 +65,12 @@
     }
   }
   
-  .checked-out .zaihasra{
+  .checked-outed .zaihasra{
     animation: slide-up-fade 150ms 1;
     animation-fill-mode: both;
   }
   
-  .checked-out #cart {
+  .checked-outed #cart {
     animation: roll-out 1s 1 150ms;
     animation-timing-function: ease-in;
     animation-fill-mode: both;
@@ -87,7 +87,7 @@
   
   #check {
     position: absolute;
-    left: calc(50% - 12px);
+    /* left: calc(50% - 12px); */
   }
   
   #check path {
@@ -95,13 +95,13 @@
     stroke-dashoffset: 26px;
   }
   
-  .checked-out #check path {
+  .checked-outed #check path {
     animation: checkmark 150ms 1 1150ms;
     animation-timing-function: ease-in;
     animation-fill-mode: both;
   }
   
-  .checked-out button {
+  .checked-outed #check {
     background-color: #20bf6b;
     transition-delay: 1150ms;
   }
