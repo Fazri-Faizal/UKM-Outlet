@@ -1,5 +1,5 @@
-const btn = document.querySelector('.button-checkout');
+const btncheckout = document.querySelector('.button-checkout');
 
-btn.addEventListener('click', () => {
-  document.documentElement.classList.toggle('checked-out');
+btncheckout.addEventListener('click', () => {
+  document.documentElement.classList.toggle('checked-outed');
 });
