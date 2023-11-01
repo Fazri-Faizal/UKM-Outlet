@@ -1,221 +1,157 @@
 <?php include 'header.php' ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/cart.css"/>
-    <title>Cart</title>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<body style="text-align:center;">
-    <table class="product-list">
-        <tr style="bgcolor: #556B2F;" >
-            <h2 style="color: #804444; face: verdana; text-align: center; padding-top: 20px; padding-bottom: 20px">CART</h2>
-        </tr>
-        <tr> 
-            <td>    
-              <div class="card">
-                <div class="cart-box">
-                    <input type="checkbox" name="tick" id="chckbox">
-                    <span class="seller-name">Lagenda KIY <i class="fa fa-comments" aria-hidden="true"></i></span>      
-                </div>
-                <hr>
-                <div class="cart-content">
-                   <div>
-                        <img id="cart-img" src="/img/Jersey-1 cropped.png" alt="">
-                   </div>  
-                   <div>
-                    <h3 id="cart-header">Jersey UKM 2022</h3> 
-                    <br>
-                    <p id="cart-header"> Variations: Black , S</p>
-                   </div>
-                   <div>
-                   <h3 id="cart-header" style="cursor:context-menu;">Price</h3>
-                    <br>
-                    <p id="cart-header"><s>RM 45</s> <?php $bef=(40);?>RM <?=$bef?></p>                   
-                   </div>
-                   <div>
-                   <h4 id="cart-header" style="cursor:context-menu;">Quantity </h4>
-                    <br>
-                    <div class="wrapper" style="margin-right:35px; margin-top: 10px;">
-                            <span class="minus">-</span>
-                            <span class="num">01</span>
-                            <span class="plus">+</span>
-                        </div>
-                    </div>
-                    <div>
-                   <h3 id="cart-header" style="cursor:context-menu; margin-left:60px;">Total</h3>
-                    <br>
-                    <p id="cart-header" style="margin-left:60px; color:red;">RM <?=$bef*2?></p>                   
-                   </div> 
-                   <div>
-                   </div> 
-                </div>   
-              </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            <div class="card">
-                <div class="cart-box">
-                    <input type="checkbox" name="tick" id="chckbox">
-                    <span class="seller-name">Fazri Faizal <i class="fa fa-comments" aria-hidden="true"></i></span>      
-                    </div>
-                    <hr>
-                <div class="cart-content">
-                   <div>
-                        <img id="cart-img" src="/img/Jersey-1 cropped.png" alt="">
-                   </div>  
-                   <div>
-                    <h3 id="cart-header">Jersey UKM 2022</h3> 
-                    <br>
-                    <p id="cart-header"> Variations: Black , S</p>
-                   </div>
-                   <div>
-                   <h3 id="cart-header" style="cursor:context-menu;">Price</h3>
-                    <br>
-                    <p id="cart-header"><s>RM 45</s> <?php $bef=(40);?>RM <?=$bef?></p>                   
-                   </div>
-                   <div>
-                   <h4 id="cart-header" style="cursor:context-menu;">Quantity </h4>
-                    <br>
-                    <div class="wrapper" style="margin-right:35px; margin-top: 10px;">
-                            <span class="minus">-</span>
-                            <span class="num">01</span>
-                            <span class="plus">+</span>
-                        </div>
-                    </div>
-                    <div>
-                   <h3 id="cart-header" style="cursor:context-menu; margin-left:60px;">Total</h3>
-                    <br>
-                    <p id="cart-header" style="margin-left:60px; color:red;">RM <?=$bef*2?></p>                   
-                   </div> 
-                   <div>
-                   </div> 
-                </div>   
-              </div>
-            </div>
-            <div class="card">
-                <div class="cart-box">
-                    <input type="checkbox" name="tick" id="chckbox">
-                    <span class="seller-name">Lagenda KIY <i class="fa fa-comments" aria-hidden="true"></i></span>      
-                </div>
-                <hr>
-                <div class="cart-content">
-                   <div>
-                        <img id="cart-img" src="/img/Jersey-1 cropped.png" alt="">
-                   </div>  
-                   <div>
-                    <h3 id="cart-header">Jersey UKM 2022</h3> 
-                    <br>
-                    <p id="cart-header"> Variations: Black , S</p>
-                   </div>
-                   <div>
-                   <h3 id="cart-header" style="cursor:context-menu;">Price</h3>
-                    <br>
-                    <p id="cart-header"><s>RM 45</s> <?php $bef=(40);?>RM <?=$bef?></p>                   
-                   </div>
-                   <div>
-                   <h4 id="cart-header" style="cursor:context-menu;">Quantity </h4>
-                    <br>
-                    <div class="wrapper" style="margin-right:35px; margin-top: 10px;">
-                            <span class="minus">-</span>
-                            <span class="num">01</span>
-                            <span class="plus">+</span>
-                        </div>
-                    </div>
-                    <div>
-                   <h3 id="cart-header" style="cursor:context-menu; margin-left:60px;">Total</h3>
-                    <br>
-                    <p id="cart-header" style="margin-left:60px; color:red;">RM <?=$bef*2?></p>                   
-                   </div> 
-                   <div>
-                   </div> 
-                </div>   
-              </div>
-            <div class="card-checkout">
-                <table class="checkout-content">
-                    <tr style="checkout-row">
-                        <td style="visibility:hidden;">
-                            Platform Voucher
-                        </td>
-                        <td style="visibility:hidden;">
-                            Platform Voucher
-                        </td>
-                        <td style="display:inline-flex;">
-                            <img src="img/vouchers/voucher.png" alt="" width="20px" style="margin-right:5px;">Platform Voucher
-                        </td>
-                        <td style="height: 50px;">
-                            Select or enter code
-                        </td>
-                    </tr>
-                    <tr>
-                    <td style="visibility:hidden;">
-                            Platform Voucher
-                        </td>
-                        <td style="visibility:hidden;">
-                            Platform Voucher
-                        </td>
-                        <td style="display:inline-flex; visibility:hidden;">
-                            <img src="img/vouchers/voucher.png" alt="" width="20px" style="margin-right:5px;">Platform Voucher
-                        </td>
-                        <td style="visibility:hidden;">
-                            Select or enter code
-                        </td>
-                    </tr>
-                    <tr>
-                    <td style="text-align:left;">
-                            <input type="checkbox"  id="" onchange="checkAll(this)"><span style="margin-right:20px;">Select All</span><span>Delete All</span>
-                        </td>
-                        <td style="visibility:hidden;">
-                            Platform Voucher
-                        </td>
-                        <td style="display:inline-flex; padding: 9px;">
-                            Total (2 items): <span style="font-size:1.5rem; color:red; margin-left:10px; margin-bottom: 5px;">RM 240</span>
-                        </td>
-                        <td>
-                            <?php include 'button_checkout.php' ?>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            </td>
-        </tr>
-    </table>  
-    <script type="text/javascript">
-const plus = document.querySelector(".plus"),
-    minus = document.querySelector(".minus"),
-    num = document.querySelector(".num");
-    let a = 1;
-    plus.addEventListener("click", ()=>{
-      a++;
-      a = (a < 10) ? "0" + a : a;
-      num.innerText = a;
-    });
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="CodeHim">
+    <title>Cart List</title>
 
-    minus.addEventListener("click", ()=>{
-      if(a > 1){
-        a--;
-        a = (a < 10) ? "0" + a : a;
-        num.innerText = a;
-      }
-    });
-    function checkAll(e) {
-    var checkboxes = document.getElementsByName('tick');
- 
-    if (e.checked) {
-         for (var i = 0; i < checkboxes.length; i++) { 
-              checkboxes[i].checked = true;
-         }
-    } else {
-         for (var i = 0; i < checkboxes.length; i++) {
-              checkboxes[i].checked = false;
-         }
-    }
-}
- 
-    </script>
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="css/cart.css">
+  
+  </head>
+  <body> 
+    <main>
+        <header id="site-header">
+            <div class="container">
+                <h1>Cart</h1>
+            </div>
+        </header>
+
+        <div class="container">
+
+            <section id="cartlist"> 
+                <article class="product">
+                    <header>
+                        <a class="remove">
+                            <img src="./img/P003.png">
+
+                            <h3>Remove product</h3>
+                        </a>
+                    </header>
+
+                    <div class="content">
+
+                        <h1>Baju FTSM</h1>
+
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, numquam quis perspiciatis ea ad omnis provident laborum dolore in atque. 
+
+                        <div title="You have selected this product to be shipped in the color yellow." style="top: 0" class="color yellow"></div>
+                        <div style="top: 43px" class="type small">XXL</div>
+                    </div>
+
+                    <footer class="content">
+                        <span class="qt-minus">-</span>
+                        <span class="qt">2</span>
+                        <span class="qt-plus">+</span>
+
+                        <h2 class="full-price">
+                            29.98€
+                        </h2>
+
+                        <h2 class="price">
+                            14.99€
+                        </h2>
+                    </footer>
+                </article>
+
+                <article class="product">
+                    <header>
+                        <a class="remove">
+                            <img src="./img/P006.png" alt="Keyboard">
+
+                            <h3>Remove product</h3>
+                        </a>
+                    </header>
+
+                    <div class="content">
+
+                        <h1>PC SIG</h1>
+
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, numquam quis perspiciatis ea ad omnis provident laborum dolore in atque.
+
+                        <div title="You have selected this product to be shipped in the color red." style="top: 0" class="color red"></div>
+                        <div title="You have selected this product to be shipped sized Small."  style="top: 43px" class="type small">M</div>
+                    </div>
+
+                    <footer class="content">
+                        
+                        <span class="qt-minus">-</span>
+                        <span class="qt">1</span>
+                        <span class="qt-plus">+</span>
+
+                        <h2 class="full-price">
+                            79.99€
+                        </h2>
+
+                        <h2 class="price">
+                            79.99€
+                        </h2>
+                    </footer>
+                </article>
+
+                <article class="product">
+                    <header>
+                        <a class="remove">
+                            <img src="./img/P009.png" alt="Handfree">
+
+                            <h3>Remove product</h3>
+                        </a>
+                    </header>
+
+                    <div class="content">
+
+                        <h1>FPER new Lanyard</h1>
+
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, numquam quis perspiciatis ea ad omnis provident laborum dolore in atque.
+
+                        <div title="You have selected this product to be shipped in the color blue." style="top: 0" class="color blue"></div>
+                        <div style="top: 43px" class="type small">Large</div>
+                    </div>
+
+                    <footer class="content">
+                        
+                        <span class="qt-minus">-</span>
+                        <span class="qt">3</span>
+                        <span class="qt-plus">+</span>
+
+                        <h2 class="full-price">
+                            53.99€
+                        </h2>
+
+                        <h2 class="price">
+                            17.99€
+                        </h2>
+                    </footer>
+                </article>
+
+            </section>
+
+        </div>
+
+        <footer id="site-footer">
+            <div class="container clearfix">
+
+                <div class="left">
+                    <h2 class="subtotal">Subtotal: <span>163.96</span>€</h2>
+                    <h3 class="tax">Taxes (5%): <span>8.2</span>€</h3>
+                    <h3 class="shipping">Shipping: <span>5.00</span>€</h3>
+                </div>
+
+                <div class="right">
+                    <h1 class="total">Total: <span>177.16</span>€</h1>
+                    <!-- <button class="btn">Checkout</button> -->
+                    <?php include 'button_checkout.php' ?>
+                </div>
+
+            </div>
+        </footer>
+        
+    </main>
     
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script  src="./js/cart.js"></script> 
     <?php include 'footer.php' ?>
-</body>
+  </body>
 </html>
