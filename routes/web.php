@@ -192,3 +192,9 @@ Route::get('/seller_products', function () {
 Route::get('/seller_add_product', function () {
     return view('seller_add_product');
 });
+Route::get('/seller_registration', function () {
+    return view('seller_registration');
+});
+Route::get('/seller_registration_form', function () {
+    return view('seller_registration_form');
+});
