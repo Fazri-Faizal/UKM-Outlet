@@ -175,28 +175,42 @@
                         <h2 class="customh2">Saved Addresses</h2>
 
                         <div class="address-card">
-                            <p>No 34 Jalan Laman Delfina 1/4, Laman Delfina,</p>
-                            <p>Nilai Impian,</p>
-                            <p>Nilai, 05, 71800</p>
-                            <input type="radio" name="default-address" id="address1" checked>
-                            <label for="address1">Default Delivery Address</label>
-                            <button class="button-edit-address">Edit</button>
-                            <button class="button-remove-address">Remove</button>
+                            <div id="displayAddress">
+                                <p>No 34 Jalan Laman Delfina 1/4, Laman Delfina,</p>
+                                <p>Nilai Impian,</p>
+                                <p>Nilai, 05, 71800</p>
+                                <input type="radio" name="default-address" id="address1" checked>
+                                <label for="address1">Default Delivery Address</label>
+                            </div>
+                            <!-- Edit Address -->
+                            <div id="editAddress" style="display:none; text-align: center;">
+                                <input type="radio" name="default-address" id="address1"checked>
+                                <label for="address1">Default Delivery Address</label>
+                                <textarea id="address" cols="90" rows="5" placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian'></textarea><br>
+                                <div id="button-save-add">
+                                    <?php 
+                                        include('button_save_address.php');
+                                    ?>
+                                </div>
+                            </div>
+
+                            <p id="btnEditAdd" onclick="editAddress()">
+                                <?php 
+                                    include('button_edit.php');
+                                ?>
+                            </p>
+                            <p id="btndeleteAdd">
+                                <?php 
+                                    include('button-delete-2.php');
+                                ?>
+                            </p>  
                         </div>
 
-                        <div class="address-card">
-                            <p>No 17, Jalan 1/3C Seksyen 1</p>
-                            <p>Bandar Baru Bangi, 10, 43650</p>
-                            <input type="radio" name="default-address" id="address2">
-                            <label for="address2">Default Delivery Address</label>
-                            <button class="button-edit-address">Edit</button>
-                            <button class="button-remove-address">Remove</button>
-                        </div>
-                        <button class="add-new">+ Add New Address</button>
+                        <button class="add-new" id="buttonnewaddress">+ Add New Address</button>
                         <div class="info-group"  style="display:none">
                             <label>Address</label>
                             <!-- <p><input placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian' style="width:100%" type="text" id=address></p> -->
-                            <p><textarea id=address cols="90" rows="5" placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian'></textarea></p>
+                            <p id="newaddress"><textarea id=address cols="90" rows="5" placeholder='No 34 Jalan Laman Delfina 1/4, Laman Delfina,71800 Nilai Impian'></textarea></p>
                         </div>
                     </div>
                 </div>
@@ -476,6 +490,20 @@
 
         document.getElementById("iconopen").style.display = "none";
         document.getElementById("iconclosed").style.display = "";
+    }
+
+    function editAddress() {
+        if(document.getElementById("btnEditAdd").classList.contains("editAddactive")) {
+
+            document.getElementById("displayAddress").style.display = "none";
+            document.getElementById("btnEditAdd").style.display = "none";
+            document.getElementById("btndeleteAdd").style.display = "none";
+
+            document.getElementById("editAddress").style.display = "";
+        } else {
+            document.getElementById("btnEditAdd").classList.add('editAddactive');
+            editAddress();
+        }
     }
     </script>
 </html>
