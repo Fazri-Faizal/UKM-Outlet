@@ -481,6 +481,7 @@ input[type=text]:focus, input[type=password]:focus {
     margin-bottom: 20px;
     border-radius: 4px;
     position: relative;
+    /* padding-bottom: 125px; */
 }
 
 .address-card input[type="radio"] {
@@ -495,11 +496,20 @@ input[type=text]:focus, input[type=password]:focus {
     cursor: pointer;
 }
 
-.button-edit-address {
+#btnEditAdd {
     position: absolute;
     bottom: 55px;
-    right: 15px;
-    width: 88px;
+    right: 45px;
+    width: 90px;
+    Top: 13px;
+}
+
+#btndeleteAdd {
+    position: absolute;
+    bottom: 12px;
+    right: 45px;
+    width: 90px;
+    Top: 56px;
 }
 
 .button-remove-address {
@@ -514,7 +524,19 @@ input[type=text]:focus, input[type=password]:focus {
     margin-right: auto;
 }
 
-textarea {
+textarea #address{
+    font-family: 'MONTSERRAT', Tahoma, Verdana, sans-serif;
+    font-size: 15px;
+    margin: 4px;
+    padding: 0 10px;
+    color: #404040;
+    background: white;
+    border: 2px solid;
+    border-color: #8a6d3b;
+    border-radius: 15px;
+}
+
+textarea #newaddress {
     font-family: 'MONTSERRAT', Tahoma, Verdana, sans-serif;
     font-size: 15px;
     margin: 4px;
@@ -525,5 +547,3 @@ textarea {
     border-color: #8a6d3b;
     border-radius: 10px;
 }
-
-  
