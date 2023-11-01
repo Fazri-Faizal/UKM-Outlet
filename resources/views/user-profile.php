@@ -23,15 +23,6 @@
                 <div id="sidebar" class="bg-purple">
                     <div class="h4 text-white">Account</div>
                     <ul>
-                        <!-- <li class="active">
-                            <a class="text-decoration-none d-flex align-items-start">
-                                <div class="fas fa-box pt-2 me-3"></div>
-                                <div class="d-flex flex-column">
-                                    <div class="link">My Account</div>
-                                    <div class="link-desc">View & Manage orders and returns</div>
-                                </div>
-                            </a>
-                        </li> -->
                         <li id="navprofile" class="active">
                             <a class="text-decoration-none d-flex align-items-start" onclick="navprofile()">
                                 <div class="far fa-user pt-2 me-3"></div>
@@ -56,6 +47,15 @@
                                 <div class="d-flex flex-column">
                                     <div class="link">My Orders</div>
                                     <div class="link-desc">View & Manage orders and returns</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li id="navsellcenter">
+                            <a class="text-decoration-none d-flex align-items-start" onclick="navsellcenter()">
+                                <div class="fas fa-shopping-bag pt-2 me-3"></div>
+                                <div class="d-flex flex-column">
+                                    <div class="link">Seller Center</div>
+                                    <div class="link-desc">View & Manage Seller Account</div>
                                 </div>
                             </a>
                         </li>
@@ -352,6 +352,7 @@
         if(document.getElementById("navprofile").classList.contains("active")) {
             document.getElementById("navaddress").classList.remove('active');
             document.getElementById("navorder").classList.remove('active');
+            document.getElementById("navsellcenter").classList.remove('active');
             
             document.getElementById("id-profile").style.display = "";
             document.getElementById("id-address").style.display = "none";
@@ -360,6 +361,7 @@
             document.getElementById("navprofile").classList.add('active');
             document.getElementById("navaddress").classList.remove('active');
             document.getElementById("navorder").classList.remove('active');
+            document.getElementById("navsellcenter").classList.remove('active');
 
             document.getElementById("id-profile").style.display = "";
             document.getElementById("id-address").style.display = "none";
@@ -371,6 +373,7 @@
         if(document.getElementById("navaddress").classList.contains("active")) {
             document.getElementById("navprofile").classList.remove('active');
             document.getElementById("navorder").classList.remove('active');
+            document.getElementById("navsellcenter").classList.remove('active');
 
             document.getElementById("id-address").style.display = "";
             document.getElementById("id-profile").style.display = "none";
@@ -379,6 +382,7 @@
             document.getElementById("navaddress").classList.add('active');
             document.getElementById("navprofile").classList.remove('active');
             document.getElementById("navorder").classList.remove('active');
+            document.getElementById("navsellcenter").classList.remove('active');
 
             document.getElementById("id-address").style.display = "";
             document.getElementById("id-profile").style.display = "none";
@@ -390,6 +394,7 @@
         if(document.getElementById("navorder").classList.contains("active")) {
             document.getElementById("navprofile").classList.remove('active');
             document.getElementById("navaddress").classList.remove('active');
+            document.getElementById("navsellcenter").classList.remove('active');
 
             document.getElementById("id-order").style.display = "";
             document.getElementById("id-profile").style.display = "none";
@@ -398,10 +403,37 @@
             document.getElementById("navorder").classList.add('active');
             document.getElementById("navprofile").classList.remove('active');
             document.getElementById("navaddress").classList.remove('active');
+            document.getElementById("navsellcenter").classList.remove('active');
 
             document.getElementById("id-order").style.display = "";
             document.getElementById("id-profile").style.display = "none";
             document.getElementById("id-address").style.display = "none";
+        }
+    }
+
+    function navsellcenter() {
+        if(document.getElementById("navsellcenter").classList.contains("active")) {
+            document.getElementById("navprofile").classList.remove('active');
+            document.getElementById("navaddress").classList.remove('active');
+            document.getElementById("navorder").classList.remove('active');
+            
+            document.getElementById("id-profile").style.display = "none";
+            document.getElementById("id-address").style.display = "none";
+            document.getElementById("id-order").style.display = "none";
+
+            window.location.href="/seller_registration";
+        } else {
+            document.getElementById("navsellcenter").classList.add('active');
+            document.getElementById("navprofile").classList.remove('active');
+            document.getElementById("navaddress").classList.remove('active');
+            document.getElementById("navorder").classList.remove('active');
+            document.getElementById("navsellcenter").classList.remove('active');
+
+            document.getElementById("id-profile").style.display = "none";
+            document.getElementById("id-address").style.display = "none";
+            document.getElementById("id-order").style.display = "none";
+
+            window.location.href="/seller_registration";
         }
     }
 
@@ -415,9 +447,6 @@
             document.getElementById("displayphone").style.display = "none";
             document.getElementById("displayemail").style.display = "none";
             
-
-            // document.getElementById("iconclosed").style.display = "none";
-            // document.getElementById("iconopen").style.display = "none";
             document.getElementById("spanpassword").style.display = "none";
 
             document.getElementById("editname").style.display = "";
@@ -427,6 +456,8 @@
             document.getElementById("editphone").style.display = "";
             document.getElementById("editemail").style.display = "";
             document.getElementById("button-save").style.display = "";
+            
+            document.getElementById("buttonEdit").style.visibility = "hidden";
         } else {
             document.getElementById("buttonEdit").classList.add('editactive');
             editProfile();
