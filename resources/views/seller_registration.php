@@ -1,3 +1,7 @@
+<?php
+include('database.php');
+include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +16,10 @@
         <div class="container">
         <img src="\img\UKM OMELET LOGO 4.png" alt="">
           <p>Become UKM Outlet Seller Today!</p>
-          <p style="font-size: 16px; ">To get started, register as a seller by providing the necessary information.</p>
+          <p style="font-size: 16px; "> Welcome <?= ($_SESSION['sessionname'])?> , register as a seller by providing the necessary information by clicking the button below.</p>
 
           
-          <button class="button" style="vertical-align:middle" onclick="location.href='/seller_registration_form'"><span>Start Registration</span></button>
+          <a class="button" style="vertical-align:middle" onclick="location.href='/seller_registration_form'"><span>Start Registration</span></a>
           
           
           
