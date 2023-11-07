@@ -93,7 +93,11 @@ if (isset($_GET['login'])) {
     foreach ($result as $row) {
 
         $name = $row['username'];
+        $role = $row['role'];
+        $user_email = $row['user_email'];
+        $_SESSION['role'] = $role;
         $_SESSION['sessionname'] = $name;
+        $_SESSION['user_email'] = $user_email;
 
         echo "<script>
         
@@ -106,11 +110,13 @@ if (isset($_GET['login'])) {
 }
 }
 catch(PDOException $e) {
-    echo "salahhhhhhhh";
+    echo "Incorrect username/password";
 }
 }
 else{
     $_SESSION['sessionname'] ="";
+    $_SESSION["role"]="";
+    $_SESSION["user_email"]="";
 }
 $conn = null;
 
