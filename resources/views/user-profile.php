@@ -77,7 +77,7 @@
             <div class="col-lg-9 my-lg-0 my-1" id="id-profile" style="display: ">
                 <div id="main-content" class="bg-white border">
                     <div class="d-flex flex-column">
-                        <div class="h5">Hello Kazi Mahbub,</div>
+                        <div class="h5">Hello <?= ($_SESSION['sessionname'])?>,</div>
                         <div>Logged in as: abcd1234@email.com</div>
                         <button class="button-edit" id="buttonEdit" onclick="editProfile()">Change Profile Information
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -447,7 +447,12 @@
             document.getElementById("id-address").style.display = "none";
             document.getElementById("id-order").style.display = "none";
 
-            window.location.href="/seller_registration";
+            let role = "<?php echo $_SESSION['role']; ?>";
+                if (role === 'seller') {
+                    window.location.href = "seller_dashboard"; // Replace with your seller page URL
+                } else if (role === 'customer') {
+                    window.location.href = "seller_registration"; // Replace with your customer page URL
+                }
         }
     }
 
