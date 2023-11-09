@@ -1,4 +1,24 @@
-<?php include 'header.php' ?>
+<?php 
+
+include ('header.php');
+include ('database.php');
+ 
+ $mysqli = new mysqli($servername, $username, $password,$dbname);
+
+
+$stmt = $mysqli->prepare("SELECT * FROM tbl_cart LEFT JOIN tbl_products ON tbl_cart.product_id = tbl_products.product_Id 
+LEFT JOIN tbl_product_variation ON tbl_cart.product_id = tbl_product_variation.fld_product_id 
+WHERE tbl_cart.product_size = tbl_product_variation.fld_product_size");
+$stmt->execute();
+
+$arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+if(!$arr) exit('no rows');
+
+$stmt->close();
+
+
+?>
 <html lang="en">
 
 <head>
@@ -6,452 +26,14 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cart</title>
-  <style>
-    @charset "utf-8";
-
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap);
-
-html,
-html a {
-  -webkit-font-smoothing: antialiased;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-}
-
-body {
-  background-color: #fff;
-  color: #666;
-  font-family: "Montserrat", sans-serif;
-  font-size: 62.5%;
-  margin: 0 auto;
-}
-
-a {
-  border: 0 none;
-  outline: 0;
-  text-decoration: none;
-}
-
-strong {
-  font-weight: bold;
-}
-
-p {
-  margin: 0.75rem 0 0;
-}
-
-h1 {
-  font-size: 16px;
-  font-weight: normal;
-  margin: 0;
-  padding: 0;
-}
-
-input,
-button {
-  border: 0 none;
-  outline: 0 none;
-}
-
-button {
-  background-color: #804444;
-  color: #fff;
-  border-radius:5px;
-}
-
-button:hover,
-button:focus {
-  background-color: #555;
-}
-
-
-.basket-module,
-.basket-labels,
-.basket-product {
-  width: 100%;
-}
-
-input,
-button,
-.basket,
-.basket-module,
-.basket-labels,
-.item,
-.price,
-.quantity,
-.subtotal,
-.basket-product,
-.product-image,
-.product-details {
-  float: left;
-}
-
-.price:before,
-.subtotal:before,
-.subtotal-value:before,
-.total-value:before,
-.promo-value:before {
-  content: "RM ";
-}
-
-.hide {
-  display: none;
-}
-
-main {
-  clear: both;
-  font-size: 16px;
-  margin: 0 auto;
-  overflow: hidden;
-  padding: 1rem 0;
-  width: 960px;
-  display: flex;
-  justify-content: space-between; /* This will space out the .basket and .summary */
-  flex-wrap: wrap; /* Allows them to wrap into a new line on smaller screens */
-}
-
-.basket,.summary {
-    flex: 1; /* This will make them grow to take up available space */
-    padding: 1rem; /* Added padding for spacing, adjust as necessary */
-    max-width: 100%;
-}
-
-.basket,
-aside {
-  padding: 0 2rem;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.basket {
-    max-width: calc(100% - 2rem); /* Adjusted for padding */
-}
-
-.basket-module {
-  color: #111;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.3125rem;
-}
-
-.promo-code-field {
-  border: 1px solid #804444;
-  padding: 0.5rem;
-  text-transform: uppercase;
-  transition: all 0.2s linear;
-  width: 48%;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-
-.promo-code-field:hover,
-.promo-code-field:focus {
-  border: 1px solid #999;
-}
-
-.promo-code-cta {
-  border-radius: 4px;
-  font-size: 0.625rem;
-  margin-left: 0.625rem;
-  padding: 0.6875rem 1.25rem 0.625rem;
-}
-
-.basket-labels {
-  /* border-top: 1px solid #ffbebe;
-  border-bottom: 1px solid #ffbebe; */
-  margin-top: 1.625rem;
-  
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  color: #111;
-  display: inline-block;
-  padding: 0.625rem 0;
-}
-
-li.price:before,
-li.subtotal:before {
-  content: "";
-}
-
-.item {
-  width: 55%;
-}
-
-.price,
-.quantity,
-.subtotal {
-  width: 15%;
-}
-
-.subtotal {
-  text-align: right;
-}
-
-.remove {
-  bottom: 1.125rem;
-  float: right;
-  position: absolute;
-  right: 0;
-  text-align: right;
-  width: 45%;
-
-}
-
-.remove button {
-  background-color: transparent;
-  color: #ff0000;
-  float: none;
-  /* text-decoration: underline; */
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.item-heading {
-  padding-left: 4.375rem;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.basket-product {
-  border-bottom: 2px groove #ffbebe;
-  padding: 1rem 0;
-  position: relative;
-}
-
-.product-image {
-  width: 40%;
-}
-
-.product-details {
-  width: 60%;
-}
-
-.product-frame {
-  /* border: 1px solid #804444; */
-  border-radius: 10px;
-  box-shadow: 7px 7px 7px #bfbfbf;
-}
-
-.product-details {
-  padding: 0 1.5rem;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.quantity-field {
-  background-color: #ffffff;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  font-size: 12px;
-  padding: 2px;
-  width: 3.75rem;
-  text-align: center;
-}
-
-aside {
-  float: right;
-  position: relative;
-  width: 10%;
-}
-
-.summary {
-  /* background-color: #fffcfc; */
-  /* border: 1px solid #aaa; */
-  padding: 1.3rem;
-  position: fixed;
-  border-radius: 10px;
-  width: 400px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  box-shadow: 7px 7px 7px #bfbfbf;
-  max-width: calc(30% - 2rem); /* Adjusted for padding */
-  flex-basis: 300px; /* The summary won't shrink below 300px */
-}
-
-.summary-total-items {
-  color: #666;
-  font-size: 0.875rem;
-  text-align: left;
-  margin-bottom: 15px;
-}
-.bag {
-  color: #666;
-  font-size: 0.875rem;
-  text-align: left;
-}
-
-.summary-subtotal,
-.summary-total {
-  border-top: 1px solid #804444;
-  border-bottom: 1px solid #804444;
-  clear: both;
-  margin: 1rem 0;
-  overflow: hidden;
-  padding: 0.5rem 0;
-}
-
-.subtotal-title,
-.subtotal-value,
-.total-title,
-.total-value,
-.promo-title,
-.promo-value {
-  color: #111;
-  float: left;
-  width: 50%;
-}
-
-.summary-promo {
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-
-.promo-title {
-  float: left;
-  width: 70%;
-}
-
-.promo-value {
-  color: #8b0000;
-  float: left;
-  text-align: right;
-  width: 30%;
-}
-
-.summary-delivery {
-  padding-bottom: 3rem;
-}
-
-.subtotal-value,
-.total-value {
-  text-align: right;
-}
-
-.total-title {
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.summary-checkout {
-  display: block;
-}
-
-.checkout-cta {
-  display: block;
-  float: none;
-  font-size: 0.75rem;
-  text-align: center;
-  text-transform: uppercase;
-  padding: 0.625rem 0;
-  width: 100%;
-  cursor: pointer;
-}
-
-.summary-delivery-selection {
-  background-color: #ffffff;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  display: block;
-  font-size: 15px;
-  height: 34px;
-  width: 100%;
-}
-
-@media screen and (max-width: 640px) {
-  aside,
-  .basket,
-  .summary,
-  .item,
-  .remove {
-    width: 100%;
-  }
-  .basket-labels {
-    display: none;
-  }
-  .basket-module {
-    margin-bottom: 1rem;
-  }
-  .item {
-    margin-bottom: 1rem;
-  }
-  .product-image {
-    width: 40%;
-  }
-  .product-details {
-    width: 60%;
-  }
-  .price,
-  .subtotal {
-    width: 33%;
-  }
-  .quantity {
-    text-align: center;
-    width: 34%;
-  }
-  .quantity-field {
-    float: none;
-  }
-  .remove {
-    bottom: 0;
-    text-align: left;
-    margin-top: 0.75rem;
-    position: relative;
-  }
-  .remove button {
-    padding: 0;
-  }
-  .summary {
-    margin-top: 1.25rem;
-    position: relative;
-  }
-}
-
-@media screen and (min-width: 641px) and (max-width: 960px) {
-  aside {
-    padding: 0 1rem 0 0;
-  }
-  .summary {
-    width: 28%;
-  }
-}
-
-@media screen and (max-width: 960px) {
-  main {
-    max-width: 100%;
-  }
-  .product-details {
-    padding: 0 1rem;
-  }
-}
-
-  </style>
+  <link rel="stylesheet" href="/css/cart.css"/>
 </head>
 
 <body>
   <main>
     <div class="basket">
         <!-- voucher -->
-      <!-- <div class="basket-module">
-        <label for="promo-code">Enter a promotional code</label>
-        <input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
-        <button class="promo-code-cta">Apply</button>
-      </div> -->
+      
       <div class="bag"><strong style="font-size: 30px;">Cart</strong></div>
       <div class="basket-labels">
         <ul>
@@ -461,46 +43,56 @@ aside {
           <li class="subtotal">Subtotal</li>
         </ul>
       </div>
+      <form action="/cart_checkout" method="get">
+      <?php
+                $count = 1;
+                
+                foreach($arr as $ukmcart) { 
+
+                    // if($count == 4) {
+                    //     $count = 1;
+                    //     echo '</tr>';
+                    //     echo '<tr>';
+                    // }
+                    $cid=$ukmcart['cart_id'];
+                    $id=$ukmcart['customer_id'];
+                    $count++;
+            ?>
+      
       <div class="basket-product">
         <div class="item">
           <div class="product-image">
-            <img src="img/p001.png" alt="Placholder Image 2" class="product-frame" width="100%">
+            <img src="img/<?php echo $ukmcart['pic'] ?>" alt="Placholder Image 2" class="product-frame" width="100%">
           </div>
           <div class="product-details">
-            <h1><strong><!-- <span class="item-quantity">4</span> --> Eliza J Lace Sleeve Cuff Dress</strong></h1>
-            <p><strong>Navy, Size 18</strong></p>
-            <p>Product Code - 232321939</p>
+            <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo $ukmcart['product_Name'] ?></strong></h1>
+            <span value="<?php echo $ukmcart['product_size']?>"><p><strong><?php echo $ukmcart['product_size'] ?></strong></p></span>
+           
+            <span  value="<?php echo $ukmcart['origin_id'] ?>"><p>Product Origin - <?php echo $ukmcart['origin_id'] ?></p></span>
+
+             <input name="prodsize" value="<?php echo $ukmcart['product_size']?>">
+             <input name="orgid" value="<?php echo $ukmcart['origin_id'] ?>">
+
           </div>
         </div>
-        <div class="price">26.00</div>
-        <div class="quantity">
-          <input type="number" value="4" min="1" class="quantity-field">
-        </div>
-        <div class="subtotal">104.00</div>
+        <div class="price" data-price="<?php echo $ukmcart['fld_producy_price']; ?>"><?php echo $ukmcart['fld_producy_price']; ?></div>
+        <input name="price" value="<?php echo $ukmcart['fld_producy_price'] ?>">
+          <div class="quantity">
+            <input name="qty" type="number" value="<?php echo $ukmcart['quantity']; ?>" min="1" class="quantity-field" data-id="<?php echo $ukmcart['product_id']; ?>" onchange="updateSubtotal(this);">
+          </div>
+          <div class="subtotal" data-id="<?php echo $ukmcart['product_id']; ?>"><?php echo number_format($ukmcart['quantity'] * $ukmcart['fld_producy_price'], 2); ?></div>
+          <input type="hidden" name="cust_id" value="<?php echo $ukmcart['customer_id'] ?>">
+          <input type="hidden" name="subtotal" value="<?php echo number_format($ukmcart['quantity'] * $ukmcart['fld_producy_price'], 2); ?>">
+          <input type="hidden" name="cid" value="<?php echo $cid ?>">
         <div class="remove">
+          <a href='delete_cart_item?cart_id=<?=$cid;?>'>
           <button>Delete</button>
+          </a>
         </div>
       </div>
-      <div class="basket-product">
-        <div class="item">
-          <div class="product-image">
-            <img src="img/p002.png" alt="Placholder Image 2" class="product-frame" width="100%">
-          </div>
-          <div class="product-details">
-            <h1><strong><!-- <span class="item-quantity">1</span> --> Whistles</strong> Amella Lace Midi Dress</h1>
-            <p><strong>Navy, Size 10</strong></p>
-            <p>Product Code - 232321939</p>
-          </div>
-        </div>
-        <div class="price">26.00</div>
-        <div class="quantity">
-          <input type="number" value="1" min="1" class="quantity-field">
-        </div>
-        <div class="subtotal">26.00</div>
-        <div class="remove">
-          <button>Delete</button>
-        </div>
-      </div>
+      <?php 
+                }
+        ?>
     </div>
     <aside>
       <div class="summary">
@@ -508,36 +100,34 @@ aside {
         <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div>
         <div class="summary-subtotal">
           <div class="subtotal-title">Subtotal</div>
-          <div class="subtotal-value final-value" id="basket-subtotal">130.00</div>
-          <div class="subtotal-title">Shipping subtotal</div>
-          <div class="subtotal-value final-value">0.00</div>
+          <div class="subtotal-value final-value" name="subtotal" value="00" id="basket-subtotal">130.00</div>
+          
           <div class="summary-promo hide">
             <div class="promo-title">Promotion</div>
             <div class="promo-value final-value" id="basket-promo"></div>
           </div>
         </div>
-        <div class="summary-delivery">
-          <!-- <select name="delivery-collection" class="summary-delivery-selection">
-            <option value="0" selected="selected">Select Collection or Delivery</option>
-            <option value="collection">Collection</option>
-            <option value="first-class">Royal Mail 1st Class</option>
-            <option value="second-class">Royal Mail 2nd Class</option>
-            <option value="signed-for">Royal Mail Special Delivery</option>
-          </select> -->
-        </div>
+        
+        <div class="basket-module">
+        <label for="promo-code">Enter a promotional code</label>
+        <input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
+        <button class="promo-code-cta" style="margin-bottom:10px;">Apply</button>
+      
         <div class="summary-total">
           <div class="total-title">Total</div>
           <div class="total-value final-value" id="basket-total">130.00</div>
         </div>
         <div class="summary-checkout">
-            <a href="/checkout">
-          <button class="checkout-cta">Go to Secure Checkout</button>
+       
+          <button type=submit class="checkout-cta">Go to Secure Checkout</button>
           </a>
         </div>
       </div>
+      </form>
     </aside>
   </main>
 </body>
+<?php include 'footer.php' ?>
 </html>
 <script>
 /* Set values + misc */
@@ -589,6 +179,7 @@ function recalculateCart(onlyTotal) {
   });
   /* Calculate totals */
   var total = subtotal;
+  document.getElementById("basket-subtotal").value = total;
   //If there is a valid promoCode, and subtotal < 10 subtract from total
   var promoPrice = parseFloat(document.querySelector(".promo-value").textContent);
   if (promoPrice) {
@@ -651,6 +242,38 @@ function removeItem(removeButton) {
   productRow.style.display = "none";
   productRow.remove();
   recalculateCart();
+  updateSumItems();
+}
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".basket-product").forEach(function (product) {
+    updateSubtotal(product.querySelector(".quantity input"));
+  });
+  updateSumItems();
+});
+
+function updateSubtotal(quantityInput) {
+  var productRow = quantityInput.closest(".basket-product");
+  var price = parseFloat(productRow.querySelector(".price").dataset.price);
+  var quantity = parseInt(quantityInput.value);
+  var subtotalElement = productRow.querySelector(".subtotal");
+  var subtotal = (price * quantity).toFixed(2);
+  
+  subtotalElement.textContent = subtotal;
+  
+  recalculateCart(); // Recalculate the cart to update the total
+}
+
+/* Update quantity and subtotal */
+function updateQuantity(quantityInput) {
+  /* Update the quantity */
+  var productRow = quantityInput.parentNode.parentNode;
+  var quantity = quantityInput.value;
+  productRow.querySelector(".item-quantity").textContent = quantity;
+  
+  /* Update the subtotal */
+  updateSubtotal(quantityInput);
+
+  /* Update the sum of items */
   updateSumItems();
 }
 

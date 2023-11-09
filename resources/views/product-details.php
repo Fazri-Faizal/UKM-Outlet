@@ -205,10 +205,7 @@
               </div>
 
               <!-- Product Color -->
-              <div class="product-color">
-                <span>Color</span><br>
-                  <?php include 'button_color.php' ?>  
-              </div>
+              
 
               <!-- Product Size -->
               <div class="product-size">
