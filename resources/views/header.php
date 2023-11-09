@@ -130,7 +130,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <!-- The Modal -->
 
       <hr class="header2">
-      <script src="app.js"></script>
+      <!-- <script src="app.js"></script> -->
       <script>
          const menuBtn = document.querySelector(".menu-icon span");
          const searchBtn = document.querySelector(".search-icon");

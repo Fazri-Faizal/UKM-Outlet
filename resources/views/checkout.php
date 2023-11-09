@@ -1,704 +1,54 @@
-<?php include 'header.php' ?>
+<?php 
+
+include ('header.php');
+include ('database.php');
+ 
+ $mysqli = new mysqli($servername, $username, $password,$dbname);
+
+
+$stmt = $mysqli->prepare("SELECT * FROM tbl_cart LEFT JOIN tbl_products ON tbl_cart.product_id = tbl_products.product_Id 
+LEFT JOIN tbl_product_variation ON tbl_cart.product_id = tbl_product_variation.fld_product_id 
+WHERE tbl_cart.product_size = tbl_product_variation.fld_product_size");
+$stmt->execute();
+
+
+
+$arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+if(!$arr) exit('no rows');
+
+$stmt->close();
+
+$stmt2 = $mysqli->prepare("SELECT * FROM tbl_customer WHERE username = '$sessionname'");
+$stmt2->execute();
+
+$result = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
+ 
+foreach ($result as $row) {
+
+  $name = $row['username'];
+  $role = $row['role'];
+  $user_email = $row['user_email'];
+  $fullname = $row['Fullname'];
+  $shop_add = $row['shop_add'];
+
+}
+
+?>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/checkout.css"/>
   <title>Checkout</title>
-  <style>
-    @charset "utf-8";
-
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap);
-
-html,
-html a {
-  -webkit-font-smoothing: antialiased;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-}
-
-body {
-  background-color: #fff;
-  color: #666;
-  font-family: "Montserrat", sans-serif;
-  font-size: 62.5%;
-  margin: 0 auto;
-}
-
-a {
-  border: 0 none;
-  outline: 0;
-  text-decoration: none;
-}
-
-strong {
-  font-weight: bold;
-}
-
-p {
-  margin: 0.75rem 0 0;
-}
-
-h1 {
-  font-size: 16px;
-  font-weight: normal;
-  margin: 0;
-  padding: 0;
-}
-
-input,
-button {
-  border: 0 none;
-  outline: 0 none;
-}
-
-button {
-  background-color: #804444;
-  color: #fff;
-  border-radius:5px;
-}
-
-button:hover,
-button:focus {
-  background-color: #555;
-}
-
-
-.basket-module,
-.basket-labels,
-.basket-product {
-  width: 100%;
-}
-
-.delivery-type {
-    width: 50%;
-}
-
-input,
-button,
-.basket,
-.basket-module,
-.basket-labels,
-.item,
-.price,
-.quantity,
-.subtotal,
-.basket-product,
-.product-image,
-.product-details,
-.delivery-type {
-  float: left;
-}
-
-.price:before,
-.subtotal:before,
-.subtotal-value:before,
-.total-value:before,
-.promo-value:before {
-  content: "RM ";
-}
-
-.hide {
-  display: none;
-}
-
-main {
-  clear: both;
-  font-size: 16px;
-  margin: 0 auto;
-  overflow: hidden;
-  padding: 1rem 0;
-  width: 960px;
-  display: flex;
-  justify-content: space-between; /* This will space out the .basket and .summary */
-  flex-wrap: wrap; /* Allows them to wrap into a new line on smaller screens */
-}
-
-.basket,.summary {
-    flex: 1; /* This will make them grow to take up available space */
-    padding: 1rem; /* Added padding for spacing, adjust as necessary */
-    max-width: 100%;
-}
-
-.basket,
-aside {
-  padding: 0 2rem;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.basket {
-    max-width: 70%
-}
-
-
-
-.basket-module {
-  color: #111;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.3125rem;
-}
-
-.promo-code-field {
-  border: 1px solid #804444;
-  padding: 0.5rem;
-  text-transform: uppercase;
-  transition: all 0.2s linear;
-  width: 48%;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-
-.promo-code-field:hover,
-.promo-code-field:focus {
-  border: 1px solid #999;
-}
-
-.promo-code-cta {
-  border-radius: 4px;
-  font-size: 0.625rem;
-  margin-left: 0.625rem;
-  padding: 0.6875rem 1.25rem 0.625rem;
-}
-
-.basket-labels {
-  /* border-top: 1px solid #ffbebe;
-  border-bottom: 1px solid #ffbebe; */
-  margin-top: 1.625rem;
-  
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  color: #111;
-  display: inline-block;
-  padding: 0.625rem 0;
-}
-
-li.price:before,
-li.subtotal:before {
-  content: "";
-}
-
-.item {
-  width: 55%;
-}
-
-.price,
-.quantity,
-.subtotal {
-  width: 15%;
-}
-
-.subtotal {
-  text-align: right;
-}
-
-.update-address {
-padding: 30px;
-text-align: right;
-cursor: pointer;
-}
-
-.remove {
-  bottom: 1.125rem;
-  float: right;
-  position: absolute;
-  right: 0;
-  text-align: right;
-  width: 45%;
-
-}
-
-.remove button {
-  background-color: transparent;
-  color: #ff0000;
-  float: none;
-  /* text-decoration: underline; */
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.item-heading {
-  padding-left: 4.375rem;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.basket-product {
-    border: 1px solid #aaa;
-padding: 1.3rem;
-  position: fixed;
-  border-radius: 10px;
-  position: relative;
-  margin: 30px 10px 10px 10px
-}
-
-.delivery-type {
-border: 1px solid #aaa;
-padding: 1.3rem;
-  position: fixed;
-  border-radius: 10px;
-  position: relative;
-  margin: 30px 10px 10px 10px;
-  display: inline;
-  
-}
-
-
-.product-image {
-  width: 40%;
-}
-
-.product-details {
-  width: 60%;
-}
-.address-details {
-  width: 100%;
-}
-
-.product-frame {
-  border: 1px solid #f2f2f2;
-  border-radius: 10px;
-  
-}
-
-.product-details {
-  padding: 0 3rem;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.quantity-field {
-  background-color: #ffffff;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  font-size: 12px;
-  padding: 2px;
-  width: 3.75rem;
-  text-align: center;
-}
-
-aside {
-  float: right;
-  position: relative;
-  width: 10%;
-}
-
-.summary {
-  /* background-color: #fffcfc; */
-  /* border: 1px solid #aaa; */
-  padding: 1.3rem;
-  position: fixed;
-  border-radius: 10px;
-  width: 400px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  box-shadow: 7px 7px 7px #bfbfbf;
-  max-width: calc(30% - 2rem); /* Adjusted for padding */
-  flex-basis: 300px; /* The summary won't shrink below 300px */
-}
-
-.checkoutbox {
-  /* background-color: #fffcfc; */
-  /* border: 1px solid #aaa; */
-  padding: 1.3rem;
-  position: fixed;
-  border-radius: 10px;
-  width: 400px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  box-shadow: 7px 7px 7px #bfbfbf;
-  max-width: calc(30% - 2rem); /* Adjusted for padding */
-  flex-basis: 300px; /* The summary won't shrink below 300px */
-}
-
-.summary-total-items {
-  color: #666;
-  font-size: 0.875rem;
-  text-align: left;
-  margin-bottom: 15px;
-}
-.bag {
-  color: #666;
-  font-size: 0.875rem;
-  text-align: left;
-}
-
-.summary-subtotal,
-.summary-total {
-  border-top: 1px solid #804444;
-  border-bottom: 1px solid #804444;
-  clear: both;
-  margin: 1rem 0;
-  overflow: hidden;
-  padding: 0.5rem 0;
-}
-
-.subtotal-title,
-.subtotal-value,
-.total-title,
-.total-value,
-.promo-title,
-.promo-value {
-  color: #111;
-  float: left;
-  width: 50%;
-}
-
-.summary-promo {
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-
-.promo-title {
-  float: left;
-  width: 70%;
-}
-
-.promo-value {
-  color: #8b0000;
-  float: left;
-  text-align: right;
-  width: 30%;
-}
-
-.summary-delivery {
-  padding-bottom: 3rem;
-}
-
-.subtotal-value,
-.total-value {
-  text-align: right;
-}
-
-.total-title {
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.summary-checkout {
-  display: block;
-}
-
-.checkout-cta {
-  display: block;
-  float: none;
-  font-size: 0.75rem;
-  text-align: center;
-  text-transform: uppercase;
-  padding: 0.625rem 0;
-  width: 100%;
-  cursor: pointer;
-}
-
-.summary-delivery-selection {
-  background-color: #ffffff;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  display: block;
-  font-size: 15px;
-  height: 34px;
-  width: 100%;
-}
-
-@media screen and (max-width: 640px) {
-  aside,
-  .basket,
-  .summary,
-  .item,
-  .remove {
-    width: 100%;
-  }
-  .basket-labels {
-    display: none;
-  }
-  .basket-module {
-    margin-bottom: 1rem;
-  }
-  .item {
-    margin-bottom: 1rem;
-  }
-  .product-image {
-    width: 40%;
-  }
-  .product-details {
-    width: 60%;
-  }
-  .price,
-  .subtotal {
-    width: 33%;
-  }
-  .quantity {
-    text-align: center;
-    width: 34%;
-  }
-  .quantity-field {
-    float: none;
-  }
-  .remove {
-    bottom: 0;
-    text-align: left;
-    margin-top: 0.75rem;
-    position: relative;
-  }
-  .remove button {
-    padding: 0;
-  }
-  .summary {
-    margin-top: 1.25rem;
-    position: relative;
-  }
-  .delivery-select {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    flex-wrap: nowrap; /* Prevents wrapping of child elements */
-    gap: 20px; /* Optional: Adds space between the two boxes */
-}
-}
-
-@media screen and (min-width: 641px) and (max-width: 960px) {
-  aside {
-    padding: 0 1rem 0 0;
-  }
-  .summary {
-    width: 28%;
-  }
-}
-
-@media screen and (max-width: 960px) {
-  main {
-    max-width: 100%;
-  }
-  .product-details {
-    padding: 0 1rem;
-  }
-}
-.plans {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-
-  max-width: 970px;
-  /* padding: 85px 50px; */
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  background: #fff;
-  border-radius: 20px;
-  /* -webkit-box-shadow: 0px 8px 10px 0px #d8dfeb;
-  box-shadow: 0px 8px 10px 0px #d8dfeb; */
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  padding-top: 20px;
-}
-
-.plans .plan input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-}
-
-.plans .plan {
-  cursor: pointer;
-  width: 48.5%;
-}
-
-.plans .plan .plan-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 30px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 2px solid #e1e2e7;
-  border-radius: 10px;
-  -webkit-transition: -webkit-box-shadow 0.4s;
-  transition: -webkit-box-shadow 0.4s;
-  -o-transition: box-shadow 0.4s;
-  transition: box-shadow 0.4s;
-  transition: box-shadow 0.4s, -webkit-box-shadow 0.4s;
-  position: relative;
-}
-
-.plans .plan .plan-content img {
-  margin-right: 30px;
-  height: 72px;
-}
-
-.plans .plan .plan-details span {
-    margin-bottom: 10px;
-    display: block;
-    font-size: 20px;
-    line-height: 24px;
-    color: #252f42;
-    padding-top: 14px;
-    padding-left: 20px;
-}
-
-.container .title {
-  font-size: 20px;
-  font-weight: 500;
-  -ms-flex-preferred-size: 100%;
-  flex-basis: 100%;
-  color: #252f42;
-  margin-bottom: 20px;
-}
-
-/* .plans .plan .plan-details span {
-  color: #646a79;
-  font-size: 14px;
-  line-height: 18px;
-} */
-
-.plans .plan .plan-content:hover {
-  -webkit-box-shadow: 0px 3px 5px 0px #e8e8e8;
-  box-shadow: 0px 3px 5px 0px #e8e8e8;
-}
-
-.plans .plan input[type="radio"]:checked + .plan-content:after {
-  content: "";
-  position: absolute;
-  height: 8px;
-  width: 8px;
-  background: #216fe0;
-  right: 20px;
-  top: 20px;
-  border-radius: 100%;
-  border: 3px solid #fff;
-  -webkit-box-shadow: 0px 0px 0px 2px #0066ff;
-  box-shadow: 0px 0px 0px 2px #0066ff;
-}
-
-.plans .plan input[type="radio"]:checked + .plan-content {
-  border: 2px solid #216ee0;
-  background: #eaf1fe;
-  -webkit-transition: ease-in 0.3s;
-  -o-transition: ease-in 0.3s;
-  transition: ease-in 0.3s;
-}
-
-@media screen and (max-width: 991px) {
-  .plans {
-    margin: 0 20px;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-    padding: 40px;
-  }
-
-  .plans .plan {
-    width: 100%;
-  }
-
-  .plan.complete-plan {
-    margin-top: 20px;
-  }
-
-  .plans .plan .plan-content .plan-details {
-    width: 70%;
-    display: inline-block;
-    
-  }
-
-  .plans .plan input[type="radio"]:checked + .plan-content:after {
-    top: 45%;
-    -webkit-transform: translate(-50%);
-    -ms-transform: translate(-50%);
-    transform: translate(-50%);
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .plans .plan .plan-content .plan-details {
-    width: 60%;
-    display: inline-block;
-  }
-}
-
-@media screen and (max-width: 540px) {
-  .plans .plan .plan-content img {
-    margin-bottom: 20px;
-    height: 56px;
-    -webkit-transition: height 0.4s;
-    -o-transition: height 0.4s;
-    transition: height 0.4s;
-  }
-
-  .plans .plan input[type="radio"]:checked + .plan-content:after {
-    top: 20px;
-    right: 10px;
-  }
-
-  .plans .plan .plan-content .plan-details {
-    width: 100%;
-  }
-
-  .plans .plan .plan-content {
-    padding: 20px;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-align: baseline;
-    -ms-flex-align: baseline;
-    align-items: baseline;
-  }
-}
-
-/* inspiration */
-.inspiration {
-  font-size: 12px;
-  margin-top: 50px;
-  position: absolute;
-  bottom: 10px;
-  font-weight: 300;
-}
-
-.inspiration a {
-  color: #666;
-}
-@media screen and (max-width: 767px) {
-  /* inspiration */
-  .inspiration {
-    display: none;
-  }
-}
-
-  </style>
 </head>
 
 <body>
   <main>
-    <div class="basket" style="margin-top:20px;">
-            
-                <div class="bag"><strong style="font-size: 20px;">How would you like to get your item?</strong></div>
+    <div class="basket" style="margin-top:20px;">        
+      <div class="bag"><strong style="font-size: 20px;">How would you like to get your item?</strong></div>
                 <!-- <div class="delivery-select">
                     <div class="delivery-type">
                         <div class="item">
@@ -715,99 +65,222 @@ aside {
                         </div>
                     </div>
                 </div> -->
-
                 
-                <div class="container">
-                    <div class="plans"> 
-                        <label class="plan basic-plan" for="basic">
-                            <input checked type="radio" name="plan" id="basic" />
-                            <div class="plan-content">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-truck" viewBox="0 0 16 16">
-                                <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                                </svg>
-                                <div class="plan-details">
-                                    <span>Delivery</span>
-                                </div>
-                             </div>
-                        </label>
+        <div class="container">
+          <div class="plans"> 
+            <label class="plan basic-plan" for="basic">
+              <div>
+                <button class="plan-content-method" id="delivery" onclick="editDelivery()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-truck" viewBox="0 0 16 16">
+                    <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                  </svg>
+                  <div class="plan-details">
+                    <span>Delivery</span>    
+                  </div>
+                </button>
+              </div>             
+            </label>
 
-                        <label class="plan complete-plan" for="complete">
-                            <input type="radio" id="complete" name="plan" />
-                            <div class="plan-content">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
-                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                </svg>
-                                <div class="plan-details">
-                                    <span>Pick Up</span>    
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-                </div>   
-
-        <div class="basket-product">
-            <div class="item">
-            <div class="address-details">
-                <h1><strong><!-- <span class="item-quantity">4</span> --> Fazri Faizal</strong></h1>
-                <p>No. 34, Jalan 1/4, Laman Delfina, Nilai Impian, 71800, Nilai, Negeri Sembilan</p>
-                <p>01165240426 </p>
-            </div>
-            </div>
-            <!-- <div class="price">26.00</div>
-            <div class="quantity">
-            <input type="number" value="4" min="1" class="quantity-field">
-            </div> -->
-            <a href="/user-profile">
-                <div class="update-address">Change</div>
-            </a>
-        </div>
-        
-    </div>
-    <aside>
-      <div class="summary">
-        <div class="summary-total-items"><strong style="font-size: 30px;">Order Summary</strong></div>
-        <!-- <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div> -->
-        <div class="summary-subtotal">
-          <div class="subtotal-title">Subtotal</div>
-          <div class="subtotal-value final-value" id="basket-subtotal">130.00</div>
-          <div class="subtotal-title">Shipping subtotal</div>
-          <div class="subtotal-value final-value">0.00</div>
-          <div class="summary-promo hide">
-            <div class="promo-title">Promotion</div>
-            <div class="promo-value final-value" id="basket-promo"></div>
+            <label class="plan complete-plan" for="complete">
+              <div>
+                <button class="plan-content-method" id="pickup" onclick="editPickup()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                  </svg>
+                  <div class="plan-details">
+                    <span>Pick Up</span>    
+                  </div>
+                </button>
+              </div>
+            </label>
           </div>
-        </div>
-        <div class="summary-delivery">
-            <div class="product-image">
-                <img src="img/p001.png" alt="Placholder Image 2" class="product-frame" width="100%">
+        </div> 
+          
+        <!-- Delivery Detail-->
+        <div id="displayDelivery">
+          <div style="margin-top: 30px;"><h3>Delivery Information</h3></div>
+          <div class="basket-product">
+            <div class="item">
+              <div class="address-details">
+                <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo $fullname ?></strong></h1>
+                <p><?php echo $shop_add ?></p>
+                <p>01165240426 </p>
+              </div>
             </div>
-            <div class="product-details">
-                <h1><strong><!-- <span class="item-quantity">4</span> --> Eliza J Lace Sleeve Cuff Dress</strong></h1>
-                <p><strong>Navy, Size 18</strong></p>
-                <br>
-                Quantity : <span class="item-quantity">4</span>
-            </div>
-            <div>
-            <!-- <select name="delivery-collection" class="summary-delivery-selection">
-                <option value="0" selected="selected">Select Collection or Delivery</option>
-                <option value="collection">Collection</option>
-                <option value="first-class">Royal Mail 1st Class</option>
-                <option value="second-class">Royal Mail 2nd Class</option>
-                <option value="signed-for">Royal Mail Special Delivery</option>
-            </select> -->
-        </div>
-        <div class="summary-total">
-          <div class="total-title">Total</div>
-          <div class="total-value final-value" id="basket-total">130.00</div>
-        </div>
-        <div class="summary-checkout">
-            <a href="/checkout">
-          <button class="checkout-cta">Go to Secure Checkout</button>
-          </a>
+                <!-- <div class="price">26.00</div>
+                <div class="quantity">
+                <input type="number" value="4" min="1" class="quantity-field">
+                </div> -->
+            <a href="/user-profile"><div class="update-address">Change</div></a>
+          </div>  
+
+          <!-- <div>
+            <form>
+              <label for="promocode">Have a Promo Code ?</label>
+              <input type="text" id="promocode" name="promocode" placeholder="A068GG..">
+            </form>
+          </div> -->
+
+          <div class="payment">
+          <div style="margin-top: 30px;"><h3>How would you like to pay?</h3></div>
+            <button class="content-payment" id="payment-method" onclick="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
+                <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
+              </svg>
+              <div class="details-payment">
+                <span>eWallet</span>    
+              </div>
+            </button>
+
+            <button class="content-payment" id="payment-method" onclick="#">
+              <img src="/img/fpx.png" alt="Italian Trulli" style="width: 64px;">
+              <div class="details-payment">
+                <span>Online Payment</span>    
+              </div>
+            </button>
+
+            <button class="content-payment" id="payment-method" onclick="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"/>
+              </svg>
+              <div class="details-payment">
+                <span>Cash</span>    
+              </div>
+            </button>
         </div>
       </div>
-    </aside>
+
+        <!-- Pick Up Detail -->
+        <div id="displayPickup" style="display:none">
+        <div style="margin-top: 30px;"><h3>You can pick up your item at this location:</h3></div>
+          <div class="basket-pickup" id="display-pickup-kolej" >
+            <div class="pickup-content">
+              
+              <div class="item" style="margin-left: 20px;">
+                <div class="address-details">
+                  <h1><strong>KTHO</strong></h1>
+                  <p>Kolej Tun Hussein Onn</p>
+                  <p style="margin-top:1px">Bilik Kinabalu</p>
+                  <p>Syarif : 01165240426</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="payment">
+          <div style="margin-top: 30px;"><h3>How would you like to pay?</h3></div>
+            <button class="content-payment" id="payment-method" onclick="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
+                <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
+              </svg>
+              <div class="details-payment">
+                <span>eWallet</span>    
+              </div>
+            </button>
+
+            <button class="content-payment" id="payment-method" onclick="#">
+              <img src="/img/fpx.png" alt="Italian Trulli" style="width: 64px;">
+              <div class="details-payment">
+                <span>Online Payment</span>    
+              </div>
+            </button>
+
+            <button class="content-payment" id="payment-method" onclick="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"/>
+              </svg>
+              <div class="details-payment">
+                <span>Cash</span>    
+              </div>
+            </button>
+        </div>
+      </div>
+
+        </div>
+      </div> 
+
+        <!-- Payment Detail -->
+        <!-- <div id="displayPayment" class="basket-payment">
+          <div style="margin-top: 30px;margin-left: 20px;"><h3>Have a Promo Code ?</h3></div>
+              <div class="item">
+                <div class="address-details">
+                  <form>
+                    <label for="promocode">Have a Promo Code ?</label>
+                    <input type="text" id="promocode" name="promocode" placeholder="A068GG..">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <form>
+            <label for="promocode">Have a Promo Code ?</label>
+            <input type="text" id="promocode" name="promocode" placeholder="A068GG..">
+          </form> -->
+        <!-- </div> -->
+
+
+
+      <aside>
+        <div class="summary">
+          <div class="summary-total-items"><strong style="font-size: 30px;">Order Summary</strong></div>
+          <!-- <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div> -->
+            <div class="summary-subtotal">
+              <div class="subtotal-title">Subtotal</div>
+              <div class="subtotal-value final-value" id="basket-subtotal">130.00</div>
+              <div class="subtotal-title">Shipping subtotal</div>
+              <div class="subtotal-value final-value">0.00</div>
+              <div class="summary-promo hide">
+              <div class="promo-title">Promotion</div>
+              <div class="promo-value final-value" id="basket-promo"></div>
+            </div>
+        </div>
+        <?php
+                $count = 1;
+                
+                foreach($arr as $ukmcart) { 
+
+                    // if($count == 4) {
+                    //     $count = 1;
+                    //     echo '</tr>';
+                    //     echo '<tr>';
+                    // }
+                    $cid=$ukmcart['cart_id'];
+                    $id=$ukmcart['customer_id'];
+                    $count++;
+            ?>
+            <div class="summary-delivery">
+                <div class="product-details">
+                  <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo $ukmcart['product_Name'] ?></strong></h1>
+                  Quantity :  <strong><?php echo $ukmcart['quantity']; ?></strong>
+                  
+              </div>
+              <hr>
+              
+              <?php 
+                }
+        ?>
+            <div>
+              <!-- <select name="delivery-collection" class="summary-delivery-selection">
+                  <option value="0" selected="selected">Select Collection or Delivery</option>
+                  <option value="collection">Collection</option>
+                  <option value="first-class">Royal Mail 1st Class</option>
+                  <option value="second-class">Royal Mail 2nd Class</option>
+                  <option value="signed-for">Royal Mail Special Delivery</option>
+              </select> -->
+          </div>
+          <div class="summary-total">
+            <div class="total-title">Total</div>
+            <div class="total-value final-value" id="basket-total">130.00</div>
+          </div>
+          <div class="summary-checkout">
+              <!-- <a href="/checkout">
+            <button class="checkout-cta">Go to Secure Checkout</button>
+            </a> -->
+          </div>
+      </aside>
   </main>
 </body>
 </html>
@@ -926,4 +399,59 @@ function removeItem(removeButton) {
   updateSumItems();
 }
 
+$("select").on("click" , function() {
+  
+  $(this).parent(".select-box").toggleClass("open");
+  
+});
+
+$(document).mouseup(function (e)
+{
+    var container = $(".select-box");
+
+    if (container.has(e.target).length === 0)
+    {
+        container.removeClass("open");
+    }
+});
+
+
+$("select").on("change" , function() {
+  
+  var selection = $(this).find("option:selected").text(),
+      labelFor = $(this).attr("id"),
+      label = $("[for='" + labelFor + "']");
+    
+  label.find(".label-desc").html(selection);
+    
+});
+
+function editDelivery() {
+  if(document.getElementById("delivery").classList.contains("editDeliveryactive")) {
+
+    document.getElementById("displayPickup").style.display = "none";
+
+    document.getElementById("displayDelivery").style.display = "";
+    document.getElementById("displayPayment").style.display = "";
+
+  } else {
+    document.getElementById("delivery").classList.add('editDeliveryactive');
+    editDelivery();
+  }
+}
+
+function editPickup() {
+  if(document.getElementById("pickup").classList.contains("editPickupactive")) {
+
+    document.getElementById("displayPickup").style.display = "";
+
+    document.getElementById("displayDelivery").style.display = "none"; 
+    document.getElementById("displayPayment").style.display = "";
+
+    
+  } else {
+    document.getElementById("pickup").classList.add('editPickupactive');
+    editPickUp();
+  }
+}
 </script>

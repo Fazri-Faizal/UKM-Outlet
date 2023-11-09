@@ -204,3 +204,10 @@ Route::get('/button-delete-2', function () {
 Route::get('/button_edit', function () {
     return view('button_edit');
 });
+Route::get('/delete_cart_item', function () {
+    return view('delete_cart_item');
+});
+
+Route::get('/cart_checkout', function () {
+    return view('cart_checkout');
+});
