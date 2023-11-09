@@ -1,4 +1,4 @@
-document.querySelectorAll('.button').forEach(button => button.addEventListener('click', e => {
+document.querySelectorAll('.button').forEach(button => button.addEventListener('mouseover', e => {
     if(!button.classList.contains('loading')) {
 
         button.classList.add('loading');
