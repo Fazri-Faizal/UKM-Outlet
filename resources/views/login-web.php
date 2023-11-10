@@ -95,9 +95,12 @@ if (isset($_GET['login'])) {
         $name = $row['username'];
         $role = $row['role'];
         $user_email = $row['user_email'];
+        $fullname = $row['Fullname'];
+        
         $_SESSION['role'] = $role;
         $_SESSION['sessionname'] = $name;
         $_SESSION['user_email'] = $user_email;
+        $_SESSION['fullname'] = $fullname;
 
         echo "<script>
         
@@ -117,6 +120,7 @@ else{
     $_SESSION['sessionname'] ="";
     $_SESSION["role"]="";
     $_SESSION["user_email"]="";
+    $_SESSION['fullname'] ="";
 }
 $conn = null;
 

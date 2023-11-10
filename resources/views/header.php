@@ -1,8 +1,36 @@
-
-<?php
-
-?>
-<?php include_once 'session.php';
+<?php 
+  include_once 'session.php';
+  include 'database.php';
+    
+    $mysqli1 = new mysqli($servername, $username, $password, $dbname);
+    $mysqli2 = new mysqli($servername, $username, $password, $dbname);
+    try {
+      $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = '$sessionname'");
+      $stmt1->execute();
+      $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
+      if(count($handler) == 0) {
+        header("Location: \login-web");
+      }
+      
+      $custId = 0;
+      
+      foreach($handler as $cust) {
+        $custId = $cust['id'];
+      }
+      
+      $stmt2 = $mysqli2->prepare("SELECT COUNT(cart_id) AS Count FROM tbl_cart WHERE customer_id = '$custId'");
+      $stmt2->execute();
+      $holder = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
+    
+      foreach($holder as $num) {
+        $cartNum = $num['Count'];
+      }
+      $stmt1->close();
+      $stmt2->close();
+    
+    } catch(PDOException $e) {
+      echo "salahhhhhhhh";
+    }
 ?>       
    
 <!DOCTYPE html>
@@ -89,12 +117,18 @@ body {font-family: Arial, Helvetica, sans-serif;}
             <input type="text" name="ProductSearchBar" class="search-data" placeholder="Search UKM Product" required>
             <button type="submit" class="fas fa-search" ></button>
          </form> 
-         <div class="cart-icon">
-            <a href="/cart">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#804444" class="bi bi-cart" viewBox="0 0 16 16">
-            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </svg>
-            </a>
+         <div class="cart-icon" style="margin-right: 1px">
+            <a href="\cart">
+                <div class="icon">
+                  <?php if($cartNum == 0) { ?>
+                    <div class="itemsCount"></div>
+                    <i class="fas fa-shopping-cart cartIcon"></i>
+                  <?php } else { ?>
+                    <div class="itemsCount appear" style="display: block"><?php echo $cartNum ?></div>
+                    <i class="fas fa-shopping-cart cartIcon flicker"></i>
+                  <?php } ?>
+                </div>
+              </a>
         </div>
         <div class="chat-icon" >
             <a id="myBtn" >
@@ -111,11 +145,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
             </svg>
             </a>
         </div>
-    
-      
-   
-
-
+        <div class="user-icon" style="margin-left: 18px">
+            <a href="/destroy">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#804444" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+              <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+            </svg>
+            </a>
+        </div>
       </nav>
 <div id="myModal" class="modal">
 
@@ -130,7 +167,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <!-- The Modal -->
 
       <hr class="header2">
-      <script src="app.js"></script>
+      <!-- <script src="app.js"></script> -->
       <script>
          const menuBtn = document.querySelector(".menu-icon span");
          const searchBtn = document.querySelector(".search-icon");
@@ -158,34 +195,50 @@ body {font-family: Arial, Helvetica, sans-serif;}
          }
       </script>
            
-<script>
-// Get the modal
-var modal = document.getElementById("myModal");
+      <script>
+      // Get the modal
+      var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+      // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+      // When the user clicks the button, open the modal 
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-</script>
- 
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
 
+      // Test Cart
+      let itemsCountDiv = document.querySelector(".itemsCount");
+            let cartIcon = document.querySelector(".cartIcon");
+            // let itemsCount = 1;
+            let itemsCount = <?php $cartNum ?>;
+            function displayItemsCount() {
+              itemsCountDiv.style.display = "block";
+              itemsCountDiv.classList.add("appear");
+              cartIcon.classList.add("flicker");
+              itemsCountDiv.innerHTML = itemsCount;
+              setTimeout(() => {
+                itemsCountDiv.classList.remove("appear");
+                cartIcon.classList.remove("flicker");
+                }, 250);
+              
+              itemsCount++;
+            }
+      </script>
    </body>
 </html>

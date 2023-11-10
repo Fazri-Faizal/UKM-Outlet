@@ -13,9 +13,14 @@
 	$_SESSION["user_email"]="";
 	}
 
+	if(isset($_SESSION["fullname"])==FALSE){
+		$_SESSION["fullname"]="";
+		}
+
 	$sessionname=$_SESSION['sessionname'];
 	$role=$_SESSION['role'];
 	$user_email=$_SESSION['user_email'];
+	$fullname=$_SESSION['fullname'];
 
 
 		if( $sessionname == ""){

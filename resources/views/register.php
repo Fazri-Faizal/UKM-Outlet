@@ -12,8 +12,7 @@ if (isset($_GET['register'])) {
     $pass = $_GET['password'];
     $cpass = $_GET['confirmpass'];
     if($pass==$cpass){
-    $stmt = $conn->prepare("INSERT INTO 
-      tbl_customer(username,email,passwords) VALUES(:un,:email,:pass)");
+    $stmt = $conn->prepare("INSERT INTO tbl_customer(username,user_email,passwords) VALUES(:un,:email,:pass)");
    
     $stmt->bindParam(':un', $cid, PDO::PARAM_STR);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
