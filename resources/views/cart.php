@@ -2,13 +2,26 @@
 
 include ('header.php');
 include ('database.php');
+
+  $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = '$sessionname'");
+  $stmt1->execute();
+      $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
+      if(count($handler) == 0) {
+        header("Location: \login-web");
+      }
+      
+      $custId = 0;
+      
+      foreach($handler as $cust) {
+        $custId = $cust['id'];
+      }
  
  $mysqli = new mysqli($servername, $username, $password,$dbname);
 
 
 $stmt = $mysqli->prepare("SELECT * FROM tbl_cart LEFT JOIN tbl_products ON tbl_cart.product_id = tbl_products.product_Id 
 LEFT JOIN tbl_product_variation ON tbl_cart.product_id = tbl_product_variation.fld_product_id 
-WHERE tbl_cart.product_size = tbl_product_variation.fld_product_size");
+WHERE tbl_cart.product_size = tbl_product_variation.fld_product_size AND tbl_cart.customer_id = $custId");
 $stmt->execute();
 
 $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -76,7 +89,7 @@ $stmt->close();
           </div>
         </div>
         <div class="price" data-price="<?php echo $ukmcart['fld_producy_price']; ?>"><?php echo $ukmcart['fld_producy_price']; ?></div>
-        <input name="price" value="<?php echo $ukmcart['fld_producy_price'] ?>">
+        <input name="price" type="hidden" value="<?php echo $ukmcart['fld_producy_price'] ?>">
           <div class="quantity">
             <input name="qty" type="number" value="<?php echo $ukmcart['quantity']; ?>" min="1" class="quantity-field" data-id="<?php echo $ukmcart['product_id']; ?>" onchange="updateSubtotal(this);">
           </div>

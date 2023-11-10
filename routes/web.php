@@ -211,3 +211,7 @@ Route::get('/delete_cart_item', function () {
 Route::get('/cart_checkout', function () {
     return view('cart_checkout');
 });
+
+Route::get('/function_addtocart', function () {
+    return view('function_addtocart');
+});
