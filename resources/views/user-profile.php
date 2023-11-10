@@ -59,6 +59,15 @@
                                 </div>
                             </a>
                         </li>
+                        <li id="navlogout">
+                            <a class="text-decoration-none d-flex align-items-start" onclick="navlogout()">
+                                <div class="fas fa-shopping-bag pt-2 me-3"></div>
+                                <div class="d-flex flex-column">
+                                    <div class="link">Log Out</div>
+                                    <div class="link-desc">Exit Your Account</div>
+                                </div>
+                            </a>
+                        </li>
                         <!-- Not needed -->
                         <!-- <li>
                             <a href="#" class="text-decoration-none d-flex align-items-start">
@@ -453,6 +462,29 @@
                 } else if (role === 'customer') {
                     window.location.href = "seller_registration"; // Replace with your customer page URL
                 }
+        }
+    }
+
+    function navlogout() {
+        if(document.getElementById("navsellcenter").classList.contains("active")) {
+            document.getElementById("navprofile").classList.remove('active');
+            document.getElementById("navaddress").classList.remove('active');
+            document.getElementById("navorder").classList.remove('active');
+            
+            document.getElementById("id-profile").style.display = "none";
+            document.getElementById("id-address").style.display = "none";
+            document.getElementById("id-order").style.display = "none";
+            window.location.href="/destroy";
+        } else {
+            document.getElementById("navsellcenter").classList.add('active');
+            document.getElementById("navprofile").classList.remove('active');
+            document.getElementById("navaddress").classList.remove('active');
+            document.getElementById("navorder").classList.remove('active');
+            document.getElementById("navsellcenter").classList.remove('active');
+            document.getElementById("id-profile").style.display = "none";
+            document.getElementById("id-address").style.display = "none";
+            document.getElementById("id-order").style.display = "none";
+            window.location.href="/destroy";
         }
     }
 
