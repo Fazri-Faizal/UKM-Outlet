@@ -1,6 +1,6 @@
 const btn = document.querySelector(".place-order");
 
-btn.addEventListener("click", () => {
+btn.addEventListener("mouseover", () => {
   btn.classList.remove("place-order--default");
   btn.classList.add("place-order--placing");
   setTimeout(() => {

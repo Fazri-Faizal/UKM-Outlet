@@ -252,3 +252,59 @@ hr.header2 {
 svg :hover {
   fill: #e68d8d;
 }
+
+/*Test Cart*/
+.icon {
+  color: #804444;
+  margin-right: 4px;
+  padding: 18px;
+  position: relative;
+}
+
+i {
+  color: #804444;
+  font-size: 21px;
+}
+
+.itemsCount {
+  position: absolute;
+  background-color: #804444;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  display: none;
+  color: #fff;
+  /* padding: 2px; */
+  text-align: center;
+  font-size: 14px;
+}
+
+.appear {
+  animation: appear 250ms ease-in 1 forwards;
+}
+
+.flicker {
+  animation: appear 150ms ease-in 1 forwards;
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes flicker {
+  0% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
