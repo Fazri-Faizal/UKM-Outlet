@@ -4,11 +4,24 @@ include ('header.php');
 include ('database.php');
  
  $mysqli = new mysqli($servername, $username, $password,$dbname);
+ $mysqli1 = new mysqli($servername, $username, $password,$dbname);
 
+ $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = '$sessionname'");
+  $stmt1->execute();
+      $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
+      if(count($handler) == 0) {
+        header("Location: \login-web");
+      }
+      
+      $custId = 0;
+      
+      foreach($handler as $cust) {
+        $custId = $cust['id'];
+      }
 
 $stmt = $mysqli->prepare("SELECT * FROM tbl_cart LEFT JOIN tbl_products ON tbl_cart.product_id = tbl_products.product_Id 
 LEFT JOIN tbl_product_variation ON tbl_cart.product_id = tbl_product_variation.fld_product_id 
-WHERE tbl_cart.product_size = tbl_product_variation.fld_product_size");
+WHERE tbl_cart.product_size = tbl_product_variation.fld_product_size AND tbl_cart.customer_id = $custId");
 $stmt->execute();
 
 

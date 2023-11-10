@@ -301,7 +301,6 @@
                   <script>
                     function chooseSize(size) {
                       if(this.document.getElementById(size.id).classList.contains('selected') == true) {
-                        console.log('padam selected');
                       } else {
                         if(size.id == 'S'){
                           document.getElementById("addsize").innerHTML += '<input type="hidden" name="prodSize" value="S">';
@@ -311,7 +310,6 @@
                           document.getElementById("addsize").innerHTML += '<input type="hidden" name="prodSize" value="L">';
                         } else if(size.id == 'XL') {
                           document.getElementById("addsize").innerHTML += '<input type="hidden" name="prodSize" value="XL">';
-                          
                         }
                       }
                     }
@@ -347,6 +345,7 @@
                         if(a > 1){
                           a--;
                           a = (a < 10) ? "0" + a : a;
+                          num.innerText = a;
                           document.getElementById("quantHidden").value = a;
                         }
                       });
