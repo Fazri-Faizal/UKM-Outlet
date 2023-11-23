@@ -96,16 +96,20 @@ if (isset($_GET['login'])) {
         $role = $row['role'];
         $user_email = $row['user_email'];
         $fullname = $row['Fullname'];
+        $password = $row['passwords'];
+        $phone= $row['phone_number'];
         
         $_SESSION['role'] = $role;
         $_SESSION['sessionname'] = $name;
         $_SESSION['user_email'] = $user_email;
         $_SESSION['fullname'] = $fullname;
+        $_SESSION['passwords'] = $password;
+        $_SESSION['phone_number'] = $phone;
 
         echo "<script>
         
         window.onload = function() {
-            alert('WELCOME $name to UKM OUTLET'); window.location.href='/home'; 
+            alert('Welcome $name to UKM Outlet!'); window.location.href='/home'; 
         };
         </script>";
         // REDIRECT IF CORRECT

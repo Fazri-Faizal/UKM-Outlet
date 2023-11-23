@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
         <link rel="stylesheet" href="css/user-profile.css">
+        <title>User Profile</title>
     </head>
 
     <?php 
@@ -61,7 +62,7 @@
                         </li>
                         <li id="navlogout">
                             <a class="text-decoration-none d-flex align-items-start" onclick="navlogout()">
-                                <div class="fas fa-shopping-bag pt-2 me-3"></div>
+                                <div class="fas fa-arrow-right pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
                                     <div class="link">Log Out</div>
                                     <div class="link-desc">Exit Your Account</div>
@@ -87,7 +88,7 @@
                 <div id="main-content" class="bg-white border">
                     <div class="d-flex flex-column">
                         <div class="h5">Hello <?= ($_SESSION['sessionname'])?>,</div>
-                        <div>Logged in as: abcd1234@email.com</div>
+                        <div>Logged in as : <?= ($_SESSION['role'])?></div>
                         <button class="button-edit" id="buttonEdit" onclick="editProfile()">Change Profile Information
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -101,7 +102,7 @@
                     <div class="bg-white border" style="border-radius: 20px;margin-top: 20px;">
                         <div class="info-group">
                             <label>Username</label>
-                            <p id="displayname">Kazi Mahbub</p>
+                            <p id="displayname"><?= ($_SESSION['fullname'])?></p>
                             <!-- edit profile mode -->  
                             <p id="editname" style="display:none"><input type="text" name="login" value="" placeholder="Kazi Mahbub"></p>    
                         </div>
@@ -126,7 +127,7 @@
                             </span>
                             
                             <!-- edit profile mode -->
-                            <p id="editpassword" style="display:none"><input placeholder='Isazalyforever' type="text"></p>
+                            <p id="editpassword" style="display:none"><input placeholder='<?= ($_SESSION['passwords'])?>' type="text"></p>
 
                         </div>
 
@@ -151,16 +152,16 @@
 
                         <div class="info-group">
                             <label>Phone Number</label>
-                            <p id="displayphone">+90-123456789</p>
+                            <p id="displayphone"><?= ($_SESSION['phone_number'])?></p>
                             <!-- edit profile mode -->
-                            <p id="editphone" style="display:none"><input placeholder='+90-123456789' type="text"></p>
+                            <p id="editphone" style="display:none"><input placeholder='<?= ($_SESSION['phone_number'])?>' type="text"></p>
                         </div>
 
                         <div class="info-group">
                             <label>Email</label>
-                            <p id="displayemail">abcd1234@email.com</p>
+                            <p id="displayemail"><?= ($_SESSION['user_email'])?></p>
                             <!-- edit profile mode -->
-                            <p id="editemail" style="display:none"><input placeholder='abcd1234@email.com' type="text"></p>
+                            <p id="editemail" style="display:none"><input placeholder='<?= ($_SESSION['user_email'])?>' type="text"></p>
                         </div>
 
                         <div id="button-save" style="display:none">
@@ -457,10 +458,10 @@
             document.getElementById("id-order").style.display = "none";
 
             let role = "<?php echo $_SESSION['role']; ?>";
-                if (role === 'seller') {
-                    window.location.href = "seller_dashboard"; // Replace with your seller page URL
-                } else if (role === 'customer') {
-                    window.location.href = "seller_registration"; // Replace with your customer page URL
+                if (role === 'Seller') {
+                    window.location.href = "/seller_dashboard"; // Replace with your seller page URL
+                } else if (role === 'Customer') {
+                    window.location.href = "/seller_registration"; // Replace with your customer page URL
                 }
         }
     }
@@ -516,7 +517,7 @@
     }
 
     function showPassword() {
-        document.getElementById("displaypassword").innerHTML = "Isazalyforever";;
+        document.getElementById("displaypassword").innerHTML = '<?= ($_SESSION['passwords'])?>';
         
         document.getElementById("iconclosed").style.display = "none";
         document.getElementById("iconopen").style.display = "";
