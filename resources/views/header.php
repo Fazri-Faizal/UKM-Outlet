@@ -105,7 +105,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
             <li><a onclick="window.location.href='faculty-list-web'">Faculty</a></li>
             <li><a onclick="window.location.href='college-list-web'">College</a></li>
             <li><a onclick="window.location.href='product-list-ukm-web'">UKM</a></li>
-            
          </div>
          <div class="search-icon">
             <span class="fas fa-search"></span>
@@ -226,7 +225,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
       let itemsCountDiv = document.querySelector(".itemsCount");
             let cartIcon = document.querySelector(".cartIcon");
             // let itemsCount = 1;
-            let itemsCount = <?php $cartNum ?>;
+            
+            if(<?php echo $cartNum ?> != null)
+              itemsCount = <?php echo $cartNum ?>;
+            else
+              itemsCount = 0;
+
             function displayItemsCount() {
               itemsCountDiv.style.display = "block";
               itemsCountDiv.classList.add("appear");
