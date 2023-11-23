@@ -10,6 +10,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
 
     </style>
+    <title>UKM Outlet Seller Dashboard</title>
 </head>
 
 <!-- Banner -->
