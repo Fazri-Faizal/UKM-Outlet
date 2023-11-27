@@ -215,3 +215,7 @@ Route::get('/cart_checkout', function () {
 Route::get('/function_addtocart', function () {
     return view('function_addtocart');
 });
+
+Route::get('/crud_add_product', function () {
+    return view('crud_add_product');
+});
