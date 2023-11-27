@@ -1,3 +1,18 @@
+<?php
+    include ('database.php');
+    $mysqli = new mysqli($servername, $username, $password,$dbname);
+
+
+    $stmt = $mysqli->prepare("SELECT * FROM tbl_products");
+    $stmt->execute();
+    
+    $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    
+    if(!$arr) exit('no rows');
+    
+    $stmt->close();
+?>
+
 <head>
     <style>
         /* Webpixels CSS */
@@ -190,15 +205,49 @@ button:hover {
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Product Name</th>
-                                    <th scope="col">Listed Date</th>
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col">Stock</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col" style="text-align: center">Price</th>
+                                    <th scope="col" style="text-align: center">Product Type</th>
+                                    <th scope="col" style="text-align: center">Product Origin</th>
+                                    <th scope="col" style="text-align: center">Product Description</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <?php
+                                    foreach($arr as $productlist) {
+                                ?>
+                                    <tr>
+                                        <td>
+                                            <img alt="..." src="img/<?php echo $productlist['pic'] ?>" style="width: 80" alt="No picture">
+                                            &nbsp;&nbsp;
+                                            <a class="text-heading font-semibold" href="#">
+                                                <?php echo $productlist['product_Name'] ?>
+                                            </a>
+                                        </td>
+                                        <td style="text-align: center">
+                                            RM X.XX
+                                        </td>
+                                        <td style="text-align: center">
+                                            <?php echo $productlist['product_Type'] ?>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <?php echo $productlist['origin_id'] ?>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <?php echo $productlist['product_Description'] ?>
+                                        </td>
+                                        <td class="text-end" style="text-align: center">
+                                            <a href="#" class="btn btn-sm btn-neutral">View</a>
+                                            <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    }
+                                ?>
+
+                                <!-- <tr>
                                     <td>
                                         <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
                                         <a class="text-heading font-semibold" href="#">
@@ -321,7 +370,7 @@ button:hover {
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
