@@ -101,10 +101,17 @@
                     </div>
                     <div class="bg-white border" style="border-radius: 20px;margin-top: 20px;">
                         <div class="info-group">
-                            <label>Username</label>
+                            <label>Name</label>
                             <p id="displayname"><?= ($_SESSION['fullname'])?></p>
                             <!-- edit profile mode -->  
-                            <p id="editname" style="display:none"><input type="text" name="login" value="" placeholder="Kazi Mahbub"></p>    
+                            <p id="editname" style="display:none"><input type="text" name="login" value="" placeholder='<?= ($_SESSION['fullname'])?>'></p>    
+                        </div>
+
+                        <div class="info-group">
+                            <label>Username</label>
+                            <p id="displayusername"><?= ($_SESSION['sessionname'])?></p>
+                            <!-- edit profile mode -->  
+                            <p id="editusername" style="display:none"><input type="text" name="login" value="" placeholder='<?= ($_SESSION['sessionname'])?>'></p>    
                         </div>
 
                         <div class="info-group">
@@ -131,24 +138,26 @@
 
                         </div>
 
-                        <div class="info-group">
+                        <!-- <div class="info-group">
                             <label>Date Of Birth</label>
                             <p id="displaydob">20/01/2022</p>
-                            <!-- edit profile mode -->
+                            
+                            edit profile mode
                             <p id="editdob" style="display:none"><input placeholder='20/01/2022' type="text"></p>
                         </div>
 
                         <div class="info-group">
                             <label>Gender</label>
                             <p id="displaygender">Male</p>
-                            <!-- edit mode -->
+                            
+                            edit gender
                             <p id="editgender" style="display:none">
                                 <input type="radio" name="gender" id="male" checked>
                                 <label for="male">Male</label>
                                 <input type="radio" name="gender" id="female">
                                 <label for="female">Female</label>
                             </p>
-                        </div>
+                        </div>  -->
 
                         <div class="info-group">
                             <label>Phone Number</label>
@@ -493,6 +502,7 @@
         if(document.getElementById("buttonEdit").classList.contains("editactive")) {
 
             document.getElementById("displayname").style.display = "none";
+            document.getElementById("displayusername").style.display = "none";
             document.getElementById("displaypassword").style.display = "none";
             document.getElementById("displaydob").style.display = "none";
             document.getElementById("displaygender").style.display = "none";
@@ -502,6 +512,7 @@
             document.getElementById("spanpassword").style.display = "none";
 
             document.getElementById("editname").style.display = "";
+            document.getElementById("editusername").style.display = "";
             document.getElementById("editpassword").style.display = "";
             document.getElementById("editdob").style.display = "";
             document.getElementById("editgender").style.display = "";
