@@ -177,7 +177,7 @@ input[type="file"] {
                     <div class="card-header">
                     
                         <h2>Add New Product</h2>
-                        <form action="/submit-product" method="post">
+                        <form action="/crud_add_product" method="get">
                             <div class="form-group">
                                 <label for="productName">Product Name:</label>
                                 <input type="text" id="productName" name="productName" required>
@@ -243,7 +243,7 @@ input[type="file"] {
                                 </label>
                                 <input type="file" id="file-upload" multiple>
                             </div>
-                            <button type="submit">Add Product</button>
+                            <button type="submit" name="insertProduct">Add Product</button>
                         </form>
                     
                 </div>
