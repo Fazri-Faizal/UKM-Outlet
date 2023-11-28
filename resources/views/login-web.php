@@ -13,35 +13,97 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="form-wrapper sign-up">
-            <form action="/register" method="get">
-                <h2>Sign Up</h2>
-                <div class="input-group">
-                    <input type="text" name="username" required>
-                    <label for="">Username</label>
-                </div>
-                <div class="input-group">
-                    <input type="email" name="email" required>
-                    <label for="">Email</label>
-                </div>
-                <div class="input-group">
-                    <input type="password" name="password" required>
-                    <label for="">Password</label>
-                </div>
-                <div class="input-group">
-                    <input type="password" name="confirmpass"required>
-                    <label for="">Confirm Password</label>
-                </div>
-                <button type="submit" name="register" class="btn">Sign Up</button>
-                <div class="sign-link">
-                    <p>Already have an account? <a href="#" class="signIn-link">Sign In</a></p>
-                </div>
-            </form>
+<div class="wrapper"> 
+        <div class="form-wrapper sign-up" style="height: 759px;margin-top: -101px;"> 
+            <form action="/register" method="get"> 
+                <h2 class="signup">Sign Up</h2> 
+                <div class="input-group"> 
+                    <input type="text" name="username" required> 
+                    <label for="">Username</label> 
+                </div> 
+                <div class="input-group"> 
+                    <input type="email" name="email" required> 
+                    <label for="">Email</label> 
+                </div> 
+                <div class="input-group"> 
+                    <input type="password" name="password" required> 
+                    <label for="">Password</label> 
+                </div> 
+                <div class="input-group"> 
+                    <input type="password" name="confirmpass"required> 
+                    <label for="">Confirm Password</label> 
+                </div> 
+                <div class="question"> 
+                    <label>Verification question</label> 
+                </div> 
+                <div class="select-group" class="listbox"> 
+                    <select id="q1" name="verification1"  onchange="choise1()" class="selection"> 
+                        <option>Choose your question</option> 
+                        <option value="Place of birth">Place of birth</option> 
+                        <option value="Primary school">Primary school</option> 
+                        <option value="Mother's name">Mother's name</option> 
+                        <option value="Father's name">Father's name</option> 
+                        <option value="Pet's name">Pet's name</option> 
+                    </select> 
+                </div> 
+                <div class="input-group"> 
+                    <input id="choiseq1" placeholder="Choose Question" type="text" name="verifyanswer1"required> 
+                  
+                </div> 
+                <div class="select-group" class="listbox"> 
+                    <select id="q2" name="verification2"  onchange="choise2()" class="selection"> 
+                        <option>Choose your question</option> 
+                        <option value="Place of birth">Place of birth</option> 
+                        <option value="Primary school">Primary school</option> 
+                        <option value="Mother's name">Mother's name</option> 
+                        <option value="Father's name">Father's name</option> 
+                        <option value="Pet's name">Pet's name</option> 
+                    </select> 
+                </div> 
+
+                <div class="input-group"> 
+                    <input id="choiseq2" placeholder="Choose Question" type="text" name="verifyanswer2"required> 
+                  
+                </div> 
+                <!-- <div class="select-group" class="listbox"> 
+                    <select id="q3" name="verification3"  onchange="choise3()" class="selection"> 
+                        <option>Choose your question</option> 
+                        <option value="Place of birth">Place of birth</option> 
+                        <option value="Primary school">Primary school</option> 
+                        <option value="Mother's name">Mother's name</option> 
+                        <option value="Father's name">Father's name</option> 
+                        <option value="Pet's name">Pet's name</option> 
+                    </select> 
+                </div> 
+                <div class="input-group"> 
+                    <input id="choiseq3" value="Choose Quetion" type="text" name="verifyanswer3"required> 
+                  
+                </div>  -->
+                <button type="submit" name="register" class="btn">Sign Up</button> 
+                <div class="sign-link"> 
+                    <p>Already have an account? <a href="#" class="signIn-link">Sign In</a></p> 
+                </div> 
+                
+<script>
+function choise1() {
+  var x = document.getElementById("q1").value;
+  document.getElementById("choiseq1").placeholder = "What is your "+x+" ?";
+}
+function choise2() {
+  var x = document.getElementById("q2").value;
+  document.getElementById("choiseq2").placeholder = "What is your "+x+" ?";
+}
+function choise3() {
+  var x = document.getElementById("q3").value;
+  document.getElementById("choiseq3").value = "What is your "+x+" ?";
+}
+</script>
+            </form> 
         </div>
 
-        <div class="form-wrapper sign-in">
+        <div class="form-wrapper sign-in" style="height: 759px;margin-top: -101px;">
             <form action="" method="get">
+                <img src="/img/UKM OMELET LOGO 3.png" alt="UKM Outlet Logo" style="width:100%;height:100%;">
                 <h2>Login</h2>
                 <div class="input-group">
                     <input type="text" name="un" id="unm" required>
@@ -52,8 +114,12 @@
                     <label for="psswrd">Password</label>
                 </div>
                 <button type="submit" name="login" class="btn">Log in</button>
-                
+
+                <div class="forgot-pass">
+                    <a href="/forgot_pass">Forgot password?</a>
+                </div>
                 <div class="sign-link">
+                    
                     <p>Don't have an account? <a href="#" class="signUp-link">Sign Up</a></p>
                 </div>
                 </form>
@@ -74,7 +140,6 @@ if (isset($_GET['login'])) {
     
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $stmt = $conn->prepare("SELECT * from tbl_customer WHERE username='$testusername' AND passwords='$testpassword'");
-
         $stmt->execute();
         $result = $stmt->fetchAll();
  
@@ -93,23 +158,12 @@ if (isset($_GET['login'])) {
     foreach ($result as $row) {
 
         $name = $row['username'];
-        $role = $row['role'];
-        $user_email = $row['user_email'];
-        $fullname = $row['Fullname'];
-        $password = $row['passwords'];
-        $phone= $row['phone_number'];
-        
-        $_SESSION['role'] = $role;
         $_SESSION['sessionname'] = $name;
-        $_SESSION['user_email'] = $user_email;
-        $_SESSION['fullname'] = $fullname;
-        $_SESSION['passwords'] = $password;
-        $_SESSION['phone_number'] = $phone;
 
         echo "<script>
         
         window.onload = function() {
-            alert('Welcome $name to UKM Outlet!'); window.location.href='/home'; 
+            alert('WELCOME $name to UKM OUTLET'); window.location.href='/home'; 
         };
         </script>";
         // REDIRECT IF CORRECT
@@ -117,18 +171,17 @@ if (isset($_GET['login'])) {
 }
 }
 catch(PDOException $e) {
-    echo "Incorrect username/password";
+    echo "salahhhhhhhh";
 }
 }
 else{
     $_SESSION['sessionname'] ="";
-    $_SESSION["role"]="";
-    $_SESSION["user_email"]="";
-    $_SESSION['fullname'] ="";
 }
 $conn = null;
 
 ?>
+
+
 </body>
 
 </html>
