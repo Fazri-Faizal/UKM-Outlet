@@ -224,6 +224,7 @@
                 <div class="product-description">
                   <span>Jersey</span>
                   <h1><?php echo $productname ?></h1>
+                  <input type="hidden" name="prodName" value="<?php echo $productname; ?>">
                   <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
                   <!-- Product Pricing -->
                   <div class="product-price">
@@ -375,7 +376,7 @@
                   <head>
                     <link rel="stylesheet" href="/css/button_place_order.scss.css" />
                   </head>
-                  <button class="place-order place-order--default">
+                  <button class="place-order place-order--default" name="placeOrder">
                       <div class="default text">Place Order</div>
                       <div class="forklift">
                           <div class="upper"></div>
