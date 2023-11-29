@@ -33,7 +33,7 @@
 <body>
 <title>Home Page</title>
 
-<div class="bg-top">
+<div class="bg-top" style="margin-top: 0px">
     <img src="/img/LOGO-MOBILE.png" class="img">
 </div>
 
