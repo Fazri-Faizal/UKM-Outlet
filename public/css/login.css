@@ -252,3 +252,13 @@ h2 {
 .sign-link p a:hover {
     text-decoration: underline;
 }
+
+.forgot-link {
+    color: #e91e63; 
+    text-decoration: none; 
+    font-weight: 600;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}

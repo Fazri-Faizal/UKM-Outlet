@@ -47,7 +47,7 @@
                     </select> 
                 </div> 
                 <div class="input-group"> 
-                    <input id="choiseq1" placeholder="Choose Question" type="text" name="verifyanswer1"required> 
+                    <input id="choiseq1" placeholder="Write your answer" type="text" name="verifyanswer1"required> 
                   
                 </div> 
                 <div class="select-group" class="listbox"> 
@@ -62,7 +62,7 @@
                 </div> 
 
                 <div class="input-group"> 
-                    <input id="choiseq2" placeholder="Choose Question" type="text" name="verifyanswer2"required> 
+                    <input id="choiseq2" placeholder="Write your answer" type="text" name="verifyanswer2"required> 
                   
                 </div> 
                 <!-- <div class="select-group" class="listbox"> 
@@ -103,20 +103,20 @@ function choise3() {
 
         <div class="form-wrapper sign-in" style="height: 759px;margin-top: -101px;">
             <form action="" method="get">
-                <img src="/img/UKM OMELET LOGO 3.png" alt="UKM Outlet Logo" style="width:100%;height:100%;">
+                <img src="/img/UKM OMELET LOGO 4.png" alt="UKM Outlet Logo" style="width:100%; height:100%; margin-top: -50px;">
                 <h2>Login</h2>
-                <div class="input-group">
+                <div class="input-group" style="width: 100%">
                     <input type="text" name="un" id="unm" required>
                     <label for="unm">Username</label>
                 </div>
-                <div class="input-group">
+                <div class="input-group" style="width: 100%">
                     <input type="password" name="pss" id="psswrd" required>
                     <label for="psswrd">Password</label>
                 </div>
                 <button type="submit" name="login" class="btn">Log in</button>
 
-                <div class="forgot-pass">
-                    <a href="/forgot_pass">Forgot password?</a>
+                <div class="forgot-pass" style="margin-top: 10px">
+                    <a href="/forgot_pass" class="forgot-link">Forgot password?</a>
                 </div>
                 <div class="sign-link">
                     
@@ -158,7 +158,18 @@ if (isset($_GET['login'])) {
     foreach ($result as $row) {
 
         $name = $row['username'];
+        $role = $row['role'];
+        $user_email = $row['user_email'];
+        $fullname = $row['Fullname'];
+        $password = $row['passwords'];
+        $phone= $row['phone_number'];
+
+        $_SESSION['role'] = $role;
         $_SESSION['sessionname'] = $name;
+        $_SESSION['user_email'] = $user_email;
+        $_SESSION['fullname'] = $fullname;
+        $_SESSION['passwords'] = $password;
+        $_SESSION['phone_number'] = $phone;
 
         echo "<script>
         
