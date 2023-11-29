@@ -1,92 +1,153 @@
 <head>
+    <title>UKM Outlet Seller Products</title>
     <style>
         
-@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+        @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
 
-/* Bootstrap Icons */
-@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+        /* Bootstrap Icons */
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
 
-.form-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
-}
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-.form-group {
-    margin-bottom: 15px;
-}
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-}
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
 
-input[type="text"], 
-input[type="number"], 
-textarea, 
-input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+        input[type="text"], 
+        input[type="number"], 
+        textarea, 
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
 
-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #804444;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #804444;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-button:hover {
-    background-color: #ab8262;
-}
-.upload-container {
-    position: relative;
-}
+        button:hover {
+            background-color: #ab8262;
+        }
+        .upload-container {
+            position: relative;
+        }
 
-.upload-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 150px;
-    height: 80px;
-    padding: 10px;
-    background-color: #fff;
-    border: 2px dashed #ff7d7d;
-    border-radius: 8px;
-    color: #ff7d7d;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        .upload-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 150px;
+            height: 80px;
+            padding: 10px;
+            background-color: #fff;
+            border: 2px dashed #ff7d7d;
+            border-radius: 8px;
+            color: #ff7d7d;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-.upload-box:hover {
-    background-color: #f2f2f2;
-}
+        .upload-box:hover {
+            background-color: #f2f2f2;
+        }
 
-.icon {
-    font-size: 24px;
-}
+        .icon {
+            font-size: 24px;
+        }
 
-.counter {
-    font-weight: bold;
-}
+        .counter {
+            font-weight: bold;
+        }
 
-input[type="file"] {
-    display: none;
-}
+        input[type="file"] {
+            display: none;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #804444;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #804444;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -182,6 +243,43 @@ input[type="file"] {
                                 <label for="productName">Product Name:</label>
                                 <input type="text" id="productName" name="productName" required>
                             </div>
+
+                            <div class="form-group" style="display: inline-flex">
+                                Product Variation 
+                                &nbsp;	&nbsp;
+                                <label class="switch">
+                                    <input type="checkbox" id="prodVariation" onclick="variationHide()">
+                                <span class="slider round"></span>
+                            </label>
+                            </div>
+
+                            <div class="form-group" id="variationdiv" style="display: none">
+                                <button id="createFieldButton">Create New Field</button>
+                                <div id="fieldContainer"></div>
+                            </div>
+
+                            <script>
+                                document.getElementById('createFieldButton').addEventListener('click', function() {
+                                    // Create a new input element
+                                    var newField = document.createElement('input');
+                                    newField.type = 'text';
+                                    newField.name = 'newField';
+                                    newField.placeholder = 'New Field';
+
+                                    // Append the new input element to the container
+                                    document.getElementById('fieldContainer').appendChild(newField);
+                                });
+                            </script>
+
+                            <script>
+                                function variationHide() {
+                                    if(document.getElementById("prodVariation").checked == true)
+                                        document.getElementById("variationdiv").style.display = "";
+                                    else
+                                        document.getElementById("variationdiv").style.display = "none";
+                                }
+                            </script>
+
                             <div class="form-group">
                                 <label for="productPrice">Product Price:</label>
                                 <input type="number" step="0.01" id="productPrice" name="productPrice" required>
