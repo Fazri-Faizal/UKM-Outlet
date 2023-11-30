@@ -28,6 +28,12 @@
   cursor: pointer;
 }
 
+.discussions .discussion :hover 
+.discussions .discussion :focus{
+  background-color: #684444;
+  cursor: pointer;
+}
+
 .discussions .search {
   display:flex;
   align-items: center;
