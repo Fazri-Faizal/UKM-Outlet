@@ -1,3 +1,14 @@
+<?php
+    include ('database.php');
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $conn->prepare("SELECT * from tbl_order WHERE seller_id='2'");
+
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+?>
+
 <head>
     <style>
         /* Webpixels CSS */
@@ -137,21 +148,24 @@ button:hover {
         <main class="py-6 bg-surface-secondary">
             <div class="container-fluid">
                 <!-- Card stats -->
+                <form action="" method="get">   
                 <div class="row g-6 mb-6">
                     <div class="col-xl-12 col-sm-6 col-12">
                         <div class="card shadow border-0">
                             <div class="card-body">
-                                <div class="form-group">
+                                <div class="form-group">                                       
                                     <label>Order ID</label>
-                                    <input type="text" placeholder="Please input order ID">
-                                </div>
-                                <div class="button-group">
-                                    <button>Search</button>
-                                    <button type="reset">Reset</button>
+                                    <input type="text" name="inputId" placeholder="Please input order ID">
+                                
+                                    <div class="button-group">
+                                        <button type="submit" name="searchorder">Search</button>
+                                            <!-- <button type="reset">Reset</button> -->
+                                    </div>                                  
                                 </div>
                             </div>
                         </div>
                     </div>
+                </form>
                 
                 <div class="card shadow border-0 mb-7">
                     <div class="card-header">
@@ -161,139 +175,166 @@ button:hover {
                         <table class="table table-hover table-nowrap">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Order Date</th>
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col" style="text-align: center">Name</th>
+                                    <th scope="col" style="text-align: center">Order Date</th>
+                                    <th scope="col" style="text-align: center">Product Name</th>
+                                    <th scope="col" style="text-align: center">Quantity</th>
+                                    <th scope="col" style="text-align: center">Total Price</th>
+                                    <th scope="col" style="text-align: center">Status</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Syarif
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Oct 21, 2023
-                                    </td>
-                                    <td>
-                                        <img alt="..." src="img/p001.png" class="avatar avatar-xs rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Baju KIY
-                                        </a>
-                                    </td>
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-success"></i>Processed
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1610271340738-726e199f0258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Alia Syahira
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Apr 15, 2021
-                                    </td>
-                                    <td>
-                                        <img alt="..." src="img/p002.png" class="avatar avatar-xs rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Baju KBH
-                                        </a>
-                                    </td>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-warning"></i>To Process
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1610878722345-79c5eaf6a48c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Zaihasra
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Mar 20, 2021
-                                    </td>
-                                    <td>
-                                        <img alt="..." src="img/p003.png" class="avatar avatar-xs rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Baju VIC
-                                        </a>
-                                    </td>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-success"></i>Processed
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1612422656768-d5e4ec31fac0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Abu Hasnah
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Feb 15, 2021
-                                    </td>
-                                    <td>
-                                        <img alt="..." src="img/p004.png" class="avatar avatar-xs rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Lanyard FPI
-                                        </a>
-                                    </td>
-                                    <td>
-                                        20
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-dark"></i>Cancelled
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php
+
+                                    if(isset($_GET['searchorder']))
+                                    {
+
+                                        $Id = $_GET['inputId'];
+                                        if($Id==""){
+                                            $stmt4 = $conn->prepare("SELECT * from tbl_order WHERE seller_id='2'");
+
+                                        }
+                                        else{
+                                       
+                                        $stmt4 = $conn->prepare("SELECT * from tbl_order WHERE order_Id = '$Id'");
+                                        }
+                                        $stmt4->execute();
+                                        $result4 = $stmt4->fetchAll();
+                                        foreach ($result4 as $row) {
+
+                                            $orderId = $row['order_id'];
+                                            $sellerId = $row['seller_id'];
+                                            $orderdate = $row['order_date'];
+                                            $totalprice = $row['total_price'];
+                                            $orderstatus = $row['prod_status'];
+                                            $quantity= $row['prod_qty'];
+                                            $customerId= $row['customer_id'];  
+                                            $productId= $row['product_id']; 
+                                            
+                                            $stmt2 = $conn->prepare("SELECT * from tbl_customer WHERE id = '$customerId' ");
+    
+                                            $stmt2->execute();
+                                            $result2 = $stmt2->fetchAll();
+    
+                                            foreach ($result2 as $row2)
+                                            {
+                                                $fullname = $row2['Fullname'];
+                                            }
+    
+                                            $stmt3 = $conn->prepare("SELECT * from tbl_products WHERE product_id = '$productId' ");
+    
+                                            $stmt3->execute();
+                                            $result3 = $stmt3->fetchAll();
+    
+                                            foreach ($result3 as $row3)
+                                            {
+                                                $productname = $row3['product_Name'];
+                                                $picture = $row3['pic'];
+                                            }
+                                                                               
+                                ?>
+                                        <tr>
+                                            <td style="text-align: center">
+                                                <?php echo $fullname ?>
+                                            </td>                                   
+                                            <td style="text-align: center">
+                                                <?php echo $orderdate ?>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <img alt="..." src="img/<?php echo $picture ?>" style="width: 80" alt="No picture">
+                                                 &nbsp;&nbsp;
+                                                <?php echo $productname ?> 
+                                            </td>
+                                            <td style="text-align: center">
+                                                <?php echo $quantity ?>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <?php echo $totalprice ?>                                                    
+                                            </td>
+                                            <td style="text-align: center">
+                                                <span class="badge badge-lg badge-dot">
+                                                    <i class="bg-success"></i>
+                                                    <?php echo $orderstatus ?>   
+                                                </span>
+                                            </td>
+                                            <td class="text-end">
+                                                <a href="#" class="btn btn-sm btn-neutral">View</a>
+                                                <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php } } 
+                                        
+                                    
+                                    else
+                                    {
+                                        foreach ($result as $row) {
+
+                                            $orderId = $row['order_id'];
+                                            $sellerId = $row['seller_id'];
+                                            $orderdate = $row['order_date'];
+                                            $totalprice = $row['total_price'];
+                                            $orderstatus = $row['prod_status'];
+                                            $quantity= $row['prod_qty'];
+                                            $customerId= $row['customer_id'];  
+                                            $productId= $row['product_id']; 
+                                            
+                                            $stmt2 = $conn->prepare("SELECT * from tbl_customer WHERE id = '$customerId' ");
+    
+                                            $stmt2->execute();
+                                            $result2 = $stmt2->fetchAll();
+    
+                                            foreach ($result2 as $row2)
+                                            {
+                                                $fullname = $row2['Fullname'];
+                                            }
+    
+                                            $stmt3 = $conn->prepare("SELECT * from tbl_products WHERE product_id = '$productId' ");
+    
+                                            $stmt3->execute();
+                                            $result3 = $stmt3->fetchAll();
+    
+                                            foreach ($result3 as $row3)
+                                            {
+                                                $productname = $row3['product_Name'];
+                                                $picture = $row3['pic'];
+                                            }
+                                                                               
+                                ?>
+                                        <tr>
+                                            <td style="text-align: center">
+                                                <?php echo $fullname ?>
+                                            </td>                                   
+                                            <td style="text-align: center">
+                                                <?php echo $orderdate ?>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <img alt="..." src="img/<?php echo $picture ?>" style="width: 80" alt="No picture">
+                                                 &nbsp;&nbsp;
+                                                <?php echo $productname ?> 
+                                            </td>
+                                            <td style="text-align: center">
+                                                <?php echo $quantity ?>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <?php echo $totalprice ?>                                                    
+                                            </td>
+                                            <td style="text-align: center">
+                                                <span class="badge badge-lg badge-dot">
+                                                    <i class="bg-success"></i>
+                                                    <?php echo $orderstatus ?>   
+                                                </span>
+                                            </td>
+                                            <td class="text-end">
+                                                <a href="#" class="btn btn-sm btn-neutral">View</a>
+                                                <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php } } ?>                                  
                             </tbody>
                         </table>
                     </div>
