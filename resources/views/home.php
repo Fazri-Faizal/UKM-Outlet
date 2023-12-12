@@ -50,7 +50,7 @@
 </div> -->
 
 
-<nav style="text-align: center; display: inline-block; background-color:#ffffff; margin-left: 25%; margin-top: 2%;" >
+<nav style="text-align: center; display: inline-block; background-color:#ffffff; margin-left: 19%; margin-top: 2%;" >
     <ul>
         <form action="/product-list-ukm-filter" method="get" style="border:none; filter:none">
             <button name="prodtype" value="Jersey" style="cursor:pointer;"><li>Jersey<span></span><span></span><span></span><span></span></li></button>
@@ -58,6 +58,7 @@
             <button name="prodtype" value="Tote Bag" style="cursor:pointer;"><li>Tote Bag<span></span><span></span><span></span><span></span></li></button>
             <button name="prodtype" value="Hoodie" style="cursor:pointer;"><li>Hoodie<span></span><span></span><span></span><span></span></li></button>
             <button name="prodtype" value="Cap" style="cursor:pointer;"><li>Cap<span></span><span></span><span></span><span></span></li></button>
+            <button name="prodtype" value="" style="cursor:pointer;"><li>Others<span></span><span></span><span></span><span></span></li></button>
         </form>
     </ul>
 </nav>
