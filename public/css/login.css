@@ -14,10 +14,14 @@ body {
     min-height: 100vh; 
     background: linear-gradient(#2196f3, #e91e63); 
     overflow: hidden; 
-    background-image:url("/img/cart-v2-bg.gif"); 
+    background-image:url("/img/login11.jpg"); 
     background-attachment: fixed; 
     background-position: center center; 
-    /* margin-right: 400px; */ 
+    margin-right: 1354px; 
+    /* margin-right: 100px;  */
+    margin-top: -34px;
+    background-repeat: no-repeat;
+    background-size: cover;
 } 
  
 .wrapper { 
@@ -71,8 +75,8 @@ body {
 } 
  
 .form-wrapper { 
-    height: 600px; 
-    /* width: 800px; */ 
+    height: 580px; 
+    width: 757px; 
 } 
  
 .wrapper .form-wrapper.sign-up { 
@@ -199,7 +203,7 @@ h2 {
     font-weight: 500; 
     color: #555; 
     font-size: 15px; 
-    margin-top: -10px; 
+    margin-top: 9px; 
 } 
  
 .selection { 
@@ -262,3 +266,13 @@ h2 {
 .forgot-link:hover {
     text-decoration: underline;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 24px;
+    /* background-color: #2196F3; */
+    /* padding: 24px; */
+    position: space-between;
+    margin-top: 60px;
+  }
