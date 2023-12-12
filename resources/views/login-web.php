@@ -14,75 +14,83 @@
 
 <body>
 <div class="wrapper"> 
-        <div class="form-wrapper sign-up" style="height: 759px;margin-top: -101px;"> 
+        <div class="form-wrapper sign-up"> 
             <form action="/register" method="get"> 
                 <h2 class="signup">Sign Up</h2> 
-                <div class="input-group"> 
-                    <input type="text" name="username" required> 
-                    <label for="">Username</label> 
-                </div> 
-                <div class="input-group"> 
-                    <input type="email" name="email" required> 
-                    <label for="">Email</label> 
-                </div> 
-                <div class="input-group"> 
-                    <input type="password" name="password" required> 
-                    <label for="">Password</label> 
-                </div> 
-                <div class="input-group"> 
-                    <input type="password" name="confirmpass"required> 
-                    <label for="">Confirm Password</label> 
-                </div> 
-                <div class="question"> 
-                    <label>Verification question</label> 
-                </div> 
-                <div class="select-group" class="listbox"> 
-                    <select id="q1" name="verification1"  onchange="choise1()" class="selection"> 
-                        <option>Choose your question</option> 
-                        <option value="Place of birth">Place of birth</option> 
-                        <option value="Primary school">Primary school</option> 
-                        <option value="Mother's name">Mother's name</option> 
-                        <option value="Father's name">Father's name</option> 
-                        <option value="Pet's name">Pet's name</option> 
-                    </select> 
-                </div> 
-                <div class="input-group"> 
-                    <input id="choiseq1" placeholder="Write your answer" type="text" name="verifyanswer1"required> 
-                  
-                </div> 
-                <div class="select-group" class="listbox"> 
-                    <select id="q2" name="verification2"  onchange="choise2()" class="selection"> 
-                        <option>Choose your question</option> 
-                        <option value="Place of birth">Place of birth</option> 
-                        <option value="Primary school">Primary school</option> 
-                        <option value="Mother's name">Mother's name</option> 
-                        <option value="Father's name">Father's name</option> 
-                        <option value="Pet's name">Pet's name</option> 
-                    </select> 
-                </div> 
+                <div class="grid-container">
+                    <div>
+                        <div class="input-group"> 
+                            <input type="text" name="username" required> 
+                            <label for="">Username</label> 
+                        </div> 
+                        <div class="input-group"> 
+                            <input type="email" name="email" required> 
+                            <label for="">Email</label> 
+                        </div> 
+                        <div class="input-group"> 
+                            <input type="password" name="password" required> 
+                            <label for="">Password</label> 
+                        </div> 
+                        <div class="input-group"> 
+                            <input type="password" name="confirmpass"required> 
+                            <label for="">Confirm Password</label> 
+                        </div> 
+                    </div>
+                
+                    <div class="question"> 
+                        <label>Verification question</label> 
 
-                <div class="input-group"> 
-                    <input id="choiseq2" placeholder="Write your answer" type="text" name="verifyanswer2"required> 
-                  
-                </div> 
-                <!-- <div class="select-group" class="listbox"> 
-                    <select id="q3" name="verification3"  onchange="choise3()" class="selection"> 
-                        <option>Choose your question</option> 
-                        <option value="Place of birth">Place of birth</option> 
-                        <option value="Primary school">Primary school</option> 
-                        <option value="Mother's name">Mother's name</option> 
-                        <option value="Father's name">Father's name</option> 
-                        <option value="Pet's name">Pet's name</option> 
-                    </select> 
-                </div> 
-                <div class="input-group"> 
-                    <input id="choiseq3" value="Choose Quetion" type="text" name="verifyanswer3"required> 
-                  
-                </div>  -->
-                <button type="submit" name="register" class="btn">Sign Up</button> 
-                <div class="sign-link"> 
-                    <p>Already have an account? <a href="#" class="signIn-link">Sign In</a></p> 
-                </div> 
+                        <div class="select-group" class="listbox"> 
+                        <select id="q1" name="verification1"  onchange="choise1()" class="selection"> 
+                            <option>Choose your question</option> 
+                            <option value="Place of birth">Place of birth</option> 
+                            <option value="Primary school">Primary school</option> 
+                            <option value="Mother's name">Mother's name</option> 
+                            <option value="Father's name">Father's name</option> 
+                            <option value="Pet's name">Pet's name</option> 
+                        </select> 
+                        </div> 
+                        <div class="input-group"> 
+                            <input id="choiseq1" placeholder="Write your answer" type="text" name="verifyanswer1"required> 
+                        
+                        </div> 
+                        <div class="select-group" class="listbox"> 
+                            <select id="q2" name="verification2"  onchange="choise2()" class="selection"> 
+                                <option>Choose your question</option> 
+                                <option value="Place of birth">Place of birth</option> 
+                                <option value="Primary school">Primary school</option> 
+                                <option value="Mother's name">Mother's name</option> 
+                                <option value="Father's name">Father's name</option> 
+                                <option value="Pet's name">Pet's name</option> 
+                            </select> 
+                        </div> 
+
+                        <div class="input-group"> 
+                            <input id="choiseq2" placeholder="Write your answer" type="text" name="verifyanswer2"required> 
+                        
+                        </div> 
+                        <!-- <div class="select-group" class="listbox"> 
+                            <select id="q3" name="verification3"  onchange="choise3()" class="selection"> 
+                                <option>Choose your question</option> 
+                                <option value="Place of birth">Place of birth</option> 
+                                <option value="Primary school">Primary school</option> 
+                                <option value="Mother's name">Mother's name</option> 
+                                <option value="Father's name">Father's name</option> 
+                                <option value="Pet's name">Pet's name</option> 
+                            </select> 
+                        </div> 
+                        <div class="input-group"> 
+                            <input id="choiseq3" value="Choose Quetion" type="text" name="verifyanswer3"required> 
+                        
+                        </div>  -->
+                    </div>    
+                </div>
+                    <button type="submit" name="register" class="btn">Sign Up</button> 
+                    <div class="sign-link"> 
+                        <p>Already have an account? <a href="#" class="signIn-link">Sign In</a></p> 
+                    </div> 
+                
+                
                 
 <script>
 function choise1() {
@@ -101,15 +109,15 @@ function choise3() {
             </form> 
         </div>
 
-        <div class="form-wrapper sign-in" style="height: 759px;margin-top: -101px;">
+        <div class="form-wrapper sign-in">
             <form action="" method="get">
-                <img src="/img/UKM OMELET LOGO 4.png" alt="UKM Outlet Logo" style="width:100%; height:100%; margin-top: -50px;">
-                <h2>Login</h2>
-                <div class="input-group" style="width: 100%">
+                <img src="/img/LOGO-MOBILE.png" alt="UKM Outlet Logo" style="width: 433px; margin-bottom: -130px; margin-top: -85px">
+                <h2 style="margin-top: 9px;">Login</h2>
+                <div class="input-group" style="width: 100%;margin-top: 20px;">
                     <input type="text" name="un" id="unm" required>
                     <label for="unm">Username</label>
                 </div>
-                <div class="input-group" style="width: 100%">
+                <div class="input-group" style="width: 100%;margin-bottom: 20px;">
                     <input type="password" name="pss" id="psswrd" required>
                     <label for="psswrd">Password</label>
                 </div>
