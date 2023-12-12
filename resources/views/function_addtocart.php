@@ -1,6 +1,6 @@
 <?php 
-  include_once 'database.php';
-  include 'session.php';
+  include_once 'session.php';
+  include 'database.php';
 
 	$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -33,17 +33,15 @@
 	} else if(isset($_GET['placeOrder'])) {
 		try {
 	 
-			$stmt = $conn->prepare("INSERT INTO tbl_cart(product_id, product_name, customer_id, product_size, quantity) VALUES(:prodId, :prodName, :userId, :prodSize, :prodQuantity)");
+			$stmt = $conn->prepare("INSERT INTO tbl_cart(product_id, customer_id, product_size, quantity) VALUES(:prodId, :userId, :prodSize, :prodQuantity)");
 		   
 			$stmt->bindParam(':prodId', $id, PDO::PARAM_STR);
-			$stmt->bindParam(':prodName', $prodName, PDO::PARAM_STR);
 			$stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
 			$stmt->bindParam(':prodSize', $prodSize, PDO::PARAM_STR);
 			$stmt->bindParam(':prodQuantity', $prodQuantity, PDO::PARAM_STR);
 			   
 			$id = $_GET['prodId'];
-			$prodName = $_GET['prodName'];
-			$userId = $sessionname;
+			$userId = $_GET['custId'];
 			$prodSize = $_GET['prodSize'];
 			$prodQuantity = $_GET['prodQuantity'];
 	
