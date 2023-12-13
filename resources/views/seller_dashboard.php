@@ -55,7 +55,49 @@
                 <!-- Navigation -->
                 <?php
                 include ('seller_sidebar.php');
+                include ('database.php');
+
+                    $mysqli = new mysqli($servername, $username, $password,$dbname);
+
+
+                    $stmt = $mysqli->prepare("SELECT * FROM tbl_order LEFT JOIN tbl_customer ON tbl_order.cust_id = tbl_customer.id LEFT JOIN tbl_products on tbl_order.prod_id = tbl_products.product_id WHERE seller_id = $sellerId ");
+                    $stmt->execute();
+                    
+
+                    $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+
+                    if(!$arr) exit('no rows');
+
+                    // Prepare the SQL query to calculate the sum of total_price
+                    $result = $mysqli->query("SELECT SUM(total_price) AS total_sum FROM tbl_order WHERE seller_id = $sellerId ");
+                                        
+                    // Fetch the result
+                    $row = $result->fetch_assoc();
+
+                     // Prepare the SQL query to calculate the sum of order
+                     $tot_order = $mysqli->query("SELECT COUNT(prod_status) AS total_order FROM tbl_order WHERE seller_id = $sellerId ");
+                                        
+                     // Fetch the result
+                     $tot_Order = $tot_order->fetch_assoc();
+
+                      // Prepare the SQL query to calculate the sum of order
+                      $act_order = $mysqli->query("SELECT COUNT(prod_status) AS act_order FROM tbl_order WHERE prod_status = 'To Process' AND seller_id = $sellerId");
+                                        
+                      // Fetch the result
+                      $act_Order = $act_order->fetch_assoc();
+
+                      $proc_order = $mysqli->query("SELECT COUNT(prod_status) AS act_order FROM tbl_order WHERE prod_status = 'Processed' AND seller_id = $sellerId");
+                                        
+                      // Fetch the result
+                      $proc_Order = $proc_order->fetch_assoc();
+                    
+
+                    $stmt->close();
+
+                    
                 ?>
+
                 <ul class="navbar-nav mb-md-4">
                 </ul>
                 <!-- Push content down -->
@@ -63,6 +105,7 @@
             </div>
         </div>
     </nav>
+    
     <!-- Main content -->
     <div class="h-screen flex-grow-1 overflow-y-lg-auto">
         <!-- Header -->
@@ -72,38 +115,12 @@
                     <div class="row align-items-center">
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
-                            <h1 class="h2 mb-0 ls-tight">Seller Dashboard</h1> Welcome Back, Syariftube
+                            <h1 class="h2 mb-0 ls-tight">Seller Dashboard</h1> Welcome Back, <?= ($_SESSION['sessionname'])?>
                         
                         </div>
-                        <!-- Actions -->
-                        <!-- <div class="col-sm-6 col-12 text-sm-end">
-                            <div class="mx-n1">
-                                <a href="#" class="btn d-inline-flex btn-sm btn-neutral border-base mx-1">
-                                    <span class=" pe-2">
-                                        <i class="bi bi-pencil"></i>
-                                    </span>
-                                    <span>Edit</span>
-                                </a>
-                                <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1">
-                                    <span class=" pe-2">
-                                        <i class="bi bi-plus"></i>
-                                    </span>
-                                    <span>Create</span>
-                                </a>
-                            </div>
-                        </div> -->
                     </div>
                     <!-- Nav -->
                     <ul class="nav nav-tabs mt-4 overflow-x border-0">
-                        <!-- <li class="nav-item ">
-                            <a href="#" class="nav-link active">All files</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link font-regular">Shared</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link font-regular">File requests</a>
-                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -119,7 +136,9 @@
                                 <div class="row">
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Sales</span>
-                                        <span class="h3 font-bold mb-0">RM 750.90</span>
+                                        <span class="h3 font-bold mb-0"><?php echo "RM " . $row['total_sum']; ?>
+
+                                        </span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
@@ -127,12 +146,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-2 mb-0 text-sm">
+                                <!-- <div class="mt-2 mb-0 text-sm">
                                     <span class="badge badge-pill bg-soft-success text-success me-2">
                                         <i class="bi bi-arrow-up me-1"></i>13%
                                     </span>
                                     <span class="text-nowrap text-xs text-muted">Since last month</span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -141,8 +160,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <span class="h6 font-semibold text-muted text-sm d-block mb-2">New Order(s)</span>
-                                        <span class="h3 font-bold mb-0">3</span>
+                                        <span class="h6 font-semibold text-muted text-sm d-block mb-2">Processed Order(s)</span>
+                                        <span class="h3 font-bold mb-0"><?php echo $proc_Order['act_order']; ?></span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
@@ -150,12 +169,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-2 mb-0 text-sm">
+                                <!-- <div class="mt-2 mb-0 text-sm">
                                     <span class="badge badge-pill bg-soft-success text-success me-2">
                                         <i class="bi bi-arrow-up me-1"></i>30%
                                     </span>
                                     <span class="text-nowrap text-xs text-muted">Since last month</span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -165,7 +184,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Order(s)</span>
-                                        <span class="h3 font-bold mb-0">140</span>
+                                        <span class="h3 font-bold mb-0"><?php echo $tot_Order['total_order']; ?></span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
@@ -173,12 +192,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-2 mb-0 text-sm">
+                                <!-- <div class="mt-2 mb-0 text-sm">
                                     <span class="badge badge-pill bg-soft-danger text-danger me-2">
                                         <i class="bi bi-arrow-down me-1"></i>-5%
                                     </span>
                                     <span class="text-nowrap text-xs text-muted">Since last month</span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -188,7 +207,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Active Product(s)</span>
-                                        <span class="h3 font-bold mb-0">10</span>
+                                        <span class="h3 font-bold mb-0"><?php echo $act_Order['act_order']; ?></span>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-warning text-white text-lg rounded-circle">
@@ -196,16 +215,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-2 mb-0 text-sm">
+                                <!-- <div class="mt-2 mb-0 text-sm">
                                     <span class="badge badge-pill bg-soft-success text-success me-2">
                                         <i class="bi bi-arrow-up me-1"></i>10%
                                     </span>
                                     <span class="text-nowrap text-xs text-muted">Since last month</span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
+               
                 <div class="card shadow border-0 mb-7">
                     <div class="card-header">
                         <h5 class="mb-0">Recent Order(s)</h5>
@@ -223,28 +243,46 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <?php
+                                        foreach($arr as $ukmseller) {
+                                    ?>
                                 <tr>
                                     <td>
                                         <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
                                         <a class="text-heading font-semibold" href="#">
-                                            Syarif
+                                        <?php echo $ukmseller['username']; ?>
                                         </a>
                                     </td>
                                     <td>
-                                        Oct 21, 2023
+                                    <?php echo $ukmseller['order_date'] ?>
                                     </td>
                                     <td>
-                                        <img alt="..." src="img/p001.png" class="avatar avatar-xs rounded-circle me-2">
+                                        <img alt="..." src="img/<?php echo $ukmseller['pic']; ?>" width="80">
                                         <a class="text-heading font-semibold" href="#">
-                                            Baju KIY
+                                        <?php echo $ukmseller['product_Name']; ?>
                                         </a>
                                     </td>
                                     <td>
-                                        3
+                                    <?php echo $ukmseller['prod_qty']; ?>
                                     </td>
                                     <td>
                                         <span class="badge badge-lg badge-dot">
-                                            <i class="bg-success"></i>Processed
+                                        
+                                            <?php 
+                                                
+                                                if ($ukmseller["prod_status"] == "Processed"){
+
+                                                    echo '<i class="bg-success"></i>Processed';
+                                                }
+                                                else if ($ukmseller["prod_status"] == "To Process"){
+
+                                                    echo '<i class="bg-warning"></i>To Process';
+                                                }
+                                                else {
+                                                    echo '<i class="bg-dark"></i>Cancelled';
+                                                }
+
+                                            ?>
                                         </span>
                                     </td>
                                     <td class="text-end">
@@ -254,99 +292,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1610271340738-726e199f0258?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Alia Syahira
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Apr 15, 2021
-                                    </td>
-                                    <td>
-                                        <img alt="..." src="img/p002.png" class="avatar avatar-xs rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Baju KBH
-                                        </a>
-                                    </td>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-warning"></i>To Process
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1610878722345-79c5eaf6a48c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Zaihasra
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Mar 20, 2021
-                                    </td>
-                                    <td>
-                                        <img alt="..." src="img/p003.png" class="avatar avatar-xs rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Baju VIC
-                                        </a>
-                                    </td>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-success"></i>Processed
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img alt="..." src="https://images.unsplash.com/photo-1612422656768-d5e4ec31fac0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Abu Hasnah
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Feb 15, 2021
-                                    </td>
-                                    <td>
-                                        <img alt="..." src="img/p004.png" class="avatar avatar-xs rounded-circle me-2">
-                                        <a class="text-heading font-semibold" href="#">
-                                            Lanyard FPI
-                                        </a>
-                                    </td>
-                                    <td>
-                                        20
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-dark"></i>Cancelled
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -356,5 +302,6 @@
                 </div>
             </div>
         </main>
-    </div>
+    </div>
+ 
 </div>
