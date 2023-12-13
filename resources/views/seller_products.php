@@ -157,7 +157,8 @@ button:hover {
         <!-- Main -->
         <main class="py-6 bg-surface-secondary">
             <div class="container-fluid">
-                <!-- Card stats -->
+                
+                <!-- Search Products -->
                 <div class="row g-6 mb-6">
                     <div class="col-xl-12 col-sm-6 col-12">
                         <div class="card shadow border-0">
