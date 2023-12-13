@@ -219,6 +219,11 @@ Route::get('/function_addtocart', function () {
 Route::get('/crud_add_product', function () {
     return view('crud_add_product');
 });
+
 Route::get('/seller_messages', function () {
     return view('seller_messages');
+});
+
+Route::get('/crud_update_profile', function () {
+    return view('crud_update_profile');
 });
