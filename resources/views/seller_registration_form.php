@@ -1,3 +1,7 @@
+<?php
+include('database.php');
+include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,7 +193,7 @@ button:hover {
     </style>
 </head>
 <body>
-    <form>
+    <form action="/seller_registration_crud" method="get">
         <div class="container">
             
         <img src="\img\UKM OMELET LOGO 4.png" alt="">
@@ -206,7 +210,7 @@ button:hover {
             <label for="business">Registered Business</label>
         </div>
           <label for="name"><b>Full Name as per IC</b></label>
-          <input type="text" placeholder="Enter Name" name="name" required>
+          <input type="text" placeholder="Enter Name" name="fullname" required>
           
           <label for="matric"><b>Matric Number / Staff ID</b></label>
           <input type="text" placeholder="Enter ID" name="matric" required>
