@@ -1,39 +1,41 @@
 <?php
-include ('database.php');
-include('session.php');
- 
-$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$cust_id = $_GET['cust_id'];
+    include_once 'session.php';
+    include 'database.php';
+    
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    //Create
+    if (isset($_GET['registerSeller'])) {
+    
+    try {
+        $stmt = $conn->prepare("UPDATE tbl_customer SET seller_type = :sellerType, Fullname = :fullname, matrics = :matric, phone_number = :phone, shop_name = :shopname, shop_add = :shopaddr, role = :userrole WHERE id = :sellerId");
 
-$stmt = $conn->prepare("INSERT INTO tbl_customer(seller_type,Fullname,student_id,phone,shop_name,shop_add) VALUES(:seller_Type,:fullname,:matric,:phone,:shopname,:shopaddr)");
-$stmt2 = $conn->prepare("UPDATE tbl_customer SET role ='Seller' WHERE id = '$user_id'");
+        $stmt->bindParam(':sellerType', $sellertype, PDO::PARAM_STR); 
+        $stmt->bindParam('fullname', $fullname, PDO::PARAM_STR);
+        $stmt->bindParam(':matric', $matric, PDO::PARAM_STR);
+        $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $stmt->bindParam(':shopname', $shopname, PDO::PARAM_STR);
+        $stmt->bindParam(':shopaddr', $shopaddr, PDO::PARAM_STR);
+        $stmt->bindParam(':sellerId', $sellerId, PDO::PARAM_STR);
+        $stmt->bindParam(':userrole', $userrole, PDO::PARAM_STR);
 
-    $stmt->bindParam(':seller_Type', $sellertype, PDO::PARAM_STR); 
-    $stmt->bindParam('fullname', $fullname, PDO::PARAM_STR);
-    $stmt->bindParam(':matric', $matric, PDO::PARAM_STR);
-    $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
-    $stmt->bindParam(':shopname', $shopname, PDO::PARAM_STR);
-    $stmt->bindParam(':shopaddr', $shopaddr, PDO::PARAM_STR);
+        $sellertype = $_GET['sellerType'];
+        $fullname = $_GET['fullname'];
+        $matric = $_GET['matric'];
+        $phone = $_GET['phone'];
+        $shopname = $_GET['shopname'];
+        $shopaddr = $_GET['shopaddr'];
+        $sellerId = $_GET['sellerId'];
+        $userrole = $_GET['userrole'];
+    
+        $stmt->execute();
 
-    $sellertype = $_GET['seller_type'];
-    $fullname = $_GET['Fullname'];
-    $matric = $_GET['student_id'];
-    $phone = $_GET['phone'];
-    $shopname = $_GET['shop_name'];
-    $shopaddr = $_GET['shop_add'];
-
-
-$stmt2->execute();
-$InsertSuccess = $stmt->execute();
-// Ensure that this is before any HTML or echo statements.
-if ($InsertSuccess) {
-    // Redirect to cart.php if the delete was successful.
-    header('Location: /seller_dashboard');
-    exit; // Always call exit after a redirect header.
-} else {
-    // Handle error here if the deletion was not successful.
-    exit('Error deleting row');
+        echo "<script> alert('Seller Registered!'); window.location.href='/seller_dashboard'; </script>";
+        }
+    catch(PDOException $e)
+    {
+        alert('Error registering seller!');
+        echo "Error: " . $e->getMessage();
+    }
 }
-
-$stmt->close();
