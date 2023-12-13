@@ -171,6 +171,7 @@ if (isset($_GET['login'])) {
         $fullname = $row['Fullname'];
         $password = $row['passwords'];
         $phone= $row['phone_number'];
+        $user_id= $row['id'];
 
         $_SESSION['role'] = $role;
         $_SESSION['sessionname'] = $name;
@@ -178,6 +179,7 @@ if (isset($_GET['login'])) {
         $_SESSION['fullname'] = $fullname;
         $_SESSION['passwords'] = $password;
         $_SESSION['phone_number'] = $phone;
+        $_SESSION['id'] = $user_id;
 
         echo "<script>
         

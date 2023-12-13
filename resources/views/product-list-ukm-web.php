@@ -38,6 +38,7 @@ $stmt->close();
                     <button name="prodtype" value="Tote Bag" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Tote Bag<span></span><span></span><span></span><span></span></li></button>
                     <button name="prodtype" value="Hoodie" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Hoodie<span></span><span></span><span></span><span></span></li></button>
                     <button name="prodtype" value="Cap" id="colId" style="cursor:pointer; background-color: transparent; border: none;"><li>Cap<span></span><span></span><span></span><span></span></li></button>
+                    <button name="prodtype" value="Others" id="colId" style="cursor:pointer;background-color: transparent; border: none;"><li>Others<span></span><span></span><span></span><span></span></li></button>
                 </form>
                 </ul>
             </nav>
