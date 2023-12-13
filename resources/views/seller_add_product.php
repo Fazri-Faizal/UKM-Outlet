@@ -240,8 +240,8 @@
                         <h2>Add New Product</h2>
                         <form action="/crud_add_product" method="get">
                             <div class="form-group">
-                                <label for="productName">Product Name:</label>
-                                <input type="text" id="productName" name="productName" required>
+                                <label for="productName">Product Name:</label>                       
+                                <input type="text" id="productName" name="productName" style="width: 100%" required>
                             </div>
 
                             <div class="form-group" style="display: inline-flex">
@@ -253,34 +253,67 @@
                             </label>
                             </div>
 
-                            <div class="form-group" id="variationdiv" style="display: none">
-                                <button id="createFieldButton">Create New Field</button>
+                            <div class="form-group" id="variationdiv" style="display: none; text-align: center;">
+                                <button id="createFieldButton">Create New Size</button>
+                                <style>input[type="text"]{
+                                    width: 200px
+                                }</style>
                                 <div id="fieldContainer"></div>
                             </div>
 
                             <script>
+                                var count = 0;
                                 document.getElementById('createFieldButton').addEventListener('click', function() {
-                                    // Create a new input element
-                                    var newField = document.createElement('input');
-                                    newField.type = 'text';
-                                    newField.name = 'newField';
-                                    newField.placeholder = 'New Field';
+                                    count++;
+
+                                    // Create a new breakline element
+                                    var blank1 = document.createElement('br');
+                                    var blank2 = document.createElement('br');
+
+                                    // Create a new size input element
+                                    var prodVarSize = document.createElement('input');
+                                    prodVarSize.type = 'text';
+                                    prodVarSize.name = 'prodVarSize';
+                                    prodVarSize.placeholder = 'Size';
+                                    prodVarSize.id = "prodSize" + count; //ProdSize1...
+                                    
+                                    // Create a new price input element
+                                    var prodVarPrice = document.createElement('input');
+                                    prodVarPrice.type = 'text';
+                                    prodVarPrice.name = 'prodVarPrice';
+                                    prodVarPrice.placeholder = 'Price (RM)';
+                                    prodVarPrice.id = "prodPrice" + count; //ProdPrice1...
+
+                                    // Create new space
+                                    var nbsp = " "
+                                    
 
                                     // Append the new input element to the container
-                                    document.getElementById('fieldContainer').appendChild(newField);
+                                    document.getElementById('fieldContainer').appendChild(blank1);
+                                    document.getElementById('fieldContainer').appendChild(prodVarSize);
+                                    document.getElementById('fieldContainer').append(nbsp);
+                                    document.getElementById('fieldContainer').appendChild(prodVarPrice);
+                                    document.getElementById('fieldContainer').appendChild(blank2);
+
+                                    // Append send 
+                                    document.getElementById('fieldContainer').appendChild();
                                 });
                             </script>
 
                             <script>
                                 function variationHide() {
-                                    if(document.getElementById("prodVariation").checked == true)
+                                    if(document.getElementById("prodVariation").checked == true) {
                                         document.getElementById("variationdiv").style.display = "";
-                                    else
+                                        document.getElementById("divPrice").style.display = "none";
+                                    }
+                                    else {
                                         document.getElementById("variationdiv").style.display = "none";
+                                        document.getElementById("divPrice").style.display = "";
+                                    }
                                 }
                             </script>
 
-                            <div class="form-group">
+                            <div class="form-group" id="divPrice">
                                 <label for="productPrice">Product Price:</label>
                                 <input type="number" step="0.01" id="productPrice" name="productPrice" required>
                             </div>
