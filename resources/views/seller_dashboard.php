@@ -67,7 +67,7 @@
                     $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 
-                    if(!$arr) exit('no rows');
+                    // if(!$arr) exit('no rows');
 
                     // Prepare the SQL query to calculate the sum of total_price
                     $result = $mysqli->query("SELECT SUM(total_price) AS total_sum FROM tbl_order WHERE seller_id = $sellerId ");
@@ -75,22 +75,34 @@
                     // Fetch the result
                     $row = $result->fetch_assoc();
 
-                     // Prepare the SQL query to calculate the sum of order
-                     $tot_order = $mysqli->query("SELECT COUNT(prod_status) AS total_order FROM tbl_order WHERE seller_id = $sellerId ");
-                                        
-                     // Fetch the result
-                     $tot_Order = $tot_order->fetch_assoc();
+                    if(!$row)
+                        $row = 0;
 
-                      // Prepare the SQL query to calculate the sum of order
-                      $act_order = $mysqli->query("SELECT COUNT(prod_status) AS act_order FROM tbl_order WHERE prod_status = 'To Process' AND seller_id = $sellerId");
+                    // Prepare the SQL query to calculate the sum of order
+                    $tot_order = $mysqli->query("SELECT COUNT(prod_status) AS total_order FROM tbl_order WHERE seller_id = $sellerId ");
                                         
-                      // Fetch the result
-                      $act_Order = $act_order->fetch_assoc();
+                    // Fetch the result
+                    $tot_Order = $tot_order->fetch_assoc();
 
-                      $proc_order = $mysqli->query("SELECT COUNT(prod_status) AS act_order FROM tbl_order WHERE prod_status = 'Processed' AND seller_id = $sellerId");
+                    if(!$tot_Order)
+                        $tot_Order = 0;
+
+                    // Prepare the SQL query to calculate the sum of order
+                    $act_order = $mysqli->query("SELECT COUNT(prod_status) AS act_order FROM tbl_order WHERE prod_status = 'To Process' AND seller_id = $sellerId");
                                         
-                      // Fetch the result
-                      $proc_Order = $proc_order->fetch_assoc();
+                    // Fetch the result
+                    $act_Order = $act_order->fetch_assoc();
+
+                    if(!$act_Order)
+                        $act_Order = 0;
+
+                    $proc_order = $mysqli->query("SELECT COUNT(prod_status) AS act_order FROM tbl_order WHERE prod_status = 'Processed' AND seller_id = $sellerId");
+                                        
+                    // Fetch the result
+                    $proc_Order = $proc_order->fetch_assoc();
+
+                    if(!$proc_order)
+                        $proc_order = 0;
                     
 
                     $stmt->close();
@@ -136,7 +148,11 @@
                                 <div class="row">
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Sales</span>
-                                        <span class="h3 font-bold mb-0"><?php echo "RM " . $row['total_sum']; ?>
+                                        <?php if(!$row['total_sum']) { ?>
+                                            <span class="h3 font-bold mb-0"><?php echo "RM 0.00"; ?>
+                                        <?php } else { ?>
+                                            <span class="h3 font-bold mb-0"><?php echo "RM " . $row['total_sum']; ?>
+                                        <?php } ?>
 
                                         </span>
                                     </div>
@@ -244,7 +260,9 @@
                             </thead>
                             <tbody>
                             <?php
+                                        $count = 0;
                                         foreach($arr as $ukmseller) {
+                                            $count++;
                                     ?>
                                 <tr>
                                     <td>
@@ -297,7 +315,7 @@
                         </table>
                     </div>
                     <div class="card-footer border-0 py-5">
-                        <span class="text-muted text-sm">Showing 4 items out of 4 results found</span>
+                        <span class="text-muted text-sm">Showing <?php echo $count; ?> items out of <?php echo $count; ?> results found</span>
                     </div>
                 </div>
             </div>
