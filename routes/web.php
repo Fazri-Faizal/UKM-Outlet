@@ -227,3 +227,7 @@ Route::get('/seller_messages', function () {
 Route::get('/crud_update_profile', function () {
     return view('crud_update_profile');
 });
+
+Route::get('/seller_registration_crud', function () {
+    return view('seller_registration_crud');
+});
