@@ -31,6 +31,19 @@
     $stmt2->close();
 ?>
 
+<?php
+    $mysqli3 = new mysqli($servername, $username, $password,$dbname);
+
+    $stmt3 = $mysqli3->prepare("SELECT * FROM tbl_product_review LEFT JOIN tbl_customer ON tbl_product_review.cust_Id = tbl_customer.Id");
+    $stmt3->execute();
+    
+    $arrview = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
+    
+    if(!$arrview) exit('no rows');
+    
+    $stmt3->close();
+?>
+
 <html>
 <head>
     <style>
@@ -571,20 +584,24 @@
 
                 <!-- All Reviews -->
                 <div class="reviews-container" id="display-reviews" style="display: none; margin-top: 20px;" >
+                    <?php
+                        foreach($arrview as $reviewlist) {
+                    ?>
+
                     <!-- Review Item -->
                     <div class="review-item">
                         <div class="review-header">
-                            <span class="reviewer-name">Muhammad Danial Shisha</span>
+                            <span class="reviewer-name"><?php echo $reviewlist['Fullname'] ?></span>
                             <span class="verified-buyer">Verified Buyer</span>
                         </div>
                         <div class="review-rating">★★★☆☆</div>
-                        <div class="review-title">Baju Berkualiti</div>
-                        <div class="review-text">
-                            Material lembut, delivery lambat setahun ...
-                            <a href="#" class="read-more">Read more</a>
-                        </div>
+                        <div class="review-title"><?php echo $reviewlist['subject'] ?></div>
+                        <div class="review-text"><?php echo $reviewlist['review'] ?></div>
                     </div>
-                </div>                               
+                    <?php
+                        }
+                    ?>
+                </div>                                   
         </div>
     </body>
     
