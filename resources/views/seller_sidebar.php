@@ -66,8 +66,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-box-arrow-left"></i> Logout
+                        <a class="nav-link" href="/home">
+                            <i class="bi bi-box-arrow-left"></i> Back To Homepage
                         </a>
                     </li>
                 </ul>

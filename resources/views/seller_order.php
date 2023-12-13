@@ -1,13 +1,3 @@
-<?php
-    include ('database.php');
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $conn->prepare("SELECT * from tbl_order WHERE seller_id='2'");
-
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-?>
 
 <head>
     <style>
@@ -95,6 +85,14 @@ button:hover {
                 <!-- Navigation -->
                 <?php 
                 include('seller_sidebar.php');
+                include ('database.php');
+                    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        $stmt = $conn->prepare("SELECT * from tbl_order WHERE seller_id = $sellerId");
+
+                        $stmt->execute();
+                        $result = $stmt->fetchAll();
 
                 ?>
             </div>
@@ -175,12 +173,12 @@ button:hover {
                         <table class="table table-hover table-nowrap">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col" style="text-align: center">Name</th>
-                                    <th scope="col" style="text-align: center">Order Date</th>
-                                    <th scope="col" style="text-align: center">Product Name</th>
-                                    <th scope="col" style="text-align: center">Quantity</th>
-                                    <th scope="col" style="text-align: center">Total Price</th>
-                                    <th scope="col" style="text-align: center">Status</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Order Date</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total Price</th>
+                                    <th scope="col">Status</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -192,7 +190,7 @@ button:hover {
 
                                         $Id = $_GET['inputId'];
                                         if($Id==""){
-                                            $stmt4 = $conn->prepare("SELECT * from tbl_order WHERE seller_id='2'");
+                                            $stmt4 = $conn->prepare("SELECT * from tbl_order WHERE seller_id = $sellerId");
 
                                         }
                                         else{
@@ -209,8 +207,8 @@ button:hover {
                                             $totalprice = $row['total_price'];
                                             $orderstatus = $row['prod_status'];
                                             $quantity= $row['prod_qty'];
-                                            $customerId= $row['customer_id'];  
-                                            $productId= $row['product_id']; 
+                                            $customerId= $row['cust_id'];  
+                                            $productId= $row['prod_id']; 
                                             
                                             $stmt2 = $conn->prepare("SELECT * from tbl_customer WHERE id = '$customerId' ");
     
@@ -235,24 +233,24 @@ button:hover {
                                                                                
                                 ?>
                                         <tr>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <?php echo $fullname ?>
                                             </td>                                   
-                                            <td style="text-align: center">
+                                            <td >
                                                 <?php echo $orderdate ?>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <img alt="..." src="img/<?php echo $picture ?>" style="width: 80" alt="No picture">
                                                  &nbsp;&nbsp;
                                                 <?php echo $productname ?> 
                                             </td>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <?php echo $quantity ?>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <?php echo $totalprice ?>                                                    
                                             </td>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <span class="badge badge-lg badge-dot">
                                                     <i class="bg-success"></i>
                                                     <?php echo $orderstatus ?>   
@@ -278,8 +276,8 @@ button:hover {
                                             $totalprice = $row['total_price'];
                                             $orderstatus = $row['prod_status'];
                                             $quantity= $row['prod_qty'];
-                                            $customerId= $row['customer_id'];  
-                                            $productId= $row['product_id']; 
+                                            $customerId= $row['cust_id'];  
+                                            $productId= $row['prod_id']; 
                                             
                                             $stmt2 = $conn->prepare("SELECT * from tbl_customer WHERE id = '$customerId' ");
     
@@ -304,27 +302,40 @@ button:hover {
                                                                                
                                 ?>
                                         <tr>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <?php echo $fullname ?>
                                             </td>                                   
-                                            <td style="text-align: center">
+                                            <td>
                                                 <?php echo $orderdate ?>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <img alt="..." src="img/<?php echo $picture ?>" style="width: 80" alt="No picture">
                                                  &nbsp;&nbsp;
                                                 <?php echo $productname ?> 
                                             </td>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <?php echo $quantity ?>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <?php echo $totalprice ?>                                                    
                                             </td>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <span class="badge badge-lg badge-dot">
-                                                    <i class="bg-success"></i>
-                                                    <?php echo $orderstatus ?>   
+                                                <?php 
+                                                
+                                                if ($orderstatus == "Processed"){
+
+                                                    echo '<i class="bg-success"></i>Processed';
+                                                }
+                                                else if ($orderstatus == "To Process"){
+
+                                                    echo '<i class="bg-warning"></i>To Process';
+                                                }
+                                                else {
+                                                    echo '<i class="bg-dark"></i>Cancelled';
+                                                }
+
+                                            ?>  
                                                 </span>
                                             </td>
                                             <td class="text-end">
