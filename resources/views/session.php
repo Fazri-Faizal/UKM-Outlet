@@ -24,12 +24,18 @@
 	if(isset($_SESSION["phone_number"])==FALSE){
 		$_SESSION["phone_number"]="";
 	}
+	
+	if(isset($_SESSION["id"])==FALSE){
+		$_SESSION["id"]="";
+	}
+
 
 	$sessionname=$_SESSION['sessionname'];
 	$role=$_SESSION['role'];
 	$user_email=$_SESSION['user_email'];
 	$fullname=$_SESSION['fullname'];
 	$password=$_SESSION['passwords'];
+	$user_id=$_SESSION['id'];
 
 
 		if( $sessionname == ""){

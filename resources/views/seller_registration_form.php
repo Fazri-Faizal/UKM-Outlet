@@ -1,3 +1,20 @@
+<?php 
+    include_once'session.php';
+    include 'database.php';
+    
+    $mysqli1 = new mysqli($servername, $username, $password, $dbname);
+    $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = '$sessionname'");
+    $stmt1->execute();
+
+    $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    foreach($handler as $seller) {
+      $sellerId = $seller['id'];
+    }
+
+    $stmt1->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -175,8 +192,6 @@ button:hover {
     border-radius: 50%;
     background-color: #804444; /* Red color for the selected option */
 }
-  
-}
 
 @keyframes youtubeAnim{
   0%,100%{
@@ -189,44 +204,46 @@ button:hover {
     </style>
 </head>
 <body>
-    <form>
+    <form action="/seller_registration_crud" method="get">
+
+      <input type="hidden" name="sellerId" value="<?php echo $sellerId; ?>">
+      <input type="hidden" name="userrole" value="Seller">
+
         <div class="container">
-            
-        <img src="\img\UKM OMELET LOGO 4.png" alt="">
+          <img src="\img\UKM OMELET LOGO 4.png" alt="">
           <p style="margin-bottom: 50px; margin-top: 30px">Seller Info</p>
-          
-      
-        <label for="seller_type"><b>Seller Type</b></label>
-        <div class="radio-group" >
             
+        
+          <label for="seller_type"><b>Seller Type</b></label>
+          <div class="radio-group">
             <input type="radio" id="individual" name="sellerType" value="individual" checked>
             <label for="individual">Individual</label>
-            
+              
             <input type="radio" id="business" name="sellerType" value="business">
             <label for="business">Registered Business</label>
-        </div>
+          </div>
+
           <label for="name"><b>Full Name as per IC</b></label>
-          <input type="text" placeholder="Enter Name" name="name" required>
-          
+          <input type="text" placeholder="Enter Name" name="fullname" required>
+            
           <label for="matric"><b>Matric Number / Staff ID</b></label>
           <input type="text" placeholder="Enter ID" name="matric" required>
-      
-            <label for="phone"><b>Phone Number</b></label>
-           <input type="phone" name="phone" placeholder="012-3456789" required>
 
-           <p style="margin-bottom: 50px; margin-top: 30px;">Shop Info</p>
-           
-           <label for="shopname"><b>Shop Name</b></label>
+          <label for="phone"><b>Phone Number</b></label>
+          <input type="phone" name="phone" placeholder="012-3456789" required>
+
+          <p style="margin-bottom: 50px; margin-top: 30px;">Shop Info</p>
+            
+          <label for="shopname"><b>Shop Name</b></label>
           <input type="text" placeholder="Enter Shop Name" name="shopname" required>
 
           <label for="shopaddr"><b>Shop Address</b></label>
           <textarea name="shopaddr" id="" cols="20" rows="10" placeholder="Enter Shop Address" required ></textarea>
-      
+        
           <label>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</label>
-      
+        
           <div class="clearfix">
-      
-            <button type="submit" class="btn">Register</button>
+            <button type="submit" class="btn" name="registerSeller">Register</button>
           </div>
         </div>
       </form>

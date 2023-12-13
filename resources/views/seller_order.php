@@ -268,7 +268,9 @@ button:hover {
                                     
                                     else
                                     {
+                                        $count = 0;
                                         foreach ($result as $row) {
+                                            $count++;
 
                                             $orderId = $row['order_id'];
                                             $sellerId = $row['seller_id'];
@@ -350,7 +352,7 @@ button:hover {
                         </table>
                     </div>
                     <div class="card-footer border-0 py-5">
-                        <span class="text-muted text-sm">Showing 4 items out of 4 results found</span>
+                        <span class="text-muted text-sm">Showing <?php echo $count; ?> items out of <?php echo $count; ?> results found</span>
                     </div>
                 </div>
             </div>
