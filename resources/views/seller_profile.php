@@ -258,6 +258,7 @@
     }
             
     </style>
+    <title>UKM Outlet Seller Profile</title>
 </head>
 <body>
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
@@ -322,8 +323,8 @@
                         <p class="location">📍 <?php echo $shop_address ?></p>
                     </div>
                     <div class="rating">
-                        <span class="stars">★★★★☆</span>
-                        <span class="reviews">(4)</span>
+                        <!-- <span class="stars">★★★★☆</span>
+                        <span class="reviews">(4)</span> -->
                         <!-- <button class="button-edit" id="buttonEdit" onclick="editProfile()">Change Profile Information
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -335,13 +336,13 @@
 
                 <ul class="nav nav-tabs mt-4 overflow-x border-0">
                     <li class="nav-item" id="products">
-                        <a class="nav-link active" onclick="displayProduct()">All Product</a>
+                        <a href="#" class="nav-link active" id="activeProduct" onclick="displayProduct()">All Product</a>
                     </li>
                     <li class="nav-item" id="orders">
-                        <a class="nav-link font-regular" onclick="displayOrders()">All Orders</a>
+                        <a href="#" class="nav-link" id="activeOrder" onclick="displayOrders()">All Orders</a>
                     </li>
                     <li class="nav-item" id="reviews">
-                        <a href="#" class="nav-link font-regular" onclick="displayReviews()">All Reviews</a>
+                        <a href="#" class="nav-link" id="activeReview" onclick="displayReviews()">All Reviews</a>
                     </li>
                 </ul> 
                 
@@ -599,6 +600,10 @@
                 document.getElementById("products").classList.add('productactive');
                 displayProduct();
             }
+
+            document.getElementById("activeProduct").classList.add('active');
+            document.getElementById("activeOrder").classList.remove('active');
+            document.getElementById("activeReview").classList.remove('active');
         }
 
         function displayOrders() {
@@ -612,6 +617,10 @@
                 document.getElementById("orders").classList.add('orderactive');
                 displayOrders();
             }
+
+            document.getElementById("activeProduct").classList.remove('active');
+            document.getElementById("activeOrder").classList.add('active');
+            document.getElementById("activeReview").classList.remove('active');
         }
 
         function displayReviews() {
@@ -625,6 +634,10 @@
                 document.getElementById("reviews").classList.add('reviewsactive');
                 displayReviews();
             }
+
+            document.getElementById("activeProduct").classList.remove('active');
+            document.getElementById("activeOrder").classList.remove('active');
+            document.getElementById("activeReview").classList.add('active');
         }
     </script>
 </html>
