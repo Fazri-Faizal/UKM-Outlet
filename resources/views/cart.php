@@ -24,9 +24,9 @@ LEFT JOIN tbl_product_variation ON tbl_cart.product_id = tbl_product_variation.f
 WHERE tbl_cart.product_size = tbl_product_variation.fld_product_size AND tbl_cart.customer_id = $custId");
 $stmt->execute();
 
-$arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC); 
 
-if(!$arr) exit('no rows');
+if(!$arr) exit('no item in cart');
 
 $stmt->close();
 
@@ -62,11 +62,7 @@ $stmt->close();
                 
                 foreach($arr as $ukmcart) { 
 
-                    // if($count == 4) {
-                    //     $count = 1;
-                    //     echo '</tr>';
-                    //     echo '<tr>';
-                    // }
+                  
                     $cid=$ukmcart['cart_id'];
                     $id=$ukmcart['customer_id'];
                     $count++;
