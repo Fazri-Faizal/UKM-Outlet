@@ -9,7 +9,7 @@
     if (isset($_GET['registerSeller'])) {
     
     try {
-        $stmt = $conn->prepare("UPDATE tbl_customer SET seller_type = :sellerType, Fullname = :fullname, matrics = :matric, phone_number = :phone, shop_name = :shopname, shop_add = :shopaddr, role = :userrole WHERE id = :sellerId");
+        $stmt = $conn->prepare("UPDATE tbl_customer SET seller_type = :sellerType, Fullname = :fullname, matrics = :matric, phone_number = :phone, shop_name = :shopname, shop_add = :shopaddr, shop_bio = :shopbio, role = :userrole WHERE id = :sellerId");
 
         $stmt->bindParam(':sellerType', $sellertype, PDO::PARAM_STR); 
         $stmt->bindParam('fullname', $fullname, PDO::PARAM_STR);
@@ -17,6 +17,7 @@
         $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
         $stmt->bindParam(':shopname', $shopname, PDO::PARAM_STR);
         $stmt->bindParam(':shopaddr', $shopaddr, PDO::PARAM_STR);
+        $stmt->bindParam(':shopbio', $shopbio, PDO::PARAM_STR);
         $stmt->bindParam(':sellerId', $sellerId, PDO::PARAM_STR);
         $stmt->bindParam(':userrole', $userrole, PDO::PARAM_STR);
 
@@ -26,8 +27,11 @@
         $phone = $_GET['phone'];
         $shopname = $_GET['shopname'];
         $shopaddr = $_GET['shopaddr'];
+        $shopbio = $_GET['shopbio'];
         $sellerId = $_GET['sellerId'];
         $userrole = $_GET['userrole'];
+
+        $_SESSION["role"] = "Seller";
     
         $stmt->execute();
 

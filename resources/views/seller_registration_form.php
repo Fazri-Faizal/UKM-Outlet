@@ -239,6 +239,9 @@ button:hover {
 
           <label for="shopaddr"><b>Shop Address</b></label>
           <textarea name="shopaddr" id="" cols="20" rows="10" placeholder="Enter Shop Address" required ></textarea>
+
+          <label for="shopbio"><b>Shop Bio</b></label>
+          <textarea name="shopbio" cols="20" rows="3" placeholder="Enter Shop Bio" required ></textarea>
         
           <label>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</label>
         
