@@ -2,67 +2,69 @@
 <head>
     <style>
         /* Webpixels CSS */
-/* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
-/* URL: https://github.com/webpixels/css */
+        /* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+        /* URL: https://github.com/webpixels/css */
 
-@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+        @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
 
-/* Bootstrap Icons */
-@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+        /* Bootstrap Icons */
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
 
-.form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
 
-.form-group label {
-    width: 100px;
-    text-align: right;
-    margin-right: 10px;
-}
+        .form-group label {
+            width: 100px;
+            text-align: right;
+            margin-right: 10px;
+        }
 
-.form-group input[type="text"], 
-.form-group input[type="number"], 
-.form-group select {
-    flex: 1;
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+        .form-group input[type="text"], 
+        .form-group input[type="number"], 
+        .form-group select {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-.form-group span {
-    margin: 0 10px;
-}
-.button-group {
-    display: flex;
-    justify-content: flex-end;
-}
+        .form-group span {
+            margin: 0 10px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+        }
 
-button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-button[type="reset"] {
-    background-color: #ccc;
-    color: #333;
-}
+        button[type="reset"] {
+            background-color: #ccc;
+            color: #333;
+        }
 
-button:not([type="reset"]) {
-    background-color: #ff4b4b;
-    color: #fff;
-}
+        button:not([type="reset"]) {
+            background-color: #ff4b4b;
+            color: #fff;
+        }
 
-button:hover {
-    background-color: #d43a3a;
-}
+        button:hover {
+            background-color: #d43a3a;
+        }
     </style>
+
+    <title>UKM Outlet Seller Orders</title>
 </head>
 <!-- Dashboard -->
 <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
