@@ -1,0 +1,73 @@
+  /* Webpixels CSS */
+/* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+/* URL: https://github.com/webpixels/css */
+
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+* {
+  box-sizing: border-box;
+}
+/* .search-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px;
+} */
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.form-group input[type="text"], 
+.form-group input[type="number"], 
+.form-group select {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group span {
+    margin: 0 10px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+button {
+    background: transparent;
+    font-family: inherit;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: inherit;
+    transition: background-color 0.3s ease;
+}
+
+button[type="reset"] {
+    background-color: #ccc;
+    color: #333;
+}
+
+button:not([type="reset"]) {
+    background-color: #ff4b4b;
+    color: #fff;
+}
+
