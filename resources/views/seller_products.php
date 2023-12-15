@@ -14,80 +14,7 @@
 ?>
 
 <head>
-    <style>
-        /* Webpixels CSS */
-        /* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
-        /* URL: https://github.com/webpixels/css */
-
-        @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
-
-        /* Bootstrap Icons */
-        @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
-
-        /* .search-form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 600px;
-        } */
-
-        .form-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            width: 100px;
-            text-align: right;
-            margin-right: 10px;
-        }
-
-        .form-group input[type="text"], 
-        .form-group input[type="number"], 
-        .form-group select {
-            flex: 1;
-            padding: 10px;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .form-group span {
-            margin: 0 10px;
-        }
-
-        .button-group {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        button {
-            padding: 10px 20px;
-            margin-left: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="reset"] {
-            background-color: #ccc;
-            color: #333;
-        }
-
-        button:not([type="reset"]) {
-            background-color: #ff4b4b;
-            color: #fff;
-        }
-
-        button:hover {
-            background-color: #d43a3a;
-        }
-    </style>
-    
-    <title>UKM Outlet Seller Products</title>
+<link rel="stylesheet" href="/css/seller_products.css"/>
 </head>
 <!-- Dashboard -->
 <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
@@ -183,12 +110,12 @@
                                             <span>-</span>
                                             <input type="number" placeholder="Max">
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label>Sales</label>
                                             <input type="number" placeholder="Min">
                                             <span>-</span>
                                             <input type="number" placeholder="Max">
-                                        </div>
+                                        </div> -->
                                         <div class="button-group">
                                             <button>Search</button>
                                             <button type="reset">Reset</button>
@@ -217,6 +144,7 @@
                             </thead>
                             <tbody>
                                 <?php
+                                    $productCounter = 1;
                                     foreach($arr as $productlist) {
                                 ?>
                                     <tr>
@@ -228,7 +156,7 @@
                                             </a>
                                         </td>
                                         <td style="text-align: center">
-                                            RM X.XX
+                                        <?php echo $productlist['product_price'] ?>
                                         </td>
                                         <td style="text-align: center">
                                             <?php echo $productlist['product_Type'] ?>
@@ -240,10 +168,15 @@
                                             <?php echo $productlist['product_Description'] ?>
                                         </td>
                                         <td class="text-end" style="text-align: center">
-                                            <a href="#" class="btn btn-sm btn-neutral">View</a>
                                             <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
                                                 <i class="bi bi-trash"></i>
                                             </button>
+                                            <form action="/update_product" method="get">
+                                            <button name="editProduct" style="background-color: #D3D329;" value="<?php echo $productlist['product_Id'] ?>"  class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                    <i class="bi bi-pencil-fill"></i>
+                                            </button>
+                                            </form>
+                                            
                                         </td>
                                     </tr>
                                 <?php
@@ -259,4 +192,5 @@
             </div>
         </main>
     </div>
+</div> 
 </div>
