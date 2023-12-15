@@ -146,7 +146,13 @@
     // include 'header.php';
 
     include 'database.php';
-    $id=$_GET['id'];
+    if (isset($_GET['id'])) {
+      $id=$_GET['id'];
+      $_SESSION['id']=$id;
+    }
+    else {
+      $id = $_SESSION['id'];
+    }
     $mysqli1 = new mysqli($servername, $username, $password,$dbname);
     
     $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_product_variation where fld_product_id=$id");
