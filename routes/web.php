@@ -220,6 +220,10 @@ Route::get('/crud_add_product', function () {
     return view('crud_add_product');
 });
 
+Route::get('/crud_product_review', function () {
+    return view('crud_product_review');
+});
+
 Route::get('/seller_messages', function () {
     return view('seller_messages');
 });
