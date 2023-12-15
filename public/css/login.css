@@ -55,6 +55,12 @@ body {
 .wrapper.animate-signIn .form-wrapper.sign-in { 
     animation: animateSignIn 1.5s ease-in-out forwards; 
 } 
+
+.wrapper.animate-forgot .form-wrapper.forgot { 
+    transform: rotate(7deg); 
+    animation: animateRotate .7s ease-in-out forwards; 
+    animation-delay: .3s; 
+} 
  
 @keyframes animateSignIn { 
     0% { 

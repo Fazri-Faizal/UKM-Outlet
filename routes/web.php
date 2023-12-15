@@ -241,3 +241,12 @@ Route::get('/update_product', function () {
 Route::get('/crud_update_product', function () {
     return view('crud_update_product');
 });
+Route::get('/forgotpassword', function () {
+    return view('forgotpassword');
+});
+Route::get('/updatepassword', function () {
+    return view('updatepassword');
+});
+Route::get('/seller_analytics', function () {
+    return view('seller_analytics');
+});
