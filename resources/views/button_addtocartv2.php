@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/css/button_addtocartv2.scss.css" />
 </head>
 <body>
-    <div class="demo">
+    <div class="demo" >
     <div class="demo__drone-cont demo__drone-cont--takeoff">
         <div class="demo__drone-cont demo__drone-cont--shift-x">
         <div class="demo__drone-cont demo__drone-cont--landing">

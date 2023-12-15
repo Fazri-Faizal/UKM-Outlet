@@ -39,13 +39,22 @@
 const wrapper = document.querySelector('.wrapper');
 const signUpLink = document.querySelector('.signUp-link');
 const signInLink = document.querySelector('.signIn-link');
+const forgotlink = document.querySelector('.forgot-link');
 
 signUpLink.addEventListener('click', () => {
     wrapper.classList.add('animate-signIn');
     wrapper.classList.remove('animate-signUp');
+    wrapper.classList.remove('animate-forgot');
 });
 
 signInLink.addEventListener('click', () => {
     wrapper.classList.add('animate-signUp');
     wrapper.classList.remove('animate-signIn');
+    wrapper.classList.remove('animate-forgot');
+});
+
+forgotlink.addEventListener('click', () => {
+    wrapper.classList.add('animate-forgot');
+    wrapper.classList.remove('animate-signIn');
+    wrapper.classList.remove('animate-signUp');
 });
