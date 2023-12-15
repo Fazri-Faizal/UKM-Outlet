@@ -22,10 +22,11 @@
 				  	<div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
 				  		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
 				  	</div>
+					<!-- form review -->
 				  	<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 				  		<div class="review-heading">REVIEWS</div>
 				  		<p class="mb-20">There are no reviews yet.</p>
-				  		<form class="review-form">
+				  		<form class="review-form"  action="/crud_product_review">
 		        			<div class="form-group">
 			        			<label>Your rating</label>
 			        			<div class="reviews-counter">
@@ -43,24 +44,27 @@
 									</div>
 								</div>
 							</div>
-		        			<div class="form-group">
-			        			<label>Your message</label>
-			        			<textarea class="form-control" rows="10"></textarea>
-			        		</div>
-			        		<div class="row">
-				        		<div class="col-md-6">
-				        			<div class="form-group">
-					        			<input type="text" name="" class="form-control" placeholder="Name*">
-					        		</div>
-					        	</div>
-				        		<div class="col-md-6">
-				        			<div class="form-group">
-					        			<input type="text" name="" class="form-control" placeholder="Email Id*">
-					        		</div>
+							<div class="col-md-6" style="padding-left:0">
+				        		<div class="form-group">
+									<label>Subject</label>
+					        		<input type="text" name="subjectReview" class="form-control">
 					        	</div>
 					        </div>
-					        <button class="round-black-btn">Submit Review</button>
+		        			<div class="form-group">
+			        			<label>Your message</label>
+			        			<textarea class="form-control" rows="10" name="review"></textarea>
+			        		</div>
+			        		
+							<input type="hidden" name="userid" value="<?php echo $custId ?>"> 
+							<input type="hidden" name="prodid" value="<?php echo $id ?>"> 
+					        <button class="round-black-btn" name="insertReview">Submit Review</button>
 			        	</form>
+						<!-- review list -->
+						<div class="reviewlist">
+							<p>The review will display anonymously</p>
+							<!-- box1 -->
+							<div class="testimonial-box"></div>
+						</div>
 				  	</div>
 				</div>
 			</div>
