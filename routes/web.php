@@ -235,3 +235,18 @@ Route::get('/seller_registration_crud', function () {
 Route::get('/seller_profile', function () {
     return view('seller_profile');
 });
+Route::get('/update_product', function () {
+    return view('update_product');
+});
+Route::get('/crud_update_product', function () {
+    return view('crud_update_product');
+});
+Route::get('/forgotpassword', function () {
+    return view('forgotpassword');
+});
+Route::get('/updatepassword', function () {
+    return view('updatepassword');
+});
+Route::get('/seller_analytics', function () {
+    return view('seller_analytics');
+});

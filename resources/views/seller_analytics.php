@@ -1,4 +1,9 @@
+
+
+
 <head>
+
+
     <style>
         /* Webpixels CSS */
 /* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
@@ -9,8 +14,18 @@
 /* Bootstrap Icons */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
 
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 24px;
+    /* background-color: #2196F3; */
+    /* padding: 24px; */
+    position: space-between;
+    margin-top: 60px;
+  }
+
     </style>
-    <title>UKM Outlet Seller Dashboard</title>
+    <title>UKM Outlet Seller Analytics</title>
 </head>
 
 <!-- Banner -->
@@ -26,7 +41,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Brand -->
-            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="seller_dashboard">
+            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="seller_analytics">
                 <img src="img/UKM OMELET LOGO 4.png"  height="73" alt="...">
             </a>
             <!-- User menu (mobile) -->
@@ -106,6 +121,7 @@
                     
 
                     $stmt->close();
+
                     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                     $stmt2 = $conn->prepare("SELECT * FROM tbl_products where seller_ids = $sellerId");
 
@@ -116,9 +132,223 @@
                     {
                        $i=$i+1;
                     }
-                    
-                ?>
 
+                                
+                    $conn2 = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                    $stmt3 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-01-%'");
+
+                    $stmt3->execute();
+                    $result3 = $stmt3->fetchAll();
+                    $jan=0;
+                    foreach ($result3 as $row3)
+                    {
+                        $jan=$jan+1;
+                    }
+
+                
+                    $stmt4 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-02-%'");
+
+                    $stmt4->execute();
+                    $result4 = $stmt4->fetchAll();
+                    $feb=0;
+                    foreach ($result4 as $row4)
+                    {
+                        $feb=$feb+1;
+                    }
+
+                    $stmt5 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-03-%'");
+
+                    $stmt5->execute();
+                    $result5 = $stmt5->fetchAll();
+                    $mar=0;
+                    foreach ($result5 as $row5)
+                    {
+                        $mar=$mar+1;
+                    }
+
+                    $stmt6 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-04-%'");
+
+                    $stmt6->execute();
+                    $result6 = $stmt6->fetchAll();
+                    $apr=0;
+                    foreach ($result6 as $row6)
+                    {
+                        $apr=$apr+1;
+                    }
+
+                    $stmt7 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-05-%'");
+
+                    $stmt7->execute();
+                    $result7 = $stmt7->fetchAll();
+                    $may=0;
+                    foreach ($result7 as $row7)
+                    {
+                        $may=$may+1;
+                    }
+
+                    $stmt8 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-06-%'");
+
+                    $stmt8->execute();
+                    $result8 = $stmt8->fetchAll();
+                    $jun=0;
+                    foreach ($result8 as $row8)
+                    {
+                        $jun=$jun+1;
+                    }
+
+                    $stmt9 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-07-%'");
+
+                    $stmt9->execute();
+                    $result9 = $stmt9->fetchAll();
+                    $jul=0;
+                    foreach ($result9 as $row9)
+                    {
+                        $jul=$jul+1;
+                    }
+
+                    $stmt10 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-08-%'");
+
+                    $stmt10->execute();
+                    $result10 = $stmt10->fetchAll();
+                    $aug=0;
+                    foreach ($result10 as $row10)
+                    {
+                        $aug=$aug+1;
+                    }
+
+                    $stmt11 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-09-%'");
+
+                    $stmt11->execute();
+                    $result11 = $stmt11->fetchAll();
+                    $sep=0;
+                    foreach ($result11 as $row11)
+                    {
+                        $sep=$sep+1;
+                    }
+
+                    $stmt12 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-10-%'");
+
+                    $stmt12->execute();
+                    $result12 = $stmt12->fetchAll();
+                    $oct=0;
+                    foreach ($result12 as $row12)
+                    {
+                        $oct=$oct+1;
+                    }
+
+                    $stmt13 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-11-%'");
+
+                    $stmt13->execute();
+                    $result13 = $stmt13->fetchAll();
+                    $nov=0;
+                    foreach ($result13 as $row13)
+                    {
+                        $nov=$nov+1;
+                    }
+
+                    $stmt14 = $conn2->prepare("SELECT * FROM tbl_order where seller_id = $sellerId AND order_date LIKE '%-12-%'");
+
+                    $stmt14->execute();
+                    $result14 = $stmt14->fetchAll();
+                    $des=0;
+                    foreach ($result14 as $row14)
+                    {
+                        $des=$des+1;
+                    }
+
+                    $stmt15 = $conn2->prepare("SELECT * FROM tbl_products where seller_ids = $sellerId AND product_Type LIKE 'Jersey'");
+
+                    $stmt15->execute();
+                    $result15 = $stmt15->fetchAll();
+                    $jersey=0;
+                    foreach ($result15 as $row15)
+                    {
+                        $jersey= $jersey+1;
+                    }
+                    $stmt16 = $conn2->prepare("SELECT * FROM tbl_products where seller_ids = $sellerId AND product_Type LIKE 'Hoodie'");
+
+                    $stmt16->execute();
+                    $result16 = $stmt16->fetchAll();
+                    $hoodie=0;
+                    foreach ($result16 as $row16)
+                    {
+                        $hoodie= $hoodie+1;
+                    }
+                    $stmt17 = $conn2->prepare("SELECT * FROM tbl_products where seller_ids = $sellerId AND product_Type LIKE 'Cap'");
+
+                    $stmt17->execute();
+                    $result17 = $stmt17->fetchAll();
+                    $cap=0;
+                    foreach ($result17 as $row17)
+                    {
+                        $cap= $cap+1;
+                    }
+
+                    $stmt18 = $conn2->prepare("SELECT * FROM tbl_products where seller_ids = $sellerId AND product_Type LIKE 'Tote Bag'");
+
+                    $stmt18->execute();
+                    $result18 = $stmt18->fetchAll();
+                    $tote=0;
+                    foreach ($result18 as $row18)
+                    {
+                        $tote= $tote+1;
+                    }
+
+                    $stmt19 = $conn2->prepare("SELECT * FROM tbl_products where seller_ids = $sellerId AND product_Type LIKE 'Lanyard'");
+
+                    $stmt19->execute();
+                    $result19 = $stmt19->fetchAll();
+                    $lanyard=0;
+                    foreach ($result19 as $row19)
+                    {
+                        $lanyard= $lanyard+1;
+                    }
+
+                    $stmt20 = $conn2->prepare("SELECT * FROM tbl_products where seller_ids = $sellerId AND product_Type LIKE 'Others'");
+
+                    $stmt20->execute();
+                    $result20 = $stmt20->fetchAll();
+                    $others=0;
+                    foreach ($result20 as $row20)
+                    {
+                        $others= $others+1;
+                    }
+                ?>
+                  
+                  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Sales'],
+          ['Jan', <?php echo $jan?>],
+          ['Feb', <?php echo $feb?>],
+          ['Mar',  <?php echo $mar?>],
+          ['Apr',  <?php echo $apr?>],
+          ['May', <?php echo $may?>],
+          ['Jun',  <?php echo $jun?>],
+          ['Jul',  <?php echo $jul?>],
+          ['Aug',  <?php echo $aug?>],
+          ['Sep', <?php echo $sep?>],
+          ['Oct',  <?php echo $oct?>],
+          ['Nov',  <?php echo $nov?> ],
+          ['Dec',  <?php echo $des?>]
+        ]);
+
+        var options = {
+          title: 'Shop Performance',
+          curveType: 'function',
+          colors:['saddlebrown','#804444'],
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
                 <ul class="navbar-nav mb-md-4">
                 </ul>
                 <!-- Push content down -->
@@ -136,7 +366,7 @@
                     <div class="row align-items-center">
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
-                            <h1 class="h2 mb-0 ls-tight">Seller Dashboard</h1> Welcome Back, <?= ($_SESSION['sessionname'])?>
+                            <h1 class="h2 mb-0 ls-tight">Seller Analytics</h1> Welcome Back, <?= ($_SESSION['sessionname'])?>
                         
                         </div>
                     </div>
@@ -180,29 +410,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="card shadow border-0">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <span class="h6 font-semibold text-muted text-sm d-block mb-2">Processed Order(s)</span>
-                                        <span class="h3 font-bold mb-0"><?php echo $proc_Order['act_order']; ?></span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- <div class="mt-2 mb-0 text-sm">
-                                    <span class="badge badge-pill bg-soft-success text-success me-2">
-                                        <i class="bi bi-arrow-up me-1"></i>30%
-                                    </span>
-                                    <span class="text-nowrap text-xs text-muted">Since last month</span>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
+                  
                     <div class="col-xl-3 col-sm-6 col-12">
                         <div class="card shadow border-0">
                             <div class="card-body">
@@ -219,7 +427,7 @@
                                 </div>
                                 <!-- <div class="mt-2 mb-0 text-sm">
                                     <span class="badge badge-pill bg-soft-danger text-danger me-2">
-                                        <i class="bi bi-arrow-down me-1"></i>-5%
+                                         <i class="bi bi-arrow-down me-1"></i>-5%
                                     </span>
                                     <span class="text-nowrap text-xs text-muted">Since last month</span>
                                 </div> -->
@@ -251,6 +459,58 @@
                     </div>
                 </div>
                
+                <div class="card shadow border-0 mb-7">
+                    <div class="card-header">
+                        <h5 class="mb-0">Statistics(s)</h5>
+                    </div>
+                    <div class="grid-container">
+                    <div>
+                    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+                    </div>
+                    <div>
+                     <div id="donutchart" style="width: 900px; height: 500px;"></div>
+                     </div>
+                     </div>
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                        <script type="text/javascript">
+                        google.charts.load("current", {packages:["corechart"]});
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                            var data = google.visualization.arrayToDataTable([
+                            ['Product Type', 'sold'],
+                            ['Jearsy',    <?php echo $jersey; ?>],
+                            ['Lanyard',   <?php echo  $lanyard;?>],
+                            ['Hoodie',  <?php echo  $hoodie;?>],
+                            ['Cap', <?php echo  $cap;?>],
+                            ['Tote Bag',<?php  echo $tote;?>],
+                            ['Others', <?php echo $others;?>]
+                            ]);
+
+                            var options = {
+                            title: 'My Daily Activities',
+                            pieSliceTextStyle: {
+                               color: 'black',
+                            },
+                            slices: {
+                               0: { color: 'saddlebrown' },
+                               1: { color: 'sienna' },
+                               2: { color: 'peru' },
+                               3: { color: 'sandybrown' },
+                               4: { color: 'burlywood' },
+                               5: { color: 'tan' }
+                               },
+                            pieHole: 0.4,
+                            };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                            chart.draw(data, options);
+                        }
+                        </script>
+
+                
+             
+                </div>
+
                 <div class="card shadow border-0 mb-7">
                     <div class="card-header">
                         <h5 class="mb-0">Recent Order(s)</h5>
