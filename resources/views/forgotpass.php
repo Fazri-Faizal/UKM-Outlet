@@ -109,98 +109,6 @@ function choise3() {
             </form> 
         </div>
 
- <div class="wrapper"> 
- <div class="form-wrapper forgot"> 
-            <form action="/forgotpassword" method="get"> 
-                <h2 class="signup">Forgot Password</h2> 
-                <div class="grid-container">
-                    <div>
-                    <label>User Info</label> 
-                    <div class="input-group"> 
-                            <input type="Username" name="username" required> 
-                            <label for="">Username</label> 
-                        </div> 
-                        <div class="input-group"> 
-                            <input type="email" name="email" required> 
-                            <label for="">Email</label> 
-                        </div> 
-                     
-                    </div>
-                
-                    <div class="question"> 
-                        <label>Verification question</label> 
-
-                        <div class="select-group" class="listbox"> 
-                        <select id="q1" name="verification1"  onchange="choise1()" class="selection"> 
-                            <option>Choose your question</option> 
-                            <option value="Place of birth">Place of birth</option> 
-                            <option value="Primary school">Primary school</option> 
-                            <option value="Mother's name">Mother's name</option> 
-                            <option value="Father's name">Father's name</option> 
-                            <option value="Pet's name">Pet's name</option> 
-                        </select> 
-                        </div> 
-                        <div class="input-group"> 
-                            <input id="choiseq1" placeholder="Write your answer" type="text" name="verifyanswer1"required> 
-                        
-                        </div> 
-                        <div class="select-group" class="listbox"> 
-                            <select id="q2" name="verification2"  onchange="choise2()" class="selection"> 
-                                <option>Choose your question</option> 
-                                <option value="Place of birth">Place of birth</option> 
-                                <option value="Primary school">Primary school</option> 
-                                <option value="Mother's name">Mother's name</option> 
-                                <option value="Father's name">Father's name</option> 
-                                <option value="Pet's name">Pet's name</option> 
-                            </select> 
-                        </div> 
-
-                        <div class="input-group"> 
-                            <input id="choiseq2" placeholder="Write your answer" type="text" name="verifyanswer2"required> 
-                        
-                        </div> 
-                        <!-- <div class="select-group" class="listbox"> 
-                            <select id="q3" name="verification3"  onchange="choise3()" class="selection"> 
-                                <option>Choose your question</option> 
-                                <option value="Place of birth">Place of birth</option> 
-                                <option value="Primary school">Primary school</option> 
-                                <option value="Mother's name">Mother's name</option> 
-                                <option value="Father's name">Father's name</option> 
-                                <option value="Pet's name">Pet's name</option> 
-                            </select> 
-                        </div> 
-                        <div class="input-group"> 
-                            <input id="choiseq3" value="Choose Quetion" type="text" name="verifyanswer3"required> 
-                        
-                        </div>  -->
-                    </div>    
-                </div>
-                    <button type="submit" name="forget" class="btn">Change Password</button> 
-                    <div class="sign-link"> 
-                        <p> <a href="/login-web" class="signIn-link">Sign In</a></p> 
-                    </div> 
-                
-                
-                
-<script>
-function choise1() {
-  var x = document.getElementById("q1").value;
-  document.getElementById("choiseq1").placeholder = "What is your "+x+" ?";
-}
-function choise2() {
-  var x = document.getElementById("q2").value;
-  document.getElementById("choiseq2").placeholder = "What is your "+x+" ?";
-}
-function choise3() {
-  var x = document.getElementById("q3").value;
-  document.getElementById("choiseq3").value = "What is your "+x+" ?";
-}
-</script>
-            </form> 
-        </div>
-
-
-
         <div class="form-wrapper sign-in">
             <form action="" method="get">
                 <img src="/img/LOGO-MOBILE.png" alt="UKM Outlet Logo" style="width: 433px; margin-bottom: -130px; margin-top: -85px">
@@ -215,8 +123,8 @@ function choise3() {
                 </div>
                 <button type="submit" name="login" class="btn">Log in</button>
 
-                <div class="sign-link" style="margin-top: 10px">
-                    <a href="#" class="forgot-link">Forgot password?</a>
+                <div class="forgot-pass" style="margin-top: 10px">
+                    <a href="/forgot_pass" class="forgot-link">Forgot password?</a>
                 </div>
                 <div class="sign-link">
                     

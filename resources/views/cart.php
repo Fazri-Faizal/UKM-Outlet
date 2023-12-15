@@ -2,7 +2,7 @@
 
 include ('header.php');
 include ('database.php');
-
+$mysqli1=new mysqli($servername, $username, $password,$dbname);
   $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = '$sessionname'");
   $stmt1->execute();
       $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -24,9 +24,9 @@ LEFT JOIN tbl_product_variation ON tbl_cart.product_id = tbl_product_variation.f
 WHERE tbl_cart.product_size = tbl_product_variation.fld_product_size AND tbl_cart.customer_id = $custId");
 $stmt->execute();
 
-$arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC); 
+$arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-if(!$arr) exit('no item in cart');
+if(!$arr) exit('no rows');
 
 $stmt->close();
 
@@ -62,7 +62,11 @@ $stmt->close();
                 
                 foreach($arr as $ukmcart) { 
 
-                  
+                    // if($count == 4) {
+                    //     $count = 1;
+                    //     echo '</tr>';
+                    //     echo '<tr>';
+                    // }
                     $cid=$ukmcart['cart_id'];
                     $id=$ukmcart['customer_id'];
                     $count++;

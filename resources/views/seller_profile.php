@@ -39,7 +39,7 @@
     
     $arrview = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
     
-    if(!$arrview) exit('no rows');
+    if(!$arrview) exit('no rows kot');
     
     $stmt3->close();
 ?>
