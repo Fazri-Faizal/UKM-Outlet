@@ -1,3 +1,20 @@
+<?php 
+    include_once'session.php';
+    include 'database.php';
+    
+    $mysqli1 = new mysqli($servername, $username, $password, $dbname);
+    $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_customer WHERE username = '$sessionname'");
+    $stmt1->execute();
+
+    $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    foreach($handler as $seller) {
+      $sellerId = $seller['id'];
+    }
+
+    $stmt1->close();
+?>
+
 <head>
     <title>UKM Outlet Seller Products</title>
     <style>
@@ -148,6 +165,71 @@
         .slider.round:before {
             border-radius: 50%;
         }
+
+        /* Checkbox CSS START */
+        body {
+            background-color: #f7f2f2;
+        }
+
+        .box {
+            padding: 2em;
+        }
+
+        .item {
+            margin-bottom: 2em;
+        }
+
+        /* checkbox-rect2 */
+        .checkbox-rect2 input[type="checkbox"] {
+            display: none;
+        }
+        
+        .checkbox-rect2 input[type="checkbox"] + label {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 20px;
+            font: 14px/20px "Open Sans", Arial, sans-serif;
+            /*cursor: pointer;*/
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]:hover + label:before { 
+            border: 1px solid #343a3f;
+            box-shadow: 2px 1px 0 #804444;
+        }
+
+        .checkbox-rect2 input[type="checkbox"] + label:last-child {
+            margin-bottom: 0;
+        }
+
+        .checkbox-rect2 input[type="checkbox"] + label:before {
+            content: "";
+            display: block;
+            width: 1.4em;
+            height: 1.4em;
+            border: 1px solid #343a3f;
+            border-radius: 0.2em;
+            position: absolute;
+            left: 0;
+            top: 0;
+            -webkit-transition: all 0.2s, background 0.2s ease-in-out;
+            transition: all 0.2s, background 0.2s ease-in-out;
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: -2px -1px 0 #804444;
+            background: #f3f3f3;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]:checked + label:before {
+            border: 2px solid #fff;
+            border-radius: 0.3em;
+            background: #804444;
+            box-shadow: 2px 1px 0 #804444;
+        }
+        /* checkbox-rect2 end */
+        /* Checkbox CSS END */
     </style>
 </head>
 
@@ -238,13 +320,13 @@
                     <div class="card-header">
                     
                         <h2>Add New Product</h2>
-                        <form action="/crud_add_product" method="get">
+                        <form action="/crud_add_product" method="get" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="productName">Product Name:</label>                       
                                 <input type="text" id="productName" name="productName" style="width: 100%" required>
                             </div>
 
-                            <div class="form-group" style="display: inline-flex">
+                            <!-- <div class="form-group" style="display: inline-flex">
                                 Product Variation 
                                 &nbsp;	&nbsp;
                                 <label class="switch">
@@ -311,12 +393,13 @@
                                         document.getElementById("divPrice").style.display = "";
                                     }
                                 }
-                            </script>
+                            </script> -->
 
                             <div class="form-group" id="divPrice">
                                 <label for="productPrice">Product Price:</label>
                                 <input type="number" step="0.01" id="productPrice" name="productPrice" required>
                             </div>
+
                             <div class="form-group">
                                 <label for="productType">Product Type:</label>
                                 <select id="productType" name="productType">
@@ -327,6 +410,249 @@
                                     <option value="ToteBag">ToteBag</option>
                                 </select>
                             </div>
+
+                            <label for="productSize">Product Size:</label>
+
+                            <div class="form-group" style="display: grid; grid-template-columns: auto auto auto auto auto auto auto; text-align: center; margin-bottom: -50px;">
+                                <div>
+                                    <div class="box">
+                                        <div class="item">
+                                            <div class="checkbox-rect2">
+                                                <input type="checkbox" id="xs" name="size[]" value="XS">
+                                                <label for="xs">XS</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="box">
+                                        <div class="item">
+                                            <div class="checkbox-rect2">
+                                                <input type="checkbox" id="s" name="size[]" value="S">
+                                                <label for="s">S</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="box">
+                                        <div class="item">
+                                            <div class="checkbox-rect2">
+                                                <input type="checkbox" id="m" name="size[]" value="M">
+                                                <label for="m">M</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="box">
+                                        <div class="item">
+                                            <div class="checkbox-rect2">
+                                                <input type="checkbox" id="l" name="size[]" value="L">
+                                                <label for="l">L</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="box">
+                                        <div class="item">
+                                            <div class="checkbox-rect2">
+                                                <input type="checkbox" id="xl" name="size[]" value="XL">
+                                                <label for="xl">XL</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="box">
+                                        <div class="item">
+                                            <div class="checkbox-rect2">
+                                                <input type="checkbox" id="xxl" name="size[]" value="XXL">
+                                                <label for="xxl">XXL</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="box">
+                                        <div class="item">
+                                            <div class="checkbox-rect2">
+                                                <input type="checkbox" id="xxxl" name="size[]" value="XXXL">
+                                                <label style="display: inline" for="xxxl">XXXL</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <!-- <br> -->
+                            <!-- <br> -->
+
+                            <label for="productStock" id="labelStock">Product Stock: </label>
+
+                            <br>
+                            <br>
+
+                            <div class="form-group" style="display: grid; grid-template-columns: auto auto auto auto auto auto auto; text-align: center; margin-bottom: -50px;">
+                                <div id="productStockXS" style="display: none">
+                                    <div class="box">
+                                        <div class="item">
+                                            <input type="text" id="inputXS" name="stock[]" style="width: 78%; margin-top: -80px; text-align: center" placeholder="Stock (XS)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="productStockS" style="display: none">
+                                    <div class="box">
+                                        <div class="item">
+                                            <input type="text" id="inputS" name="stock[]" style="width: 78%; margin-top: -80px; text-align: center" placeholder="Stock (S)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="productStockM" style="display: none">
+                                    <div class="box">
+                                        <div class="item">
+                                            <input type="text" id="inputM" name="stock[]" style="width: 78%; margin-top: -80px; text-align: center" placeholder="Stock (M)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="productStockL" style="display: none">
+                                    <div class="box">
+                                        <div class="item">
+                                            <input type="text" id="inputL" name="stock[]" style="width: 78%; margin-top: -80px; text-align: center" placeholder="Stock (L)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="productStockXL" style="display: none">
+                                    <div class="box">
+                                        <div class="item">
+                                            <input type="text" id="inputXL" name="stock[]" style="width: 78%; margin-top: -80px; text-align: center" placeholder="Stock (XL)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="productStockXXL" style="display: none">
+                                    <div class="box">
+                                        <div class="item">
+                                            <input type="text" id="inputXXL" name="stock[]" style="width: 78%; margin-top: -80px; text-align: center" placeholder="Stock (XXL)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="productStockXXXL" style="display: none">
+                                    <div class="box">
+                                        <div class="item">
+                                            <input type="text" id="inputXXXL" name="stock[]" style="width: 78%; margin-top: -80px; text-align: center" placeholder="Stock (XXXL)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                let xs = document.getElementById("xs");
+                                let s = document.getElementById("s");
+                                let m = document.getElementById("m");
+                                let l = document.getElementById("l");
+                                let xl = document.getElementById("xl");
+                                let xxl = document.getElementById("xxl");
+                                let xxxl = document.getElementById("xxxl");
+
+                                xs.addEventListener( "change", () => {
+                                    let label = document.getElementById("labelStock").innerHTML;
+
+                                    if ( xs.checked ) {
+                                        document.getElementById("productStockXS").style.display = "";
+                                        document.getElementById("labelStock").innerHTML = label + " XS ";
+                                    } else {
+                                        document.getElementById("productStockXS").style.display = "none";
+                                        document.getElementById("labelStock").innerHTML = label.replace(' XS ', '');
+                                    }
+                                });
+
+                                s.addEventListener( "change", () => {
+                                    let label = document.getElementById("labelStock").innerHTML;
+
+                                    if ( s.checked ) {
+                                        document.getElementById("productStockS").style.display = "";
+                                        document.getElementById("labelStock").innerHTML = label + " S ";
+                                    } else {
+                                        document.getElementById("productStockS").style.display = "none";
+                                        document.getElementById("labelStock").innerHTML = label.replace(' S ', '');
+                                    }
+                                });
+
+                                m.addEventListener( "change", () => {
+                                    let label = document.getElementById("labelStock").innerHTML;
+
+                                    if ( m.checked ) {
+                                        document.getElementById("productStockM").style.display = "";
+                                        document.getElementById("labelStock").innerHTML = label + " M ";
+                                    } else {
+                                        document.getElementById("productStockM").style.display = "none";
+                                        document.getElementById("labelStock").innerHTML = label.replace(' M ', '');
+                                    }
+                                });
+
+                                l.addEventListener( "change", () => {
+                                    let label = document.getElementById("labelStock").innerHTML;
+
+                                    if ( l.checked ) {
+                                        document.getElementById("productStockL").style.display = "";
+                                        document.getElementById("labelStock").innerHTML = label + " L ";
+                                    } else {
+                                        document.getElementById("productStockL").style.display = "none";
+                                        document.getElementById("labelStock").innerHTML = label.replace(' L ', '');
+                                    }
+                                });
+
+                                xl.addEventListener( "change", () => {
+                                    let label = document.getElementById("labelStock").innerHTML;
+
+                                    if ( xl.checked ) {
+                                        document.getElementById("productStockXL").style.display = "";
+                                        document.getElementById("labelStock").innerHTML = label + " XL ";
+                                    } else {
+                                        document.getElementById("productStockXL").style.display = "none";
+                                        document.getElementById("labelStock").innerHTML = label.replace(' XL ', '');
+                                    }
+                                });
+
+                                xxl.addEventListener( "change", () => {
+                                    let label = document.getElementById("labelStock").innerHTML;
+
+                                    if ( xxl.checked ) {
+                                        document.getElementById("productStockXXL").style.display = "";
+                                        document.getElementById("labelStock").innerHTML = label + " XXL ";
+                                    } else {
+                                        document.getElementById("productStockXXL").style.display = "none";
+                                        document.getElementById("labelStock").innerHTML = label.replace(' XXL ', '');
+                                    }
+                                });
+
+                                xxxl.addEventListener( "change", () => {
+                                    let label = document.getElementById("labelStock").innerHTML;
+
+                                    if ( xxxl.checked ) {
+                                        document.getElementById("productStockXXXL").style.display = "";
+                                        document.getElementById("labelStock").innerHTML = label + " XXXL ";
+                                    } else {
+                                        document.getElementById("productStockXXXL").style.display = "none";
+                                        document.getElementById("labelStock").innerHTML = label.replace(' XXXL ', '');
+                                    }
+                                });
+                            </script>
+
                             <div class="form-group">
                                 <label for="productOrigin">Product Origin:</label>
                                 <select id="productOrigin" name="productOrigin">
@@ -363,8 +689,9 @@
                                 <label for="productDescription">Product Description:</label>
                                 <textarea id="productDescription" name="productDescription" rows="4" required></textarea>
                             </div>
-                            <label for="productImage">Product Image:</label>
-                            <div class="upload-container">
+
+                            <!-- <label for="productImage">Product Image:</label>
+                            <div class="upload-container" id="uploadFile" onclick="uploadFile()">
                                 <label for="file-upload">
                                     <div class="upload-box">
                                         <div class="icon">📸</div>
@@ -372,10 +699,39 @@
                                         <div class="counter">(0/24)</div>
                                     </div>
                                 </label>
-                                <input type="file" id="file-upload" multiple>
-                            </div>
+                                <input type="file" id="file-upload" name="uploadfile" multiple>    
+                            </div> -->
+
+                            <!-- <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#video-about-us">
+                                @icon('oi oi-play-circle') Watch a video about us
+                            </button>
+
+                            <x-modal id="video-about-us" title="Modal with embed video">
+                                <x-slot name="body">
+                                <x-embed src="https://www.youtube.com/embed/1La4QzGeaaQ" format="21x9"/>
+
+                                <div class="text-muted mt-3">
+                                    We are Unify a creative studio focusing on culture, luxury,
+                                    editorial & art. Somewhere between sophistication and simplicity
+                                </div>
+                                </x-slot>
+
+                                <x-slot name="footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                                </x-slot>
+                            </x-modal> -->
+
+                            <input type="hidden" name="sellerId" value="<?php echo $sellerId ?>"> 
+
                             <button type="submit" name="insertProduct">Add Product</button>
                         </form>
+
+                        <script> 
+                            function uploadFile() {
+                                window.location.href='/upload'; 
+                            }
+                        </script>
                     
                 </div>
             </div>
