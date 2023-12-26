@@ -129,3 +129,7 @@
 	text-transform: uppercase;
 	cursor: pointer;
 }
+
+.reviewlist {
+	margin-top: 20px;
+}
