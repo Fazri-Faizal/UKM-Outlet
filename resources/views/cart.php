@@ -26,9 +26,8 @@ $stmt->execute();
 
 $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-if(!$arr) exit('no rows');
 
-$stmt->close();
+
 
 
 ?>
@@ -56,46 +55,103 @@ $stmt->close();
           <li class="subtotal">Subtotal</li>
         </ul>
       </div>
+    <?php
+     
+
+
+       
+  $stmt3 = $mysqli->prepare("SELECT * FROM tbl_cart  WHERE customer_id = $custId");
+  $stmt3->execute();
+  
+  $arr3 = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
+
+
+?>
+
       <form action="/cart_checkout" method="get">
+
       <?php
+        foreach( $arr3 as $loop) { 
                 $count = 1;
+             
+             
+                $size=$loop['product_size'];
+                $productid= $loop['product_id'];
+                $cid=$loop['cart_id'];
+                $quantity=$loop['quantity'];
+                $stmt2 = $mysqli->prepare("SELECT * FROM tbl_products WHERE product_id=' $productid'");
+                $stmt2->execute();
                 
-                foreach($arr as $ukmcart) { 
+                $arr2 = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
+                  foreach( $arr2 as $ukmcarts) { 
 
                     // if($count == 4) {
                     //     $count = 1;
                     //     echo '</tr>';
                     //     echo '<tr>';
                     // }
-                    $cid=$ukmcart['cart_id'];
-                    $id=$ukmcart['customer_id'];
+                 
+                    $id=$ukmcarts['seller_ids'];
+               
+                    $pic=$ukmcarts['pic'];
+                    $name=$ukmcarts['product_Name'];
+                    $orginid=$ukmcarts['origin_id'];
+                 
                     $count++;
+                    $price= $ukmcarts['product_price'];
+                  
+                 
+                    }
+                    if($size=="nosize"){
+
+                    }else{
+                      $stmt4 = $mysqli->prepare("SELECT * FROM tbl_product_variation  WHERE fld_product_id = $productid");
+                      $stmt4->execute();
+  
+                       $arr4 = $stmt4->get_result()->fetch_all(MYSQLI_ASSOC);
+                      foreach( $arr4 as $ukmcart) { 
+
+                  
+                     
+                          $price= $ukmcart['fld_producy_price'];
+                       
+                        
+                    }
+             
+                  }
+                  
+                
+       
+               
             ?>
-      
+         <?php
+        
+          ?>
       <div class="basket-product">
         <div class="item">
           <div class="product-image">
-            <img src="img/<?php echo $ukmcart['pic'] ?>" alt="Placholder Image 2" class="product-frame" width="100%">
+            <img src="img/<?php echo $pic  ?>" alt="Placholder Image 2" class="product-frame" width="100%">
           </div>
           <div class="product-details">
-            <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo $ukmcart['product_Name'] ?></strong></h1>
-            <span value="<?php echo $ukmcart['product_size']?>"><p><strong><?php echo $ukmcart['product_size'] ?></strong></p></span>
+            <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo  $name ?></strong></h1>
+            <span value="<?php echo $size ?>"><p><strong><?php echo $size?></strong></p></span>
            
-            <span  value="<?php echo $ukmcart['origin_id'] ?>"><p>Product Origin - <?php echo $ukmcart['origin_id'] ?></p></span>
+            <span  value="<?php echo $orginid ?>"><p>Product Origin - <?php echo $orginid  ?></p></span>
 
-             <input name="prodsize" value="<?php echo $ukmcart['product_size']?>">
-             <input name="orgid" value="<?php echo $ukmcart['origin_id'] ?>">
+             <input name="prodsize" value="<?php echo $size?>">
+             <input name="orgid" value="<?php echo $orginid ?>">
 
           </div>
         </div>
-        <div class="price" data-price="<?php echo $ukmcart['fld_producy_price']; ?>"><?php echo $ukmcart['fld_producy_price']; ?></div>
-        <input name="price" type="hidden" value="<?php echo $ukmcart['fld_producy_price'] ?>">
+        <div class="price" data-price="<?php echo $price ?>" ><?php echo $price; ?></div>
+        <input name="price" type="hidden" value="<?php echo $price; ?>">
           <div class="quantity">
-            <input name="qty" type="number" value="<?php echo $ukmcart['quantity']; ?>" min="1" class="quantity-field" data-id="<?php echo $ukmcart['product_id']; ?>" onchange="updateSubtotal(this);">
+            <input name="qty" type="number" value="<?php echo    $quantity; ?>" min="1" class="quantity-field" data-id="<?php echo $productid; ?>" onchange="updateSubtotal(this);">
           </div>
-          <div class="subtotal" data-id="<?php echo $ukmcart['product_id']; ?>"><?php echo number_format($ukmcart['quantity'] * $ukmcart['fld_producy_price'], 2); ?></div>
-          <input type="hidden" name="cust_id" value="<?php echo $ukmcart['customer_id'] ?>">
-          <input type="hidden" name="subtotal" value="<?php echo number_format($ukmcart['quantity'] * $ukmcart['fld_producy_price'], 2); ?>">
+       
+          <div class="subtotal" data-id="<?php echo $productid; ?>"><?php echo number_format(   $quantity * $price, 2); ?></div>
+          <input type="hidden" name="cust_id" value="<?php echo $id; ?>">
+          <input type="hidden" name="subtotal" value="<?php echo number_format($quantity * $price, 2); ?>">
           <input type="hidden" name="cid" value="<?php echo $cid ?>">
         <div class="remove">
           <a href='delete_cart_item?cart_id=<?=$cid;?>'>
@@ -104,7 +160,8 @@ $stmt->close();
         </div>
       </div>
       <?php 
-                }
+                
+              }
         ?>
     </div>
     <aside>
@@ -142,6 +199,7 @@ $stmt->close();
 </body>
 <?php include 'footer.php' ?>
 </html>
+<?php ?>
 <script>
 /* Set values + misc */
 var promoCode;
@@ -203,7 +261,7 @@ function recalculateCart(onlyTotal) {
       document.querySelector(".summary-promo").classList.add("hide");
     }
   }
-  /*If switch for update only total, update only total display*/
+  /If switch for update only total, update only total display/
   if (onlyTotal) {
     /* Update total display */
     var totalValue = document.querySelector(".total-value");
