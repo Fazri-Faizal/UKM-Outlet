@@ -69,7 +69,7 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
 
       <form action="/cart_checkout" method="get">
-
+      <input type="hidden" name="cust_id" value="<?php echo $custId; ?>">
       <?php
         foreach( $arr3 as $loop) { 
                 $count = 1;
@@ -146,11 +146,11 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         <div class="price" data-price="<?php echo $price ?>" ><?php echo $price; ?></div>
         <input name="price" type="hidden" value="<?php echo $price; ?>">
           <div class="quantity">
-            <input name="qty" type="number" value="<?php echo    $quantity; ?>" min="1" class="quantity-field" data-id="<?php echo $productid; ?>" onchange="updateSubtotal(this);">
+            <input name="qty" type="number" value="<?php echo $quantity; ?>" min="1" class="quantity-field" data-id="<?php echo $productid; ?>" onchange="updateSubtotal(this);" id="newqty">
           </div>
        
           <div class="subtotal" data-id="<?php echo $productid; ?>"><?php echo number_format(   $quantity * $price, 2); ?></div>
-          <input type="hidden" name="cust_id" value="<?php echo $id; ?>">
+      
           <input type="hidden" name="subtotal" value="<?php echo number_format($quantity * $price, 2); ?>">
           <input type="hidden" name="cid" value="<?php echo $cid ?>">
         <div class="remove">
@@ -330,7 +330,7 @@ function updateSubtotal(quantityInput) {
   var subtotal = (price * quantity).toFixed(2);
   
   subtotalElement.textContent = subtotal;
-  
+  document.getElementById("newqty").value = quantity ;
   recalculateCart(); // Recalculate the cart to update the total
 }
 
