@@ -266,3 +266,12 @@ Route::get('/delete_user', function () {
 Route::get('/seller_shop', function () {
     return view('seller_shop');
 });
+Route::get('/admin_login', function () {
+    return view('admin_login');
+});
+Route::get('/destroy-admin', function () {
+    return view('destroy-admin');
+});
+Route::get('/seller_delete_product', function () {
+    return view('seller_delete_product');
+});
