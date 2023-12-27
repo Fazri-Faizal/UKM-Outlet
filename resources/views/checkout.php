@@ -2,7 +2,7 @@
 
 include ('header.php');
 include ('database.php');
- 
+
  $mysqli = new mysqli($servername, $username, $password,$dbname);
  $mysqli1 = new mysqli($servername, $username, $password,$dbname);
 
@@ -234,15 +234,13 @@ foreach ($result as $row) {
           </form> -->
         <!-- </div> -->
 
-
-
-      <aside>
+        <aside>
         <div class="summary">
           <div class="summary-total-items"><strong style="font-size: 30px;">Order Summary</strong></div>
           <!-- <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div> -->
             <div class="summary-subtotal">
               <div class="subtotal-title">Subtotal</div>
-              <div class="subtotal-value final-value" id="basket-subtotal">130.00</div>
+              <div class="subtotal-value final-value" id="basket-subtotal">130</div>
               <div class="subtotal-title">Shipping subtotal</div>
               <div class="subtotal-value final-value">0.00</div>
               <div class="summary-promo hide">
@@ -250,29 +248,92 @@ foreach ($result as $row) {
               <div class="promo-value final-value" id="basket-promo"></div>
             </div>
         </div>
+
+   
         <?php
                 $count = 1;
+                $price=0.0;
+                $totalprice=0.0;
+                $stmt3 = $mysqli->prepare("SELECT * FROM tbl_cart  WHERE customer_id = $custId");
+                $stmt3->execute();
                 
-                foreach($arr as $ukmcart) { 
+                $arr3 = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
+              
+                foreach( $arr3 as $loop) { 
+                  $count = 1;
+               
+               
+                  $size=$loop['product_size'];
+                  $productid= $loop['product_id'];
+                  $cid=$loop['cart_id'];
+                  $quantity=$loop['quantity'];
+                  $stmt2 = $mysqli->prepare("SELECT * FROM tbl_products WHERE product_id=' $productid'");
+                  $stmt2->execute();
+                  
+                  $arr2 = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
+                    foreach( $arr2 as $ukmcarts) { 
+  
+                      // if($count == 4) {
+                      //     $count = 1;
+                      //     echo '</tr>';
+                      //     echo '<tr>';
+                      // }
+                   
+                      $id=$ukmcarts['seller_ids'];
+                 
+                      $pic=$ukmcarts['pic'];
+                      $name=$ukmcarts['product_Name'];
+                      $orginid=$ukmcarts['origin_id'];
+                   
+                      $count++;
+                      $price= $ukmcarts['product_price'];
+                  
+             
+                   
+                      }
+                      if($size=="nosize"){
+  
+                      }else{
+                        $stmt4 = $mysqli->prepare("SELECT * FROM tbl_product_variation  WHERE fld_product_id = $productid");
+                        $stmt4->execute();
+    
+                         $arr4 = $stmt4->get_result()->fetch_all(MYSQLI_ASSOC);
+                        foreach( $arr4 as $ukmcart) { 
+  
+                    
+                       
+                            $price= $ukmcart['fld_producy_price'];
+                        
+                            
+                     
+                      }
+               
+                    }
+                    $totalprice=    $price*  $quantity+$totalprice;
+                  
 
                     // if($count == 4) {
                     //     $count = 1;
                     //     echo '</tr>';
                     //     echo '<tr>';
                     // }
-                    $cid=$ukmcart['cart_id'];
-                    $id=$ukmcart['customer_id'];
-                    $count++;
+               
+               
             ?>
+
+
+
             <div class="summary-delivery">
                 <div class="product-details">
-                  <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo $ukmcart['product_Name'] ?></strong></h1>
-                  Quantity :  <strong><?php echo $ukmcart['quantity']; ?></strong>
+                  <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo  $name ?></strong></h1>
+                  Quantity :  <strong><?php echo $quantity; ?></strong>
                   
               </div>
               <hr>
               
               <?php 
+                 
+                        
                 }
         ?>
             <div>
@@ -286,7 +347,7 @@ foreach ($result as $row) {
           </div>
           <div class="summary-total">
             <div class="total-title">Total</div>
-            <div class="total-value final-value" id="basket-total">130.00</div>
+            <div class="total-value final-value" id="basket-total"><?php echo $totalprice;?></div>
           </div>
           <div class="summary-checkout">
               <!-- <a href="/checkout">
