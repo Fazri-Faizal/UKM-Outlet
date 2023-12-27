@@ -101,7 +101,7 @@
             </ul>
             
             <ul class="logout-mode">
-                <li><a href="#">
+                <li><a href="/destroy-admin">
                     <i class="uil uil-signout"></i>
                     <span class="link-name">Logout</span>
                 </a></li>
@@ -178,7 +178,7 @@
                         <div style="font-size: 22px;color: #745c4e;text-align:center;height: 43px;display: grid;align-content: space-around;">
                             <span>Top Seller</span>
                         </div><hr style="margin-top: 10px;color: #804444;">                     
-                        <table cellpadding="0" cellspacing="0" border="0">
+                        <table cellpadding="0" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>
@@ -190,7 +190,7 @@
                         </table> 
                     </div>
                     <div class="tbl-content">
-                        <table cellpadding="0" cellspacing="0" border="0">  
+                        <table cellpadding="0" cellspacing="0">  
                             <tbody>
                                 <?php
                                     foreach($arr as $sellerlist) {
@@ -223,7 +223,7 @@
                         <div style="font-size: 22px;color: #745c4e;text-align:center;height: 43px;display: grid;align-content: space-around;">
                             <span>User Account</span>
                         </div><hr style="margin-top: 10px;color: #804444;">
-                        <table cellpadding="0" cellspacing="0" border="0">
+                        <table cellpadding="0" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th scope="col">Full Name</th>
@@ -236,7 +236,7 @@
                         </table> 
                     </div>
                     <div class="tbl-content">
-                        <table cellpadding="0" cellspacing="0" border="0">  
+                        <table cellpadding="0" cellspacing="0">  
                             <tbody>
                                 <?php
                                     foreach($arr2 as $userlist) {
