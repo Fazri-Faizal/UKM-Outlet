@@ -74,6 +74,7 @@ input:focus, textarea:focus, keygen:focus, select:focus {
     border-color: #AB8262;
     height: 40px;
     width: 150px;
+    font-weight: 700;
     /* margin: 0; */
 }
 
@@ -338,6 +339,11 @@ input[type=text]:focus, input[type=password]:focus {
     outline-color: #d9c9ae;
     outline-offset: 2;
 }
+
+.bio {
+  color:#cdc1c1;
+}
+
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

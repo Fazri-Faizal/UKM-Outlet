@@ -164,6 +164,8 @@
       foreach($variation2 as $pname){
         $productname=$pname['product_Name'];
         $productpic=$pname['pic'];
+        $sellerid=$pname['seller_ids'];
+        $shopname=$pname['shop_name'];
         $productrating=$pname['product_Rating'];
         $productprice=$pname['product_price'];
 
@@ -182,6 +184,31 @@
        <!DOCTYPE html>
 <html>
   <head>
+    <style>
+      /* shop name */
+.nama_kedai {
+  display: block;
+}
+
+.sname {
+  margin-left: 150px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  color:#612c2c;
+}
+
+.sname:hover {
+  color:#ab8262;
+}
+
+.titleseller {
+  margin-left: 150px;
+  font-size: 17px;
+}
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Product details</title>
@@ -322,6 +349,12 @@
       </table>
     </form>
 
+    <form method="GET" action="/seller_shop" class="nama_kedai">
+      <input type="hidden" name="sellerId" value="<?php echo $sellerid; ?>">
+      <h5 class="titleseller">Seller:</h5>
+      <button type="submit" class="sname"><?php echo $shopname ?></button>
+    </form>
+
     <?php include 'product-description.php' ?>
 
     <?php include 'footer.php'?>
@@ -359,6 +392,8 @@
     $productrating=0;
     foreach($variation2 as $pname){
         $productname=$pname['product_Name'];
+        $sellerid=$pname['seller_ids'];
+        $shopname=$pname['shop_name'];
         $productpic=$pname['pic'];
         $productrating=$pname['product_Rating'];
 
@@ -378,6 +413,31 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <style>
+      /* shop name */
+.nama_kedai {
+  display: block;
+}
+
+.sname {
+  margin-left: 150px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  color:#612c2c;
+}
+
+.sname:hover {
+  color:#ab8262;
+}
+
+.titleseller {
+  margin-left: 150px;
+  font-size: 17px;
+}
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Product details</title>
@@ -570,6 +630,13 @@
         </tr>
       </table>
     </form>
+    <!-- shop name -->
+    <form method="GET" action="/seller_shop" class="nama_kedai">
+      <input type="hidden" name="sellerId" value="<?php echo $sellerid; ?>">
+      <h5 class="titleseller">Seller:</h5>
+      <button type="submit" class="sname"><?php echo $shopname ?></button>
+    </form>
+
 
     <?php include 'product-description.php' ?>
 

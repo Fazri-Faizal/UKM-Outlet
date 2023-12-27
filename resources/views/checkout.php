@@ -28,7 +28,7 @@ $stmt->execute();
 
 $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-if(!$arr) exit('no rows');
+
 
 $stmt->close();
 
@@ -418,7 +418,7 @@ function recalculateCart(onlyTotal) {
       document.querySelector(".summary-promo").classList.add("hide");
     }
   }
-  /*If switch for update only total, update only total display*/
+  /If switch for update only total, update only total display/
   if (onlyTotal) {
     /* Update total display */
     var totalValue = document.querySelector(".total-value");
