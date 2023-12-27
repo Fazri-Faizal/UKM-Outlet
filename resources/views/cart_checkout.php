@@ -20,7 +20,12 @@ $stmt = $conn->prepare("INSERT INTO tbl_checkout(customer_id,quantity,subtotal,c
     $qty = $_GET['qty'];
     $subtotal = $_GET['subtotal'];
     $orgid = $_GET['orgid'];
-    $prodsize = $_GET['prodsize'];
+    if (isset($_GET['prodsize']))
+     {
+        $prodsize=$_GET['prodsize'];
+     }else{
+        $prodsize="no size"; 
+     }
     $cid = $_GET['cid'];
 
 
