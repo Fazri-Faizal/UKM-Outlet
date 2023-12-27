@@ -2,6 +2,154 @@
     include_once'session.php';
     include 'database.php';
     
+    if(isset($_GET['edituser'])) { 
+        $role=$_GET['role'] ;
+        $matrics= $_GET['matrics'];    
+        
+        $mysqli1 = new mysqli($servername, $username, $password, $dbname);
+        $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_customer");
+        $stmt1->execute();
+
+        $arr = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt1->close(); 
+    ?>
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+            <!----======== CSS ======== -->
+            <link rel="stylesheet" href="/css/admin_user.css">
+            
+            <!----===== Iconscout CSS ===== -->
+            <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+            <title>Admin User Activity</title> 
+
+            <style>
+                /* Bootstrap Icons */
+                @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+                @import url("https://fonts.googleapis.com/css?family=Roboto:400,500,300,700");
+            </style>
+        </head>
+        <body>
+            <nav>
+                <div class="logo-image">
+                    <img src="/img/UKM OMELET LOGO.png" alt="">
+                </div>
+
+                <div class="menu-items">
+                    <ul class="nav-links">
+                        <li><a href="admin_dashboard">
+                            <i class="uil uil-estate"></i>
+                            <span class="link-name">Dashboard</span>
+                        </a></li>   
+                        <li><a href="#">
+                            <i class="uil uil-files-landscapes"></i>
+                            <span class="link-name">Report</span>
+                        </a></li>
+                        <li><a href="admin_user">
+                            <i class="uil uil-user"></i>
+                            <span class="link-name">User</span>
+                        </a></li>
+                    </ul>
+                    
+                    <ul class="logout-mode">
+                        <li><a href="#">
+                            <i class="uil uil-signout"></i>
+                            <span class="link-name">Logout</span>
+                        </a></li>
+
+                        <li class="mode">
+                            <a href="#">
+                                <i class="uil uil-moon"></i>
+                            <span class="link-name">Dark Mode</span>
+                        </a>
+
+                        <div class="mode-toggle">
+                        <span class="switch"></span>
+                        </div>
+                    </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <section>
+                <div class="dash-content">
+                    <div class="overview">
+                        <div class="title">
+                            <span class="text">User Activity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div id="addnew" class="addnew-content">
+                    <h1>Edit User Account</h1>
+                    <form action="/crud_admin_edituser" method="get">
+                        <div class="bg-white border" style="border-radius: 20px;margin-top: 20px;display: flex;flex: 2;flex-wrap: wrap;justify-content: space-around;">
+                            <div class="info-group">
+                                <label>Full Name</label>
+                                <p><input type="text" id="editfullname" name="fullname" value="<?php echo $_GET['fullname'] ?>"></p>    
+                            </div>
+
+                            <div class="info-group">
+                                <label>Username</label>
+                                <p><input type="text" id="editusername" name="username" value="<?php echo $_GET['username'] ?>"></p>  
+                            </div>
+
+                            <div class="info-group">
+                                <label>Email</label>
+                                <p><input type="text" id="editemail" name="email" value="<?php echo $_GET['email'] ?>"></p>
+                            </div>
+
+                            <div class="info-group">
+                                <label>Phone Number</label>
+                                <p><input type="text" id="editphonenumber" name="phonenumber" value="<?php echo $_GET['phonenum'] ?>"></p>  
+                            </div>
+
+                            <div class="info-group">
+                                <label>Password</label>
+                                <p><input type="text" id="editpassword" name="password" value="<?php echo $_GET['password'] ?>"></p>    
+                            </div>
+
+                            <div class="info-group">
+                                <label>Matrics</label>
+                                <p><input type="text" id="editmatrics" name="matric" value="<?php echo $matrics ?>"></p>
+                            </div>
+
+                            <input type="hidden" name="userId" value="<?php echo $_GET['userId'] ?>">
+
+                            <div class="info-group dropdown">
+                                <label for="user_role">Role</label>
+                                <select name="role" id="user_role" class="dropbtn" value=" <?php echo $_GET['role'] ?> ">
+                                    <option class="dropdown-content">Select Role</option>
+                                    <option <?php if($role=="Customer"){ echo "selected";} ?> value="Customer" class="dropdown-content">Customer</option>
+                                    <option <?php if($role=="Seller"){ echo "selected";} ?> value="Seller" class="dropdown-content">Seller</option>
+                                </select>
+                            </div> 
+                        </div>
+                        
+                        <div class="info-group" style="right:700px;">
+                        <button type="submit" class="button-update" name="updateUser">
+                            <i style="margin:-10px; font-size: 15px;">Update User Account</i>
+                        </button> 
+                    </div>     
+                    </form>
+                </div>
+            </section>
+        </body>
+        </html>
+    
+    <?php
+    
+    } else {
+    
     $mysqli1 = new mysqli($servername, $username, $password, $dbname);
     $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_customer");
     $stmt1->execute();
@@ -127,7 +275,7 @@
                     </thead>
                 </table> 
             </div>
-            <div class="tbl-content">
+            <div class="tbl-content" id="search">
                 <table cellpadding="0" cellspacing="0" border="0">  
                     <tbody>
                         <?php
@@ -156,32 +304,43 @@
                                 $userId= $row['id']; 
                                 ?>
                             <tr>
-                                <td>
-                                        <?php echo  $fullname?>
+                                <form action="" method="get">
+                                    <input type="hidden" name="fullname" value="<?php echo $row['Fullname'] ?>">
+                                    <input type="hidden" name="username" value="<?php echo $row['username'] ?>">
+                                    <input type="hidden" name="email" value="<?php echo $row['user_email'] ?>">
+                                    <input type="hidden" name="matrics" value="<?php echo $row['matrics'] ?>">
+                                    <input type="hidden" name="phonenum" value="<?php echo $row['phone_number'] ?>">
+                                    <input type="hidden" name="password" value="<?php echo $row['passwords'] ?>">
+                                    <input type="hidden" name="role" value="<?php echo $row['role'] ?>">
+                                    <input type="hidden" name="userId" value="<?php echo $row['id'] ?>">
+
+                                    <td>
+                                        <?php echo $fullname?>
                                     </td>
                                     <td style="text-align: center">
                                         <?php echo $username ?>
                                     </td>
                                     <td style="text-align: center">
-                                        <?php echo $email?>
+                                            <?php echo $email?>
                                     </td>
                                     <td style="text-align: center">
-                                        <?php echo $password ?>
+                                            <?php echo $password ?>
                                     </td>
                                     <td style="text-align: center">
-                                        <?php echo $role ?>
+                                            <?php echo $role ?>
                                     </td>
                                     <td class="text-end" style="text-align: center">
-                                    <a href='/delete_user?id=<?=$userId;?>'>
-                                <button class="button-delete">
-                                    <i class="bi bi-trash" style="margin:-10px; font-size: 15px;"></i>
-                                </button>
-                                </a>
-                                <button class="button-edit" onclick="editAccount()" id="buttonedit">
-                                    <i class="bi bi-pencil" style="margin:-10px; font-size: 15px;"></i>
-                                </button>    
-                            </td>
-                        </tr>
+                                        <a style="display: contents" href='/delete_user?id=<?=$userId;?>'>
+                                            <button class="button-delete">
+                                                <i class="bi bi-trash" style="margin:-10px; font-size: 15px;"></i>
+                                            </button>
+                                        </a>
+                                        <button type="submit" class="button-edit" id="buttonedit" name="edituser"> <!-- onclick="editAccount()" -->
+                                            <i class="bi bi-pencil" style="margin:-10px; font-size: 15px;"></i>
+                                        </button>    
+                                    </td>
+                                </form>
+                            </tr>
                                     <?php
                             } 
                         }         else{
@@ -196,34 +355,43 @@
                                 $userId= $userlist['id']; 
                         ?>
                         <tr>
-                            <td>
-                                <?php echo $userlist['Fullname'] ?>
-                            </td>
-                            <td style="text-align: center">
-                                <?php echo $userlist['username'] ?>
-                            </td>
-                            <td style="text-align: center">
-                                <?php echo $userlist['user_email'] ?>
-                            </td>
-                            <td style="text-align: center">
-                                <?php echo $userlist['passwords'] ?>
-                            </td>
-                            <td style="text-align: center">
-                                <?php echo $userlist['role'] ?>
-                            </td>
-                            <!-- <td style="text-align: center">
-                                
-                            </td> -->
-                            <td class="text-end" style="text-align: center">
-                            <a href='/delete_user?id=<?=$userId;?>'>
-                                <button class="button-delete">
-                                    <i class="bi bi-trash" style="margin:-10px; font-size: 15px;"></i>
-                                </button>
-                                </a>
-                                <button class="button-edit" onclick="editAccount()" id="buttonedit">
-                                    <i class="bi bi-pencil" style="margin:-10px; font-size: 15px;"></i>
-                                </button>    
-                            </td>
+                            <form action="" method="get">
+                                <input type="hidden" name="fullname" value="<?php echo $userlist['Fullname'] ?>">
+                                <input type="hidden" name="username" value="<?php echo $userlist['username'] ?>">
+                                <input type="hidden" name="email" value="<?php echo $userlist['user_email'] ?>">
+                                <input type="hidden" name="matrics" value="<?php echo $userlist['matrics'] ?>">
+                                <input type="hidden" name="phonenum" value="<?php echo $userlist['phone_number'] ?>">
+                                <input type="hidden" name="password" value="<?php echo $userlist['passwords'] ?>">
+                                <input type="hidden" name="role" value="<?php echo $userlist['role'] ?>">
+                                <input type="hidden" name="userId" value="<?php echo $userlist['id'] ?>">
+
+                                <td>
+                                    <?php echo $userlist['Fullname'] ?>
+                                </td>
+                                <td style="text-align: center">
+                                    <?php echo $userlist['username'] ?>
+                                </td>
+                                <td style="text-align: center">
+                                    <?php echo $userlist['user_email'] ?>
+                                </td>
+                                <td style="text-align: center">
+                                    <?php echo $userlist['passwords'] ?>
+                                </td>
+                                <td style="text-align: center">
+                                    <?php echo $userlist['role'] ?>
+                                </td>
+
+                                <td class="text-end" style="text-align: center">
+                                    <a style="display: contents" href='/admin_delete_user?id=<?=$userId;?>'>
+                                        <button class="button-delete">
+                                            <i class="bi bi-trash" style="margin:-10px; font-size: 15px;"></i>
+                                        </button>
+                                    </a>
+                                    <button class="button-edit" type="submit" id="buttonedit" name="edituser"> <!-- onclick="editAccount()" -->
+                                        <i class="bi bi-pencil" style="margin:-10px; font-size: 15px;"></i>
+                                    </button>
+                                </td>
+                            </form>
                         </tr>
                         <?php
                             }}
@@ -235,109 +403,56 @@
 
         <div id="addnew" style="display:none;" class="addnew-content">
             <h1>Add New Account</h1>
-            <form method="get">
+            <form action="/crud_admin_adduser" method="get">
                 <div class="bg-white border" style="border-radius: 20px;margin-top: 20px;display: flex;flex: 2;flex-wrap: wrap;justify-content: space-around;">
                     <div class="info-group">
                         <label>Full Name</label>
-                        <p><input type="text" id="fullname" name="fullname" placeholder="Full name"></p>    
-                        <!-- edit account mode -->  
-                        <p><input type="text" style="display:none" id="editfullname" name="fullname" placeholder=<?php echo $userlist['Fullname'] ?>></p>    
+                        <p><input type="text" id="fullname" name="fullname" placeholder="Full name"></p>   
                     </div>
 
                     <div class="info-group">
                         <label>Username</label>
-                        <p><input type="text" id="username" name="Username" placeholder="Username"></p>    
-                        <!-- edit account mode -->
-                        <p><input type="text" style="display:none" id="editusername" name="Username" placeholder=<?php echo $userlist ['username'] ?>></p>  
+                        <p><input type="text" id="username" name="username" placeholder="Username"></p>
                     </div>
 
                     <div class="info-group">
                         <label>Email</label>
-                        <p><input type="text" id="email" name="email" placeholder="Email"></p>    
-                        <!-- edit account mode -->
-                        <p><input type="text" style="display:none" id="editemail" name="email" placeholder=<?php echo $userlist ['user_email'] ?>></p>
+                        <p><input type="text" id="email" name="email" placeholder="Email"></p>
                     </div>
 
                     <div class="info-group">
                         <label>Phone Number</label>
-                        <p><input type="text" id="phonenumber" name="phonenumber" placeholder="Phone Number"></p>    
-                        <!-- edit account mode -->
-                        <p><input type="text" style="display:none" id="editphonenumber" name="phonenumber" placeholder=<?php echo $userlist ['phone_number'] ?>></p>  
+                        <p><input type="text" id="phonenumber" name="phonenumber" placeholder="Phone Number"></p>
                     </div>
 
                     <div class="info-group">
                         <label>Password</label>
-                        <p><input type="text" id="password" name="password" placeholder="Password"></p>    
-                        <!-- edit account mode -->
-                        <p><input type="text" style="display:none" id="editpassword" name="password" placeholder=<?php echo $userlist ['passwords'] ?>></p>    
+                        <p><input type="text" id="password" name="password" placeholder="Password"></p>
                     </div>
 
                     <div class="info-group">
                         <label>Matrics</label>
-                        <p><input type="text" id="matric" name="matric" placeholder="Matrics"></p>    
-                        <!-- edit account mode -->
-                        <p><input type="text" style="display:none" id="editmatric" name="matric" placeholder=<?php echo $userlist ['matrics'] ?>></p>
+                        <p><input type="text" id="matric" name="matric" placeholder="Matrics"></p>
                     </div>
-                    
-                    <!-- <div class="info-group">
-                        <label>Role</label>
-                        <p><input type="text" name="matrics" placeholder="Role"></p>    
-                    </div>      -->
 
                     <div class="info-group dropdown">
-                        <label for="user_role">Role</label>
-                        <select name="user_role" id="user_role" class="dropbtn">
+                        <label for="role">Role</label>
+                        <select name="role" id="user_role" class="dropbtn">
                             <option class="dropdown-content" selected>Select Role</option>
                             <option value="customer" class="dropdown-content">Customer</option>
                             <option value="seller" class="dropdown-content">Seller</option>
                         </select>
                     </div> 
-                </div>     
-            </form>
-            <div class="info-group" style="right:700px;">
-                <button class="button-update">
-                    <i style="margin:-10px; font-size: 15px;">Update User Account</i>
+                </div>  
+                
+                <div class="info-group" style="right:700px;">
+                <button type="submit" class="button-update" name="addUser">
+                    <i style="margin:-10px; font-size: 15px;">Add User Account</i>
                 </button> 
-            </div>
-        </div>
-        
-
-
-
-        <!-- <h1>Add New Account</h1>
-
-        <div class="grid-container" id="addnew" style="display:none;">   
-            <form method="get">
-                <div class="grid-item">
-                    <label>Full Name</label>
-                    <p><input type="text" name="fullname" placeholder="Full name"></p>    
-                </div>
-                <div class="grid-item">
-                    <label>Username</label>
-                    <p><input type="text" name="Username" placeholder="Username"></p>    
-                </div>
-                <div class="grid-item">
-                    <label>Email</label>
-                    <p><input type="text" name="Email" placeholder="Email"></p>    
-                </div>
-                <div class="grid-item">
-                    <label>Phone Number</label>
-                    <p><input type="text" name="Phone Number" placeholder="Phone Number"></p>  
-                </div>
-                <div class="grid-item">
-                    <label>Password</label>
-                    <p><input type="text" name="Password" placeholder="Password"></p>  
-                </div>
-                <div class="grid-item">
-                    <label>Matrics</label>
-                    <p><input type="text" name="matrics" placeholder="Matrics"></p> 
-                </div>
-                <div class="grid-item">
-                    <label>Role</label>
-                    <p><input type="text" name="matrics" placeholder="Role"></p>    
-                </div> 
+            </div>   
             </form>
-        </div> -->
+        </div>
+
     </section>
 
 
@@ -354,39 +469,14 @@
 
             document.getElementById("displayList").style.display = "none";
 
+            document.getElementById("search").style.display = "none";
+
             document.getElementById("addnew").style.display = "";
 
             document.getElementById("buttonadd").style.visibility = "hidden";
         } else {
             document.getElementById("buttonadd").classList.add('addactive');
             addnew();
-        }
-    }
-
-    function editAccount() {
-        if(document.getElementById("buttonedit").classList.contains("editactive")) {
-
-            document.getElementById("displayList").style.display = "none";
-            document.getElementById("search").style.display = "none";
-            document.getElementById("fullname").style.display = "none";
-            document.getElementById("username").style.display = "none";
-            document.getElementById("phonenumber").style.display = "none";
-            document.getElementById("matrics").style.display = "none";
-            document.getElementById("password").style.display = "none";
-            document.getElementById("email").style.display = "none";
-
-            document.getElementById("addnew").style.display = "";
-            document.getElementById("editfullname").style.display = "";
-            document.getElementById("editusername").style.display = "";
-            document.getElementById("editphonenumber").style.display = "";
-            document.getElementById("editmatrics").style.display = "";
-            document.getElementById("editpassword").style.display = "";
-            document.getElementById("editemail").style.display = "";
-
-            document.getElementById("buttonadd").style.visibility = "hidden";
-        } else {
-            document.getElementById("buttonedit").classList.add('editactive');
-            editAccount();
         }
     }
 
@@ -402,3 +492,7 @@
     </script>
 </body>
 </html>
+
+<?php 
+    }
+?>
