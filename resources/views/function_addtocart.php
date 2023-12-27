@@ -17,7 +17,11 @@
 			$stmt->bindParam(':custId', $custId, PDO::PARAM_STR);
 			
 			$id = $_GET['prodId'];
+			if (isset($_GET['prodSize'])) {
 			$prodSize = $_GET['prodSize'];
+			}else{
+			$prodSize ="no size";
+			}
 			$prodQuantity = $_GET['prodQuantity'];
 			$custId = $_GET['custId'];
 
