@@ -254,3 +254,12 @@ Route::get('/updatepassword', function () {
 Route::get('/seller_analytics', function () {
     return view('seller_analytics');
 });
+Route::get('/admin_dashboard', function () {
+    return view('admin_dashboard');
+});
+Route::get('/admin_user', function () {
+    return view('admin_user');
+});
+Route::get('/delete_user', function () {
+    return view('delete_user');
+});
