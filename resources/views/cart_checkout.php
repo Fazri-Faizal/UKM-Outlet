@@ -27,10 +27,12 @@ $stmt = $conn->prepare("INSERT INTO tbl_checkout(customer_id,quantity,subtotal,c
         $prodsize="no size"; 
      }
     $cid = $_GET['cid'];
-
+    $stmt2 = $conn->prepare("UPDATE tbl_cart SET quantity='$qty'WHERE cart_id='$cid' ");
 
 
 $InsertSuccess = $stmt->execute();
+
+$stmt2->execute();
 // Ensure that this is before any HTML or echo statements.
 if ($InsertSuccess) {
     // Redirect to cart.php if the delete was successful.

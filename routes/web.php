@@ -263,3 +263,6 @@ Route::get('/admin_user', function () {
 Route::get('/delete_user', function () {
     return view('delete_user');
 });
+Route::get('/seller_shop', function () {
+    return view('seller_shop');
+});
