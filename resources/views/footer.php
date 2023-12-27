@@ -17,6 +17,9 @@
         <li>
           <a href="#">Chat With Seller</a>
         </li>
+        <li>
+          <a href="/admin_login">Admin Login</a>
+        </li>
       </ul>
     </li>
     <li class="nav__item ">

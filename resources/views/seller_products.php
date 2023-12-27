@@ -146,6 +146,8 @@
                                 <?php
                                     $productCounter = 1;
                                     foreach($arr as $productlist) {
+
+                                        $prodId = $productlist['product_Id'];
                                 ?>
                                     <tr>
                                         <td>
@@ -168,9 +170,11 @@
                                             <?php echo $productlist['product_Description'] ?>
                                         </td>
                                         <td class="text-end" style="text-align: center">
-                                            <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
+                                            <a href='/seller_delete_product?product_Id=<?=$prodId;?>'>
+                                                <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </a>
                                             <form action="/update_product" method="get">
                                             <button name="editProduct" style="background-color: #D3D329;" value="<?php echo $productlist['product_Id'] ?>"  class="btn btn-sm btn-square btn-neutral text-danger-hover">
                                                     <i class="bi bi-pencil-fill"></i>
