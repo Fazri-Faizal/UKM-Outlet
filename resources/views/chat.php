@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="/css/chat.css">
+    <meta http-equiv="refresh" content="300">
   </head>
   <body>
     <div class="container">
@@ -100,7 +101,9 @@
               <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
                 <div class="online"></div>
               </div>
-              <p class="text"> Hi, how are you ? </p>
+            <?php
+            
+            ?>
             </div>
             <div class="message text-only">
               <p class="text"> What are you doing tonight ? Want to go take a drink ?</p>

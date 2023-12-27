@@ -146,13 +146,7 @@
     // include 'header.php';
 
     include 'database.php';
-    if (isset($_GET['id'])) {
-      $id=$_GET['id'];
-      $_SESSION['id']=$id;
-    }
-    else {
-      $id = $_SESSION['id'];
-    }
+    $id=$_GET['id'];
     $mysqli1 = new mysqli($servername, $username, $password,$dbname);
     
     $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_product_variation where fld_product_id=$id");
@@ -160,7 +154,183 @@
    
     $variation1 = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
    
-    if(!$variation1) exit('No rows');
+    if(!$variation1) {
+      $mysqli2 = new mysqli($servername, $username, $password,$dbname);
+    
+      $stmt12 = $mysqli2->prepare("SELECT  * FROM tbl_products where product_Id =$id");
+      $stmt12->execute();
+    
+      $variation2 = $stmt12->get_result()->fetch_all(MYSQLI_ASSOC);
+      foreach($variation2 as $pname){
+        $productname=$pname['product_Name'];
+        $productpic=$pname['pic'];
+        $productrating=$pname['product_Rating'];
+        $productprice=$pname['product_price'];
+
+    }
+    $mysqli3 = new mysqli($servername, $username, $password,$dbname);
+    
+    $stmt13 = $mysqli3->prepare("SELECT  * FROM tbl_product_3d_pic where fld_product_id=$id");
+    $stmt13->execute();
+   
+    $variation3 = $stmt13->get_result()->fetch_all(MYSQLI_ASSOC);
+   
+  
+    $stmt13->close();
+   
+       ?>
+       <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product details</title>
+
+    <!-- CSS -->
+    <link href="/css/product-details.css" rel="stylesheet">
+
+
+  </head>
+         <body>
+    <form action="\function_addtocart" method="get">
+      <input type="hidden" name="prodId" value="<?php echo $id; ?>">
+      <input type="hidden" name="custId" value="<?php echo $custId; ?>">
+
+      <table class="container-custom">
+        <tr>
+            <td class="left-column">
+              <div class="left-column">
+                <!-- Product Description -->
+                <div class="product-description">
+                  <span>Jersey</span>
+                  <h1><?php echo $productname ?></h1>
+                  <input type="hidden" name="prodName" value="<?php echo $productname; ?>">
+                  <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
+                  <!-- Product Pricing -->
+                  <div class="product-price">
+                      <span>RM <?php echo $productprice;?></span>
+                  </div>
+                </div>
+            </td>
+            <td class="mid-column">
+              <img class="img-custom" id="pic" src="/img/<?php echo $productpic ?>">
+              <?php   if(!$variation3){  
+
+              }else{
+    ?>
+              <input type="range" class="slider" name="height" id="heightId" min = "1" max = "24" value = "12" oninput="myFunction()" ></td><td><output id="outputId" ></output><br>
+              <?php }?>
+            </td>
+            <td class="right-column">
+                <!-- rating -->
+                <div style=" color: #86939E; font-size: 17px; margin-top: 20px;">
+                  <?php echo $productrating ?>
+                  
+                  <?php
+                    $rate = $productrating;
+
+                    for($i=1; $i<=$rate; $i++) {
+                      if($i>0.5)
+                        echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#FEC20C" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
+
+                      if(($rate-$i) == 0.5)
+                        echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#FEC20C" class="bi bi-star-half" viewBox="0 0 16 16"><path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/></svg>';
+                    }
+                  ?><br> 
+                </div>
+
+                <div style=" color: #86939E; font-size: 14px; margin-top: 20px;">
+                  95 ratings | 100 sold
+                </div>
+                
+                <div style="margin: 20px"></div>
+              
+
+                <div style="margin: 20px; margin-left: 0px;">
+                  <!--START Button Counter-->
+                    <head>
+                      <link rel="stylesheet" href="/css/button_counter.css">
+                    </head>
+                    <div class="wrapper">
+                      <span class="minus">-</span>
+                      <span class="num" id="prodQuantity" value="00">01</span>
+                      <!-- <input class="num" name="prodQuantity" value="01" readonly> -->
+                      <span class="plus">+</span>
+                    </div>
+                    
+                    <script>
+                      $prodQuantity = 1;
+                      const plus = document.querySelector(".plus"),
+                      minus = document.querySelector(".minus"),
+                      num = document.querySelector(".num");
+                      let a = 1;
+                      plus.addEventListener("click", ()=>{
+                        a++;
+                        a = (a < 10) ? "0" + a : a;
+                        num.innerText = a;
+                        document.getElementById("quantHidden").value = a;
+                      });
+                      minus.addEventListener("click", ()=>{
+                        if(a > 1){
+                          a--;
+                          a = (a < 10) ? "0" + a : a;
+                          num.innerText = a;
+                          document.getElementById("quantHidden").value = a;
+                        }
+                      });
+                    </script>
+                    <input type="hidden" id="quantHidden" name="prodQuantity" value="01">
+                  <!--END Button Counter-->
+                </div>
+                <div style="width: 400px">
+                  <!--START Button Add To Cart-->
+                    <head>
+                        <link rel="stylesheet" href="/css/button_addtocartv1.scss.css" />
+                    </head>
+                    <button class="button" name="addToCart" onclick="displayItemsCount()" type="submit">
+                        <span>Add to cart</span>
+                        <div class="cart">
+                            <svg viewBox="0 0 36 26">
+                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                            </svg>
+                        </div>
+                    </button>
+                    <script type="text/javascript" src="/js/button_addtocartv1.js"></script>
+                  <!--END Button Add To Cart-->
+                  
+                  |
+                  <!--START Button Place Order-->
+                  <head>
+                    <link rel="stylesheet" href="/css/button_place_order.scss.css" />
+                  </head>
+                  <button class="place-order place-order--default" name="placeOrder">
+                      <div class="default text">Place Order</div>
+                      <div class="forklift">
+                          <div class="upper"></div>
+                          <div class="lower"></div>
+                      </div>
+                      
+                      <div class="box animation"></div>
+                      <div class="done text">Done</div>
+                  </button>
+                  <script type="text/javascript" src="/js/button_place_order.js"></script>
+                  <!--END Button Place Order-->
+                </div>
+            </td>
+        </tr>
+      </table>
+    </form>
+
+    <?php include 'product-description.php' ?>
+
+    <?php include 'footer.php'?>
+  </body>
+      <?php
+    }
+    else{
+
+   
    
     $stmt1->close();  
     $min = 99999999;
@@ -191,6 +361,7 @@
         $productname=$pname['product_Name'];
         $productpic=$pname['pic'];
         $productrating=$pname['product_Rating'];
+
     }
 
     $mysqli3 = new mysqli($servername, $username, $password,$dbname);
@@ -404,6 +575,7 @@
 
     <?php include 'footer.php'?>
   </body>
+  <?php }?>
 
   <script>
     <?php foreach( $variation3 as $another) {?>
