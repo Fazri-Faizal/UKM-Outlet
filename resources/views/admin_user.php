@@ -58,20 +58,20 @@
                     </ul>
                     
                     <ul class="logout-mode">
-                        <li><a href="#">
+                        <li><a href="/destroy">
                             <i class="uil uil-signout"></i>
                             <span class="link-name">Logout</span>
                         </a></li>
 
-                        <li class="mode">
+                        <!-- <li class="mode">
                             <a href="#">
                                 <i class="uil uil-moon"></i>
                             <span class="link-name">Dark Mode</span>
                         </a>
 
                         <div class="mode-toggle">
-                        <span class="switch"></span>
-                        </div>
+                            <span class="switch"></span>
+                        </div> -->
                     </li>
                     </ul>
                 </div>
@@ -131,6 +131,7 @@
                                     <option class="dropdown-content">Select Role</option>
                                     <option <?php if($role=="Customer"){ echo "selected";} ?> value="Customer" class="dropdown-content">Customer</option>
                                     <option <?php if($role=="Seller"){ echo "selected";} ?> value="Seller" class="dropdown-content">Seller</option>
+                                    <option <?php if($role=="Admin"){ echo "selected";} ?> value="Admin" class="dropdown-content">Admin</option>
                                 </select>
                             </div> 
                         </div>
@@ -199,17 +200,17 @@
                 </a></li>
                 <li><a href="admin_user">
                     <i class="uil uil-user"></i>
-                    <span class="link-name">User</span>
+                    <span class="link-name" style="color: #2c1414">User</span>
                 </a></li>
             </ul>
             
             <ul class="logout-mode">
-                <li><a href="#">
+                <li><a href="/destroy">
                     <i class="uil uil-signout"></i>
                     <span class="link-name">Logout</span>
                 </a></li>
 
-                <li class="mode">
+                <!-- <li class="mode">
                     <a href="#">
                         <i class="uil uil-moon"></i>
                     <span class="link-name">Dark Mode</span>
@@ -217,7 +218,7 @@
 
                 <div class="mode-toggle">
                   <span class="switch"></span>
-                </div>
+                </div> -->
             </li>
             </ul>
         </div>
@@ -439,8 +440,9 @@
                         <label for="role">Role</label>
                         <select name="role" id="user_role" class="dropbtn">
                             <option class="dropdown-content" selected>Select Role</option>
-                            <option value="customer" class="dropdown-content">Customer</option>
-                            <option value="seller" class="dropdown-content">Seller</option>
+                            <option value="Customer" class="dropdown-content">Customer</option>
+                            <option value="Seller" class="dropdown-content">Seller</option>
+                            <option value="Admin" class="dropdown-content">Admin</option>
                         </select>
                     </div> 
                 </div>  
