@@ -126,14 +126,14 @@
                                     <label>Name</label>
                                     <p id="displayname"><?= ($_SESSION['fullname'])?></p>
                                     <!-- edit profile mode -->  
-                                    <p id="editname" style="display:none"><input type="text" name="fullname" placeholder='<?= ($_SESSION['fullname'])?>'></p>    
+                                    <p id="editname" style="display:none"><input type="text" name="fullname" value='<?= ($_SESSION['fullname'])?>'></p>    
                                 </div>
 
                                 <div class="info-group">
                                     <label>Username</label>
                                     <p id="displayusername"><?= ($_SESSION['sessionname'])?></p>
                                     <!-- edit profile mode -->  
-                                    <p id="editusername" style="display:none"><input type="text" name="username" placeholder='<?= ($_SESSION['sessionname'])?>'></p>    
+                                    <p id="editusername" style="display:none"><input type="text" name="username" value='<?= ($_SESSION['sessionname'])?>'></p>    
                                 </div>
 
                                 <div class="info-group">
@@ -156,7 +156,7 @@
                                     </span>
                                     
                                     <!-- edit profile mode -->
-                                    <p id="editpassword" style="display:none"><input name="userpassword" placeholder='<?= ($_SESSION['passwords'])?>' type="text"></p>
+                                    <p id="editpassword" style="display:none"><input name="userpassword" value='<?= ($_SESSION['passwords'])?>' type="text"></p>
 
                                 </div>
 
@@ -164,14 +164,14 @@
                                     <label>Phone Number</label>
                                     <p id="displayphone"><?= ($_SESSION['phone_number'])?></p>
                                     <!-- edit profile mode -->
-                                    <p id="editphone" style="display:none"><input name="phone" placeholder='<?= ($_SESSION['phone_number'])?>' type="text"></p>
+                                    <p id="editphone" style="display:none"><input name="phone" value='<?= ($_SESSION['phone_number'])?>' type="text"></p>
                                 </div>
 
                                 <div class="info-group">
                                     <label>Email</label>
                                     <p id="displayemail"><?= ($_SESSION['user_email'])?></p>
                                     <!-- edit profile mode -->
-                                    <p id="editemail" style="display:none"><input name="email" placeholder='<?= ($_SESSION['user_email'])?>' type="text"></p>
+                                    <p id="editemail" style="display:none"><input name="email" value='<?= ($_SESSION['user_email'])?>' type="text"></p>
                                 </div>
 
                                 <div id="button-save" style="display:none">
