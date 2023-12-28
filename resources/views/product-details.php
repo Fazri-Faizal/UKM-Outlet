@@ -379,7 +379,7 @@
      }
     $mysqli2 = new mysqli($servername, $username, $password,$dbname);
     
-    $stmt12 = $mysqli2->prepare("SELECT  * FROM tbl_products where product_Id =$id");
+    $stmt12 = $mysqli2->prepare("SELECT  * FROM tbl_products LEFT JOIN tbl_customer ON seller_ids = id where product_Id =$id");
     $stmt12->execute();
    
     $variation2 = $stmt12->get_result()->fetch_all(MYSQLI_ASSOC);

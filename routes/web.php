@@ -275,3 +275,12 @@ Route::get('/destroy-admin', function () {
 Route::get('/seller_delete_product', function () {
     return view('seller_delete_product');
 });
+Route::get('/admin_delete_user', function () {
+    return view('admin_delete_user');
+});
+Route::get('/crud_admin_adduser', function () {
+    return view('crud_admin_adduser');
+});
+Route::get('/crud_admin_edituser', function () {
+    return view('crud_admin_edituser');
+});
