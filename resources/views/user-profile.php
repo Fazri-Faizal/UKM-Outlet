@@ -15,6 +15,43 @@
     $stmt1->close();
 ?>
 
+<!-- Statement to count order placed -->
+<?php 
+    include_once'session.php';
+    include 'database.php';
+    
+    $mysqli1 = new mysqli($servername, $username, $password, $dbname);
+
+    $stmt2 = $mysqli1->prepare("SELECT COUNT(order_id) AS order_placed FROM tbl_order WHERE prod_status = 'Processed' AND cust_id = $custId;");
+    $stmt2->execute();   
+    $result = $stmt2->get_result();
+    $row = $result->fetch_assoc();
+
+    $stmt2->close();
+
+    $order_placed = $row['order_placed'];
+
+?>
+
+<!-- Statement to get order info -->
+<?php
+    $mysqli1 = new mysqli($servername, $username, $password,$dbname);
+
+    $stmt3 = $mysqli1->prepare("SELECT * FROM tbl_order LEFT JOIN tbl_products ON tbl_order.prod_id = tbl_products.product_Id WHERE tbl_order.cust_id = $custId;");
+    $stmt3->execute();
+    
+    $handler2 = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    foreach($handler2 as $orderdetail) {
+      $orderId = $orderdetail['order_id'];
+      $prod_name = $orderdetail['product_Name'];
+      $order_status = $orderdetail['prod_status'];
+      $order_date = $orderdetail['order_date'];
+    }
+    
+    $stmt3->close();
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -250,7 +287,7 @@
                                 alt="">
                             <div class="d-flex align-items-center mt-2">
                                 <div class="tag">Orders placed</div>
-                                <div class="ms-auto number">2</div>
+                                <div class="ms-auto number"><?php echo ($order_placed); ?></div>
                             </div>
                         </div>
                         <div class="box me-4 my-1 bg-light">
@@ -258,31 +295,32 @@
                                 alt="">
                             <div class="d-flex align-items-center mt-2">
                                 <div class="tag">Items in Cart</div>
-                                <div class="ms-auto number">8</div>
-                            </div>
-                        </div>
-                        <div class="box me-4 my-1 bg-light">
-                            <img src="https://www.freepnglogos.com/uploads/love-png/love-png-heart-symbol-wikipedia-11.png"
-                                alt="">
-                            <div class="d-flex align-items-center mt-2">
-                                <div class="tag">Wishlist</div>
-                                <div class="ms-auto number">10</div>
+                                <div class="ms-auto number"><?php echo $cartNum ?></div>
                             </div>
                         </div>
                     </div>
                     <div class="text-uppercase">My recent orders</div>
-                    <div class="order my-3 bg-light">
+
+                    <div class="order my-3 bg-light" id="info-order">
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="d-flex flex-column justify-content-between order-summary">
                                     <div class="d-flex align-items-center">
-                                        <div class="text-uppercase">Order #UKMOutletO01</div>
-                                        <div class="blue-label ms-auto text-uppercase">paid</div>
+                                        <div class="text-uppercase">Order #OU001</div>
                                     </div>
-                                    <div class="fs-8">Jersey UKM 2022</div>
-                                    <div class="fs-8">Baju FTSM</div>
-                                    <div class="fs-8">24 August, 2020 | 12:50 PM</div>
-                                    <div class="rating d-flex align-items-center pt-1">
+
+                                    <?php
+                                        foreach($handler2 as $displayorder) {    
+                                    ?>
+                                    <div class="fs-8"><?php echo $displayorder['product_Name']?></div>
+                                    <?php
+                                        }
+                                    ?>
+
+                                    <div class="fs-8"><?php echo date('d M Y | h:i A', strtotime($displayorder['order_date'])); ?></div>
+                                    
+
+                                    <!-- <div class="rating d-flex align-items-center pt-1">
                                         <img src="https://www.freepnglogos.com/uploads/like-png/like-png-hand-thumb-sign-vector-graphic-pixabay-39.png"
                                             alt=""><span class="px-2">Rating:</span>
                                         <span class="fas fa-star"></span>
@@ -290,13 +328,14 @@
                                         <span class="fas fa-star"></span>
                                         <span class="far fa-star"></span>
                                         <span class="far fa-star"></span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-lg-8">
                                 <div class="d-sm-flex align-items-sm-start justify-content-sm-between">
                                     <div class="status">Status : Delivered</div>
-                                    <div class="btn btn-primary text-uppercase">order info</div>
+                                    <div class="blue-label ms-auto text-uppercase" style="margin-right: 186px;margin-top: 2px;"><?php echo $order_status ?></div>
+                                    <div class="btn btn-primary text-uppercase" id="btnOrderinfo" onclick="displayInfoOrder()">order info</div>
                                 </div>
                                 <div class="progressbar-track">
                                     <ul class="progressbar">
@@ -321,59 +360,46 @@
                             </div>
                         </div>
                     </div>
-                    <div class="order my-3 bg-light">
+
+                    <div class="order my-3 bg-light" style="display:none;" id="info-order-detail">
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="d-flex flex-column justify-content-between order-summary">
                                     <div class="d-flex align-items-center">
-                                        <div class="text-uppercase">Order #UKMOutletO02</div>
-                                        <div class="green-label ms-auto text-uppercase">cod</div>
+                                        <div class="text-uppercase">Order #OU001</div>
                                     </div>
-                                    <div class="fs-8">KDO Official Lanyard</div>
-                                    <div class="fs-8">FSSK Sports Tote Bag</div>
-                                    <div class="fs-8">UKM Farmasi Cap</div>
-                                    <div class="fs-8">22 August, 2020 | 05:30 PM</div>
-                                    <div class="rating d-flex align-items-center pt-1">
-                                        <img src="https://www.freepnglogos.com/uploads/like-png/like-png-hand-thumb-sign-vector-graphic-pixabay-39.png"
-                                            alt=""><span class="px-2">Rating:</span>
-                                        <span class="fas fa-star"></span>
-                                        <span class="fas fa-star"></span>
-                                        <span class="fas fa-star"></span>
-                                        <span class="fas fa-star"></span>
-                                        <span class="fas fa-star"></span>
-                                    </div>
+                                    <div class="fs-8" style="margin-top: 2px;">Item : </div>
+                                    <?php
+                                        foreach($handler2 as $displayorder) {    
+                                    ?>
+                                    <div class="fs-8"><?php echo $displayorder['product_Name']." x ".$displayorder['prod_qty']." (RM".$displayorder['total_price'].")"?></div>
+                                    <?php
+                                        }
+                                    ?>
+                                    <hr><div class="fs-8">Total Price: RM 120.90</div>
+                                    <!-- <div class="status">Status : Delivered</div> -->
+                                    
+                                    
                                 </div>
                             </div>
-                            <div class="col-lg-8">
+                                                     
+                            <div class="col-lg-4" style="visibility:hidden">
                                 <div class="d-sm-flex align-items-sm-start justify-content-sm-between">
                                     <div class="status">Status : Delivered</div>
-                                    <div class="btn btn-primary text-uppercase">order info</div>
-                                </div>
-                                <div class="progressbar-track">
-                                    <ul class="progressbar">
-                                        <li id="step-1" class="text-muted green">
-                                            <span class="fas fa-gift"></span>
-                                        </li>
-                                        <li id="step-2" class="text-muted">
-                                            <span class="fas fa-check"></span>
-                                        </li>
-                                        <li id="step-3" class="text-muted">
-                                            <span class="fas fa-box"></span>
-                                        </li>
-                                        <li id="step-4" class="text-muted">
-                                            <span class="fas fa-truck"></span>
-                                        </li>
-                                        <li id="step-5" class="text-muted">
-                                            <span class="fas fa-box-open"></span>
-                                        </li>
-                                    </ul>
-                                    <div id="tracker"></div>
                                 </div>
                             </div>
+
+                            <div class="col-lg-4">
+                                <div class="d-sm- align-items-sm-start justify-content-sm-between">
+                                    <div class="fs-8" style="margin-top: 2px;">Order Date : 2<?php echo date('d M Y | h:i A', strtotime($displayorder['order_date'])); ?></div>
+                                    <div class="status">Status : Delivered</div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>
             
         </div>
 
@@ -552,5 +578,17 @@
             editAddress();
         }
     }
+
+    function displayInfoOrder() {
+        if(document.getElementById("btnOrderinfo").classList.contains("infoactive")) {
+
+            document.getElementById("info-order").style.display = "none";
+
+            document.getElementById("info-order-detail").style.display = "";
+        } else {
+            document.getElementById("btnOrderinfo").classList.add('infoactive');
+            displayInfoOrder();
+        }
+    }
     </script>
 </html>
