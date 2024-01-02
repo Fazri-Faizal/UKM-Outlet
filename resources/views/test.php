@@ -1,50 +1,21 @@
 <?php 
-include_once 'session.php';
-include 'database.php';
+    include_once 'session.php';
+    include 'database.php';
+    
+    $mysqli1 = new mysqli($servername, $username, $password, $dbname);
+    
+    $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = '$sessionname'");
+    $stmt1->execute();
 
-// Create a single database connection for all the operations.
-$mysqli = new mysqli($servername, $username, $password, $dbname);
+    $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
 
-// Check connection
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+    foreach($handler as $cust) {
+      $custId = $cust['id'];
+    }
 
-// Prepare and execute the query to get customer ID
-$stmt = $mysqli->prepare("SELECT id FROM tbl_customer WHERE username = ?");
-$stmt->bind_param("s", $sessionname);
-$stmt->execute();
-$result = $stmt->get_result();
-$custId = $result->fetch_assoc()['id'];
-$stmt->close();
+    $stmt1->close();
 
-// Prepare and execute the query to count orders placed
-$stmt = $mysqli->prepare("SELECT COUNT(order_id) AS order_placed FROM tbl_order WHERE prod_status = 'Processed' AND cust_id = ?");
-$stmt->bind_param("i", $custId);
-$stmt->execute();
-$result = $stmt->get_result();
-$order_placed = $result->fetch_assoc()['order_placed'];
-$stmt->close();
 
-// Prepare and execute the query to get order info
-$stmt = $mysqli->prepare("SELECT tbl_order.*, tbl_products.product_Name FROM tbl_order LEFT JOIN tbl_products ON tbl_order.prod_id = tbl_products.product_Id WHERE tbl_order.cust_id = ?");
-$stmt->bind_param("i", $custId);
-$stmt->execute();
-$handler2 = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-$stmt->close();
-
-// Process the orders data
-foreach ($handler2 as $orderdetail) {
-    $orderId = $orderdetail['order_id'];
-    $prod_name = $orderdetail['product_Name'];
-    $order_status = $orderdetail['prod_status'];
-    $order_date = $orderdetail['order_date'];
-    $CSId = $orderdetail['checkout_session_id'];
-    // Do something with the order details...
-}
-
-// Close the database connection at the end of the script.
-$mysqli->close();
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +30,6 @@ $mysqli->close();
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
         <link rel="stylesheet" href="css/user-profile.css">
         <title>User Profile</title>
-
     </head>
 
     <?php 
@@ -159,14 +129,14 @@ $mysqli->close();
                                     <label>Name</label>
                                     <p id="displayname"><?= ($_SESSION['fullname'])?></p>
                                     <!-- edit profile mode -->  
-                                    <p id="editname" style="display:none"><input type="text" name="fullname" value='<?= ($_SESSION['fullname'])?>'></p>    
+                                    <p id="editname" style="display:none"><input type="text" name="fullname" placeholder='<?= ($_SESSION['fullname'])?>'></p>    
                                 </div>
 
                                 <div class="info-group">
                                     <label>Username</label>
                                     <p id="displayusername"><?= ($_SESSION['sessionname'])?></p>
                                     <!-- edit profile mode -->  
-                                    <p id="editusername" style="display:none"><input type="text" name="username" value='<?= ($_SESSION['sessionname'])?>'></p>    
+                                    <p id="editusername" style="display:none"><input type="text" name="username" placeholder='<?= ($_SESSION['sessionname'])?>'></p>    
                                 </div>
 
                                 <div class="info-group">
@@ -189,7 +159,7 @@ $mysqli->close();
                                     </span>
                                     
                                     <!-- edit profile mode -->
-                                    <p id="editpassword" style="display:none"><input name="userpassword" value='<?= ($_SESSION['passwords'])?>' type="text"></p>
+                                    <p id="editpassword" style="display:none"><input name="userpassword" placeholder='<?= ($_SESSION['passwords'])?>' type="text"></p>
 
                                 </div>
 
@@ -197,14 +167,14 @@ $mysqli->close();
                                     <label>Phone Number</label>
                                     <p id="displayphone"><?= ($_SESSION['phone_number'])?></p>
                                     <!-- edit profile mode -->
-                                    <p id="editphone" style="display:none"><input name="phone" value='<?= ($_SESSION['phone_number'])?>' type="text"></p>
+                                    <p id="editphone" style="display:none"><input name="phone" placeholder='<?= ($_SESSION['phone_number'])?>' type="text"></p>
                                 </div>
 
                                 <div class="info-group">
                                     <label>Email</label>
                                     <p id="displayemail"><?= ($_SESSION['user_email'])?></p>
                                     <!-- edit profile mode -->
-                                    <p id="editemail" style="display:none"><input name="email" value='<?= ($_SESSION['user_email'])?>' type="text"></p>
+                                    <p id="editemail" style="display:none"><input name="email" placeholder='<?= ($_SESSION['user_email'])?>' type="text"></p>
                                 </div>
 
                                 <div id="button-save" style="display:none">
@@ -218,7 +188,6 @@ $mysqli->close();
                 </div>
             
 
-           
             <!-- My address -->
             <div class="col-lg-9 my-lg-0 my-1" id="id-address" style="display: none">
                 <div id="main-content" class="bg-white border">
@@ -407,7 +376,7 @@ $mysqli->close();
                                 alt="">
                             <div class="d-flex align-items-center mt-2">
                                 <div class="tag">Orders placed</div>
-                                <div class="ms-auto number"><?php echo ($order_placed); ?></div>
+                                <div class="ms-auto number">2</div>
                             </div>
                         </div>
                         <div class="box me-4 my-1 bg-light">
@@ -415,149 +384,122 @@ $mysqli->close();
                                 alt="">
                             <div class="d-flex align-items-center mt-2">
                                 <div class="tag">Items in Cart</div>
-                                <div class="ms-auto number"><?php echo $cartNum ?></div>
+                                <div class="ms-auto number">8</div>
+                            </div>
+                        </div>
+                        <div class="box me-4 my-1 bg-light">
+                            <img src="https://www.freepnglogos.com/uploads/love-png/love-png-heart-symbol-wikipedia-11.png"
+                                alt="">
+                            <div class="d-flex align-items-center mt-2">
+                                <div class="tag">Wishlist</div>
+                                <div class="ms-auto number">10</div>
                             </div>
                         </div>
                     </div>
-                    <div class="recent-orders-header">
-                        <div class="text-uppercase">My recent orders</div>
-                        <button id="myModalOrderBtn" class="see-all-orders-btn">See All Order</button>
-                    </div>
-
-                        <!-- The Modal -->
-                        <div id="myModalOrder" class="modal">
-
-                            <!-- Modal content -->
-                            <div class="modal-content" style="background-color: #fefefe;
-                                                            padding: 20px;
-                                                            border: 1px solid #888;
-                                                                        width: 80%; /* Could be more or less, depending on screen size */">
-                                            <span class="close">&times;</span>
-                                            <div class="order my-3 "  id="info-order-detail">
-                                            <?php
-                                                
-                                                $previousCSId = null;
-                                                $isFirstProduct = true; // Flag to check if the product is the first in the order
-
-                                                foreach ($handler2 as $modalcontent) {
-                                                    $currentCSId = $modalcontent['checkout_session_id'];
-                                                    $prodStatus = $modalcontent['prod_status'];
-
-                                                    // Start a new order block if this is a new checkout_session_id
-                                                    if ($currentCSId != $previousCSId) {
-                                                        // If it's not the first product, close the previous order block
-                                                        if (!$isFirstProduct) {
-                                                            // Close the previous order details
-                                                            echo "</div>"; // Close the product details div
-                                                            echo "<div class=\"fs-8\">Order Date : " . date('d M Y | h:i A', strtotime($previousOrderDate)) . "</div>";
-                                                            echo "<div class=\"status\">Status : $prodStatus</div><hr>";
-                                                            echo "</div>"; // Close the order-summary div
-                                                        }
-                                                        // Start new order block
-                                                        echo "<div class=\"order-summary\">";
-                                                        echo "<div class=\"text-uppercase\">Order #OU{$modalcontent['checkout_session_id']}</div>";
-                                                        echo "<div class=\"product-details\">"; // Open a div for product details
-                                                    }
-
-                                                    // Display product details
-                                                    echo "<div class=\"fs-8\">{$modalcontent['product_Name']} x {$modalcontent['prod_qty']} (RM{$modalcontent['total_price']})</div>";
-
-                                                    // Update tracking variables
-                                                    $previousCSId = $currentCSId;
-                                                    $isFirstProduct = false;
-                                                    $previousOrderDate = $modalcontent['order_date']; // Keep track of the order date to print it later
-                                                }
-
-                                                // After the loop, close the last order block, if there was at least one product
-                                                if (!$isFirstProduct) {
-                                                    // Close the product details div
-                                                    echo "</div>";
-                                                    // Print the order date and status for the last order
-                                                    echo "<div class=\"fs-8\">Order Date : " . date('d M Y | h:i A', strtotime($previousOrderDate)) . "</div>";
-                                                    echo "<div class=\"status\">Status : Delivered</div><hr>";
-                                                    // Close the last order-summary div
-                                                    echo "</div>";
-                                                }
-                                                ?>
-
-                            </div><!-- Modal content habis sini -->
-                        </div>
-                    </div>
-
-                    <div class="order my-3 bg-light" id="info-order">
+                    <div class="text-uppercase">My recent orders</div>
+                    <div class="order my-3 bg-light">
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="d-flex flex-column justify-content-between order-summary">
                                     <div class="d-flex align-items-center">
-                                        <div class="text-uppercase">Order #OU001</div>
+                                        <div class="text-uppercase">Order #UKMOutletO01</div>
+                                        <div class="blue-label ms-auto text-uppercase">paid</div>
                                     </div>
-
-                                    <?php
-                                        foreach($handler2 as $displayorder) {    
-                                    ?>
-                                    <div class="fs-8"><?php echo $displayorder['product_Name']?></div>
-                                    <?php
-                                        }
-                                    ?>
-
-                                    <div class="fs-8"><?php echo date('d M Y | h:i A', strtotime($displayorder['order_date'])); ?></div>
-                                    
-
-
+                                    <div class="fs-8">Jersey UKM 2022</div>
+                                    <div class="fs-8">Baju FTSM</div>
+                                    <div class="fs-8">24 August, 2020 | 12:50 PM</div>
+                                    <div class="rating d-flex align-items-center pt-1">
+                                        <img src="https://www.freepnglogos.com/uploads/like-png/like-png-hand-thumb-sign-vector-graphic-pixabay-39.png"
+                                            alt=""><span class="px-2">Rating:</span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="far fa-star"></span>
+                                        <span class="far fa-star"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-8">
                                 <div class="d-sm-flex align-items-sm-start justify-content-sm-between">
                                     <div class="status">Status : Delivered</div>
-                                    <div class="blue-label ms-auto text-uppercase" style="margin-right: 186px;margin-top: 2px;"><?php echo $order_status ?></div>
-                                    <div class="btn btn-primary text-uppercase" id="btnOrderinfo" onclick="displayInfoOrder()">order info</div>
+                                    <div class="btn btn-primary text-uppercase">order info</div>
                                 </div>
-                            
+                                <div class="progressbar-track">
+                                    <ul class="progressbar">
+                                        <li id="step-1" class="text-muted green">
+                                            <span class="fas fa-gift"></span>
+                                        </li>
+                                        <li id="step-2" class="text-muted green">
+                                            <span class="fas fa-check"></span>
+                                        </li>
+                                        <li id="step-3" class="text-muted green">
+                                            <span class="fas fa-box"></span>
+                                        </li>
+                                        <li id="step-4" class="text-muted green">
+                                            <span class="fas fa-truck"></span>
+                                        </li>
+                                        <li id="step-5" class="text-muted green">
+                                            <span class="fas fa-box-open"></span>
+                                        </li>
+                                    </ul>
+                                    <div id="tracker"></div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
-                    <div class="order my-3 bg-light" style="display:none;" id="info-order-detail">
+                    <div class="order my-3 bg-light">
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="d-flex flex-column justify-content-between order-summary">
                                     <div class="d-flex align-items-center">
-                                        <div class="text-uppercase">Order #OU001</div>
+                                        <div class="text-uppercase">Order #UKMOutletO02</div>
+                                        <div class="green-label ms-auto text-uppercase">cod</div>
                                     </div>
-                                    <div class="fs-8" style="margin-top: 2px;">Item : </div>
-                                    <?php
-                                        foreach($handler2 as $displayorder) {    
-                                    ?>
-                                    <div class="fs-8"><?php echo $displayorder['product_Name']." x ".$displayorder['prod_qty']." (RM".$displayorder['total_price'].")"?></div>
-                                    <?php
-                                        }
-                                    ?>
-                                    <hr><div class="fs-8">Total Price: RM 120.90</div>
-                                    <!-- <div class="status">Status : Delivered</div> -->
-                                    
-                                    
+                                    <div class="fs-8">KDO Official Lanyard</div>
+                                    <div class="fs-8">FSSK Sports Tote Bag</div>
+                                    <div class="fs-8">UKM Farmasi Cap</div>
+                                    <div class="fs-8">22 August, 2020 | 05:30 PM</div>
+                                    <div class="rating d-flex align-items-center pt-1">
+                                        <img src="https://www.freepnglogos.com/uploads/like-png/like-png-hand-thumb-sign-vector-graphic-pixabay-39.png"
+                                            alt=""><span class="px-2">Rating:</span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                    </div>
                                 </div>
                             </div>
-                                                     
-                            <div class="col-lg-4" style="visibility:hidden">
+                            <div class="col-lg-8">
                                 <div class="d-sm-flex align-items-sm-start justify-content-sm-between">
                                     <div class="status">Status : Delivered</div>
+                                    <div class="btn btn-primary text-uppercase">order info</div>
+                                </div>
+                                <div class="progressbar-track">
+                                    <ul class="progressbar">
+                                        <li id="step-1" class="text-muted green">
+                                            <span class="fas fa-gift"></span>
+                                        </li>
+                                        <li id="step-2" class="text-muted">
+                                            <span class="fas fa-check"></span>
+                                        </li>
+                                        <li id="step-3" class="text-muted">
+                                            <span class="fas fa-box"></span>
+                                        </li>
+                                        <li id="step-4" class="text-muted">
+                                            <span class="fas fa-truck"></span>
+                                        </li>
+                                        <li id="step-5" class="text-muted">
+                                            <span class="fas fa-box-open"></span>
+                                        </li>
+                                    </ul>
+                                    <div id="tracker"></div>
                                 </div>
                             </div>
-
-                            <div class="col-lg-4">
-                                <div class="d-sm- align-items-sm-start justify-content-sm-between">
-                                    <div class="fs-8" style="margin-top: 2px;">Order Date : 2<?php echo date('d M Y | h:i A', strtotime($displayorder['order_date'])); ?></div>
-                                    <div class="status">Status : Delivered</div>
-                                </div>
-                            </div>
-                            
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>
             
         </div>
 
@@ -736,6 +678,7 @@ $mysqli->close();
             editAddress();
         }
     }
+
     function toggleAddressForm() {
         var form = document.getElementById('newAddressForm');
         if (form.style.display === "none") {
@@ -745,44 +688,9 @@ $mysqli->close();
         }
     }
 
-    function displayInfoOrder() {
-        if(document.getElementById("btnOrderinfo").classList.contains("infoactive")) {
-
-            document.getElementById("info-order").style.display = "none";
-
-            document.getElementById("info-order-detail").style.display = "";
-        } else {
-            document.getElementById("btnOrderinfo").classList.add('infoactive');
-            displayInfoOrder();
-        }
-    }
-            // Get the modal
-            var modal = document.getElementById("myModalOrder");
-
-            // Get the button that opens the modal
-            var btn = document.getElementById("myModalOrderBtn");
-
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // When the user clicks the button, open the modal 
-            btn.onclick = function() {
-            modal.style.display = "block";
-            }
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-            modal.style.display = "none";
-            }
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-            }
     </script>
 </html>
+
 <?php
  if (isset($_GET['address-submit'])) {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
