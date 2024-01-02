@@ -127,10 +127,11 @@
                             <th scope="col" style="text-align: center">Seller Type</th>
                             <th scope="col" style="text-align: center">Shop Name</th>
                             <th scope="col" style="text-align: center">Shop Address</th>
+                            <th scope="col" style="text-align: center">Monthly Report</th>
+                            <th scope="col" style="text-align: center">Annual Report</th>
                             <!-- <th scope="col" style="text-align: center">Password</th> -->
                             <!-- <th scope="col" style="text-align: center">Role</th> -->
                             <!-- <th scope="col" style="text-align: center">Status</th> -->
-                            <th></th>
                         </tr>
                     </thead>
                 </table> 
@@ -270,7 +271,26 @@
 
                                 <td class="text-end" style="text-align: center">
                                     <a style="display: contents">
-                                        <div class="button-report divmodal" id="myModalBtn" href="javascript:void(0);" data-href="admin_report_generate?userId=<?=$userId;?>">Generate Report</div>
+                                        <div class="button-report divmodal" id="myModalBtn" href="javascript:void(0);" data-href="admin_report_generate?sellerId=<?=$userlist['id']?>&report_type=Monthly">Generate Monthly Report</div>
+                                        <!-- <button class="button-report" id="myModalBtn">Generate Report</button> -->
+                                        </div>
+                                    </a>
+
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('.button-report').on('click',function(){
+                                                var dataURL = $(this).attr('data-href');
+                                                $('.modal-body').load(dataURL,function(){
+                                                    $('#myModal').modal({show:true});
+                                                });
+                                            }); 
+                                        });
+                                    </script>
+                                </td>
+
+                                <td class="text-end" style="text-align: center">
+                                    <a style="display: contents">
+                                        <div class="button-report divmodal" id="myModalBtn" href="javascript:void(0);" data-href="admin_report_generate?sellerId=<?=$userlist['id']?>&report_type=Annual">Generate Annual Report</div>
                                         <!-- <button class="button-report" id="myModalBtn">Generate Report</button> -->
                                         </div>
                                     </a>
