@@ -36,12 +36,12 @@
             <i class="bi bi-bar-chart"></i> Analytics
         </a>
     </li>
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link" href="seller_messages">
             <i class="bi bi-chat"></i> Messages
             <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
         </a>
-    </li>
+    </li> -->
     <li class="nav-item">
         <a class="nav-link" href="seller_products">
             <i class="bi bi-bookmarks"></i> Products
