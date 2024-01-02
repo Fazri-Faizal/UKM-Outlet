@@ -238,11 +238,7 @@ foreach ($result as $row) {
         <div class="summary">
           <div class="summary-total-items"><strong style="font-size: 30px;">Order Summary</strong></div>
           <!-- <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div> -->
-            <div class="summary-subtotal">
-              <div class="subtotal-title">Subtotal</div>
-              <div class="subtotal-value final-value" id="basket-subtotal">130</div>
-              <div class="subtotal-title">Shipping subtotal</div>
-              <div class="subtotal-value final-value">0.00</div>
+            <div >
               <div class="summary-promo hide">
               <div class="promo-title">Promotion</div>
               <div class="promo-value final-value" id="basket-promo"></div>
@@ -272,12 +268,6 @@ foreach ($result as $row) {
                   
                   $arr2 = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
                     foreach( $arr2 as $ukmcarts) { 
-  
-                      // if($count == 4) {
-                      //     $count = 1;
-                      //     echo '</tr>';
-                      //     echo '<tr>';
-                      // }
                    
                       $id=$ukmcarts['seller_ids'];
                  
@@ -287,9 +277,6 @@ foreach ($result as $row) {
                    
                       $count++;
                       $price= $ukmcarts['product_price'];
-                  
-             
-                   
                       }
                       if($size=="nosize"){
   
@@ -299,30 +286,12 @@ foreach ($result as $row) {
     
                          $arr4 = $stmt4->get_result()->fetch_all(MYSQLI_ASSOC);
                         foreach( $arr4 as $ukmcart) { 
-  
-                    
-                       
+
                             $price= $ukmcart['fld_producy_price'];
-                        
-                            
-                     
                       }
-               
                     }
-                    $totalprice=    $price*  $quantity+$totalprice;
-                  
-
-                    // if($count == 4) {
-                    //     $count = 1;
-                    //     echo '</tr>';
-                    //     echo '<tr>';
-                    // }
-               
-               
+                    $totalprice=$price*$quantity+$totalprice;         
             ?>
-
-
-
             <div class="summary-delivery">
                 <div class="product-details">
                   <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo  $name ?></strong></h1>
@@ -337,22 +306,21 @@ foreach ($result as $row) {
                 }
         ?>
             <div>
-              <!-- <select name="delivery-collection" class="summary-delivery-selection">
-                  <option value="0" selected="selected">Select Collection or Delivery</option>
-                  <option value="collection">Collection</option>
-                  <option value="first-class">Royal Mail 1st Class</option>
-                  <option value="second-class">Royal Mail 2nd Class</option>
-                  <option value="signed-for">Royal Mail Special Delivery</option>
-              </select> -->
           </div>
           <div class="summary-total">
-            <div class="total-title">Total</div>
-            <div class="total-value final-value" id="basket-total"><?php echo $totalprice;?></div>
+          <div class="subtotal-title">Subtotal</div>
+              <div class="subtotal-value final-value" id="basket-subtotal"><?php echo number_format("$totalprice",2)."";?></div>
+              <div class="subtotal-title">Shipping subtotal</div>
+              <div class="subtotal-value final-value">0.00</div>
+            <div class="total-title" style="margin-top:20px;">Total</div>
+            <div class="total-value final-value" id="basket-total" style="margin-top:20px;"><?php echo number_format("$totalprice",2)."";?></div>
           </div>
           <div class="summary-checkout">
-              <!-- <a href="/checkout">
-            <button class="checkout-cta">Go to Secure Checkout</button>
-            </a> -->
+              <form action="/pay" method="get">
+                <input type="hidden" name="prodname" value="<?php echo $name;?>">
+                <input type="hidden" name="prodqty" value="<?php echo $quantity;?>">
+            <button class="checkout-cta" name="totprice" value="<?php echo $totalprice;?>">Pay Now</button>
+            </form>
           </div>
       </aside>
   </main>
