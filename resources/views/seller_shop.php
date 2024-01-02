@@ -46,6 +46,7 @@
           $shopname=$ownerinfo['shop_name'];
           $bio=$ownerinfo['shop_bio'];
           $joneddate=$ownerinfo['joineddate'];
+          $sellername=$ownerinfo['username'];
         }
         $currentdate= date("Y/m/d");
         $date1=date_create("$joneddate");
@@ -64,9 +65,16 @@
       <h1 style="font-size:35px; font-weight:500;"><?php echo $shopname; ?></h1> 
                         
       <p class="bio"><?php echo  $bio;?></p> 
-        <span class="chat-btn" onclick="window.location.href='chat'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16"> 
+
+       <form action="\crudchatedwith" method="get">
+        <input type="hidden" name="sid" value="<?php echo $sellerid?>">
+        <input type="hidden" name="sn" value="<?php echo $sellername?>">
+        <input type="hidden" name="cid" value="<?php echo $custId?>">
+        <input type="hidden" name="cn" value="<?php echo $custname?>">
+        <span class="chat-btn" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16"> 
         <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/> 
-        </svg> Chat seller </span> 
+        </svg> <Input class="chat-btn" name="startchat" type="submit" value="Chat seller"> </span> 
+       </form>
     </div> 
      <div class="col2 last"> 
       <div class="grid clearfix"> 
