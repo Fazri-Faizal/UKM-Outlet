@@ -218,7 +218,7 @@ nav ul li a .cart::after {
     color: #fff;
 }
 
-.order .progressbar-track {
+/* .order .progressbar-track {
     margin-top: 20px;
     margin-bottom: 20px;
     position: relative;
@@ -227,6 +227,7 @@ nav ul li a .cart::after {
 .order .progressbar-track .progressbar {
     list-style: none;
     display: flex;
+    z-index: 1;
     align-items: center;
     justify-content: space-between;
     padding-left: 0rem;
@@ -245,12 +246,14 @@ nav ul li a .cart::after {
 .order .progressbar-track .progressbar li.green {
     border: 1px solid #007965;
     background-color: #d5e6e2;
+    z-index: 1;
 }
 
 .order .progressbar-track .progressbar li::after {
     position: absolute;
     font-size: 0.9rem;
     top: 50px;
+    z-index: 1;
     left: 0px;
 }
 
@@ -259,29 +262,35 @@ nav ul li a .cart::after {
     border-top: 1px solid #bbb;
     width: 100%;
     top: 25px;
+    z-index:0;
 }
 
 #step-1::after {
     content: 'Placed';
+    z-index: 1;
 }
 
 #step-2::after {
     content: 'Accepted';
     left: -10px;
+    z-index: 1;
 }
 
 #step-3::after {
     content: 'Packed';
+    z-index: 1;
 }
 
 #step-4::after {
     content: 'Shipped';
+    z-index: 1;
 }
 
 #step-5::after {
     content: 'Delivered';
     left: -10px;
-}
+    z-index: 1;
+} */
 
 
 
@@ -546,4 +555,65 @@ textarea #newaddress {
     border: 2px solid;
     border-color: #8a6d3b;
     border-radius: 10px;
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    z-index: 1001; /* Sit on top */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    position: relative;
+    max-height: 80vh; /* 80% of the viewport height */
+    overflow-y: auto; /* enables vertical scrolling if content overflows */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #804444;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 1002; /* Sit on top */
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .recent-orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.see-all-orders-btn {
+    padding: 5px 10px;
+    background-color: #AB8262;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* You might need to adjust this depending on your existing styles */
+.see-all-orders-btn:hover {
+    background-color: #804444;
 }
