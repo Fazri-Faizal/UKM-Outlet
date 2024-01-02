@@ -284,3 +284,9 @@ Route::get('/crud_admin_adduser', function () {
 Route::get('/crud_admin_edituser', function () {
     return view('crud_admin_edituser');
 });
+Route::get('/admin_report', function () {
+    return view('admin_report');
+});
+Route::get('/admin_report_generate', function () {
+    return view('admin_report_generate');
+});

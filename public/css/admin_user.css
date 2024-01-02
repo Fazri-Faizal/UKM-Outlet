@@ -159,7 +159,7 @@ body.dark li a:hover:before{
 } */
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name{
-    color: var(--primary-color);
+    color: #2c1414;
 }
 body.dark .nav-links li a:hover i,
 body.dark .nav-links li a:hover .link-name{
@@ -478,12 +478,12 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
+/* 
 button[type="submit"] {
     background-color: #c40c0c;
     color: #fffdfd;
     font-size: 14px;
-}
+} */
 
 button:hover {
     background-color: #d43a3a;
@@ -532,6 +532,16 @@ button:hover {
     background-color: #c0b093;
 }
 
+.button-report {
+    background-color: #47362f;
+    color: #fff8f8;
+    width: 165px;
+    border-radius:10px;
+}
+
+.button-report:hover {
+    background-color: #c0b093;
+}
 
 h1{
     font-size: 30px;
@@ -731,4 +741,57 @@ input[type=text]:focus, input[type=password]:focus {
     background-color: #998787;
 }
 
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
   
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+.divmodal {
+    padding: 13px 20px;
+    height: 45px;
+    width: 165px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #47362f;
+    color: #fff8f8;
+}
+
+.divmodal:hover {
+    background-color: #c0b093;
+}
