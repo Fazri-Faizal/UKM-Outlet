@@ -1,4 +1,6 @@
-<?php include('header.php')?>
+<?php include('header.php');
+$mysqli4 = new mysqli($servername, $username, $password, $dbname);
+?>
 <html>
 <head>
   <link rel="stylesheet" href="/css/chat.css">
@@ -110,7 +112,7 @@
 
         <?php 
         // ... [Your previous code] 
-        $mysqli4 = new mysqli($servername, $username, $password, $dbname);
+        // $mysqli4 = new mysqli($servername, $username, $password, $dbname);
 
         // Combined query to fetch all relevant chat messages
         $stmt15 = $mysqli4->prepare(" SELECT * FROM tbl_chatlog 
