@@ -3,7 +3,8 @@
     <link rel="stylesheet" href="/css/button-delete-2.css">
 </head>
 <body>
-    <button class="btndelete" id="delete2">
+    
+    <button class="btndelete" id="delete2" type="submit" value="<?PHP $aid= $addressId  ?>" name="deleteaddress">
         <span class='text'>Delete</span>
         <span class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -11,6 +12,7 @@
             </svg>
         </span>
     </button>
+   
 </body>
     
 </html>
