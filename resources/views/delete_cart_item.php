@@ -18,3 +18,5 @@ if ($deleteSuccess) {
 }
 
 $stmt->close();
+
+?>
