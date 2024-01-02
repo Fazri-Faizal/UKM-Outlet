@@ -308,6 +308,16 @@ Route::get('/chatcrud', function () {
 Route::get('/crudchatedwith', function () {
     return view('crudchatedwith');
 });
+Route::get('/delete_address', function () {
+    return view('delete_address');
+});
+Route::get('/edit_address', function () {
+    return view('edit_address');
+});
+Route::get('/address', function () {
+    return view('address');
+});
+
 Route::get('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
 Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
 Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');

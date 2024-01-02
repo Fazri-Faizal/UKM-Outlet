@@ -12,11 +12,13 @@ if (isset($_GET['register'])) {
     $pass = $_GET['password'];
     $cpass= $_GET['confirmpass'];
     if($pass==$cpass){
-    $stmt = $conn->prepare("INSERT INTO tbl_customer(username,user_email,passwords,verificationq1,answer1,verification2,answer2,role) VALUES(:un,:email,:pass,:q1,:a1,:q2,:a2,'Customer')");
+    $stmt = $conn->prepare("INSERT INTO tbl_customer(username,user_email,passwords,Fullname,phone_number,verificationq1,answer1,verification2,answer2,role) VALUES(:un,:email,:pass,:fn,:pn,:q1,:a1,:q2,:a2,'Customer')");
    
     $stmt->bindParam(':un', $cid, PDO::PARAM_STR);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->bindParam(':pass', $pass, PDO::PARAM_STR);
+    $stmt->bindParam(':fn', $Fullname, PDO::PARAM_STR);
+    $stmt->bindParam(':pn', $phone, PDO::PARAM_STR);
     $stmt->bindParam(':q1', $verificationq1, PDO::PARAM_STR);
     $stmt->bindParam(':a1',  $answer1, PDO::PARAM_STR);
     $stmt->bindParam(':q2', $verificationq2, PDO::PARAM_STR);
@@ -25,6 +27,8 @@ if (isset($_GET['register'])) {
        
     $cid = $_GET['username'];
     $email = $_GET['email'];
+    $Fullname = $_GET['fullname'];
+    $phone = $_GET['phonenumber'];
     $verificationq1=$_GET['verification1'];
     $answer1=$_GET['verifyanswer1'];
     $verificationq2=$_GET['verification2'];
@@ -33,12 +37,7 @@ if (isset($_GET['register'])) {
        
     $stmt->execute();
    
-    echo "<script>
-        
-        window.onload = function() {
-            alert('You have registered'); window.location.href='\login-web'; 
-        };
-        </script>";
+    $stmt3->execute();
     
     }
     else{
