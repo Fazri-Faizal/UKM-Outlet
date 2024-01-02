@@ -1,46 +1,62 @@
 <?php
-include ('database.php');
- 
+include('database.php');
+
 $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$cust_id = $_GET['cust_id'];
-
-$stmt = $conn->prepare("INSERT INTO tbl_checkout(customer_id,quantity,subtotal,cart_id,origin_id,product_size) VALUES(:cust_id,:qty,:subtotal,:cid,:orgid,:prodsize)");
-$stmt = $conn->prepare("INSERT INTO tbl_checkout(customer_id,quantity,subtotal,cart_id,origin_id,product_size) VALUES(:cust_id,:qty,:subtotal,:cid,:orgid,:prodsize)");
-
-
-    $stmt->bindParam(':cust_id', $cust_id, PDO::PARAM_STR); 
-    $stmt->bindParam(':qty', $qty, PDO::PARAM_STR);
-    $stmt->bindParam(':subtotal', $subtotal, PDO::PARAM_STR);
-    $stmt->bindParam(':orgid', $orgid, PDO::PARAM_STR);
-    $stmt->bindParam(':prodsize', $prodsize, PDO::PARAM_STR);
-    $stmt->bindParam(':cid', $cid, PDO::PARAM_STR);
-
+if (isset($_GET['cust_id'], $_GET['qty'], $_GET['subtotal'], $_GET['orgid'], $_GET['cid'])) {
+    $cust_id = $_GET['cust_id'];
     $qty = $_GET['qty'];
     $subtotal = $_GET['subtotal'];
     $orgid = $_GET['orgid'];
-    if (isset($_GET['prodsize']))
-     {
-        $prodsize=$_GET['prodsize'];
-     }else{
-        $prodsize="no size"; 
-     }
+    $prodsize = isset($_GET['prodsize']) ? $_GET['prodsize'] : "no size";
     $cid = $_GET['cid'];
-    $stmt2 = $conn->prepare("UPDATE tbl_cart SET quantity='$qty'WHERE cart_id='$cid' ");
 
+    // Start a transaction
+    $conn->beginTransaction();
 
-$InsertSuccess = $stmt->execute();
+    try {
+        // Get the current maximum checkout_session_id
+        $maxIdStmt = $conn->query("SELECT MAX(checkout_session_id) AS max_id FROM tbl_checkout");
+        $maxIdRow = $maxIdStmt->fetch(PDO::FETCH_ASSOC);
+        $maxId = $maxIdRow['max_id'] ? $maxIdRow['max_id'] + 1 : 1; // If no current max, start at 1
 
-$stmt2->execute();
-// Ensure that this is before any HTML or echo statements.
-if ($InsertSuccess) {
-    // Redirect to cart.php if the delete was successful.
-    header('Location: /checkout');
-    exit; // Always call exit after a redirect header.
+        // Prepare the INSERT statement with the new checkout_session_id
+        $stmt = $conn->prepare("INSERT INTO tbl_checkout(customer_id, quantity, subtotal, cart_id, origin_id, product_size, checkout_session_id) VALUES (:cust_id, :qty, :subtotal, :cid, :orgid, :prodsize, :checkout_session_id)");
+
+        $stmt->bindParam(':cust_id', $cust_id);
+        $stmt->bindParam(':qty', $qty, PDO::PARAM_INT);
+        $stmt->bindParam(':subtotal', $subtotal);
+        $stmt->bindParam(':orgid', $orgid);
+        $stmt->bindParam(':prodsize', $prodsize);
+        $stmt->bindParam(':checkout_session_id', $maxId, PDO::PARAM_INT);
+        $stmt->bindParam(':cid', $cid);
+
+        // Execute the INSERT statement
+        $stmt->execute();
+
+        // Prepare the UPDATE statement for tbl_cart
+        $stmt2 = $conn->prepare("UPDATE tbl_cart SET quantity = :qty, checkout_session_id = :checkout_session_id WHERE cart_id = :cid");
+        $stmt2->bindParam(':qty', $qty, PDO::PARAM_INT);
+        $stmt2->bindParam(':checkout_session_id', $maxId, PDO::PARAM_INT);
+        $stmt2->bindParam(':cid', $cid);
+
+        // Execute the UPDATE statement
+        $stmt2->execute();
+
+        // Commit the transaction
+        $conn->commit();
+
+        header('Location: /checkout');
+        exit;
+    } catch (Exception $e) {
+        // Rollback the transaction on error
+        $conn->rollback();
+        exit('Error processing your request: ' . $e->getMessage());
+    }
 } else {
-    // Handle error here if the deletion was not successful.
-    exit('Error deleting row');
+    exit('Required parameters not set');
 }
 
-$stmt->close();
+$conn = null;
+?>

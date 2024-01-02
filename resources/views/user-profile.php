@@ -1,55 +1,50 @@
 <?php 
-    include_once'session.php';
-    include 'database.php';
-    
-    $mysqli1 = new mysqli($servername, $username, $password, $dbname);
-    $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = '$sessionname'");
-    $stmt1->execute();
+include_once 'session.php';
+include 'database.php';
 
-    $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
+// Create a single database connection for all the operations.
+$mysqli = new mysqli($servername, $username, $password, $dbname);
 
-    foreach($handler as $cust) {
-      $custId = $cust['id'];
-    }
+// Check connection
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
 
-    $stmt1->close();
-?>
+// Prepare and execute the query to get customer ID
+$stmt = $mysqli->prepare("SELECT id FROM tbl_customer WHERE username = ?");
+$stmt->bind_param("s", $sessionname);
+$stmt->execute();
+$result = $stmt->get_result();
+$custId = $result->fetch_assoc()['id'];
+$stmt->close();
 
-<!-- Statement to count order placed -->
-<?php 
-    include_once'session.php';
-    include 'database.php';
-    
-    $mysqli1 = new mysqli($servername, $username, $password, $dbname);
+// Prepare and execute the query to count orders placed
+$stmt = $mysqli->prepare("SELECT COUNT(order_id) AS order_placed FROM tbl_order WHERE prod_status = 'Processed' AND cust_id = ?");
+$stmt->bind_param("i", $custId);
+$stmt->execute();
+$result = $stmt->get_result();
+$order_placed = $result->fetch_assoc()['order_placed'];
+$stmt->close();
 
-    $stmt2 = $mysqli1->prepare("SELECT COUNT(order_id) AS order_placed FROM tbl_order WHERE prod_status = 'Processed' AND cust_id = $custId;");
-    $stmt2->execute();   
-    $result = $stmt2->get_result();
-    $row = $result->fetch_assoc();
+// Prepare and execute the query to get order info
+$stmt = $mysqli->prepare("SELECT tbl_order.*, tbl_products.product_Name FROM tbl_order LEFT JOIN tbl_products ON tbl_order.prod_id = tbl_products.product_Id WHERE tbl_order.cust_id = ?");
+$stmt->bind_param("i", $custId);
+$stmt->execute();
+$handler2 = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
 
-    $stmt2->close();
+// Process the orders data
+foreach ($handler2 as $orderdetail) {
+    $orderId = $orderdetail['order_id'];
+    $prod_name = $orderdetail['product_Name'];
+    $order_status = $orderdetail['prod_status'];
+    $order_date = $orderdetail['order_date'];
+    $CSId = $orderdetail['checkout_session_id'];
+    // Do something with the order details...
+}
 
-    $order_placed = $row['order_placed'];
-
-?>
-
-<!-- Statement to get order info -->
-<?php
-    $mysqli1 = new mysqli($servername, $username, $password,$dbname);
-
-    $stmt3 = $mysqli1->prepare("SELECT * FROM tbl_order LEFT JOIN tbl_products ON tbl_order.prod_id = tbl_products.product_Id WHERE tbl_order.cust_id = $custId;");
-    $stmt3->execute();
-    
-    $handler2 = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
-
-    foreach($handler2 as $orderdetail) {
-      $orderId = $orderdetail['order_id'];
-      $prod_name = $orderdetail['product_Name'];
-      $order_status = $orderdetail['prod_status'];
-      $order_date = $orderdetail['order_date'];
-    }
-    
-    $stmt3->close();
+// Close the database connection at the end of the script.
+$mysqli->close();
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +59,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
         <link rel="stylesheet" href="css/user-profile.css">
         <title>User Profile</title>
+
     </head>
 
     <?php 
@@ -299,7 +295,71 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-uppercase">My recent orders</div>
+                    <div class="recent-orders-header">
+                        <div class="text-uppercase">My recent orders</div>
+                        <button id="myModalOrderBtn" class="see-all-orders-btn">See All Order</button>
+                    </div>
+
+                        <!-- The Modal -->
+                        <div id="myModalOrder" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content" style="background-color: #fefefe;
+                                                            padding: 20px;
+                                                            border: 1px solid #888;
+                                                                        width: 80%; /* Could be more or less, depending on screen size */">
+                                            <span class="close">&times;</span>
+                                            <div class="order my-3 "  id="info-order-detail">
+                                            <?php
+                                                
+                                                $previousCSId = null;
+                                                $isFirstProduct = true; // Flag to check if the product is the first in the order
+
+                                                foreach ($handler2 as $modalcontent) {
+                                                    $currentCSId = $modalcontent['checkout_session_id'];
+                                                    $prodStatus = $modalcontent['prod_status'];
+
+                                                    // Start a new order block if this is a new checkout_session_id
+                                                    if ($currentCSId != $previousCSId) {
+                                                        // If it's not the first product, close the previous order block
+                                                        if (!$isFirstProduct) {
+                                                            // Close the previous order details
+                                                            echo "</div>"; // Close the product details div
+                                                            echo "<div class=\"fs-8\">Order Date : " . date('d M Y | h:i A', strtotime($previousOrderDate)) . "</div>";
+                                                            echo "<div class=\"status\">Status : $prodStatus</div><hr>";
+                                                            echo "</div>"; // Close the order-summary div
+                                                        }
+                                                        // Start new order block
+                                                        echo "<div class=\"order-summary\">";
+                                                        echo "<div class=\"text-uppercase\">Order #OU{$modalcontent['checkout_session_id']}</div>";
+                                                        echo "<div class=\"product-details\">"; // Open a div for product details
+                                                    }
+
+                                                    // Display product details
+                                                    echo "<div class=\"fs-8\">{$modalcontent['product_Name']} x {$modalcontent['prod_qty']} (RM{$modalcontent['total_price']})</div>";
+
+                                                    // Update tracking variables
+                                                    $previousCSId = $currentCSId;
+                                                    $isFirstProduct = false;
+                                                    $previousOrderDate = $modalcontent['order_date']; // Keep track of the order date to print it later
+                                                }
+
+                                                // After the loop, close the last order block, if there was at least one product
+                                                if (!$isFirstProduct) {
+                                                    // Close the product details div
+                                                    echo "</div>";
+                                                    // Print the order date and status for the last order
+                                                    echo "<div class=\"fs-8\">Order Date : " . date('d M Y | h:i A', strtotime($previousOrderDate)) . "</div>";
+                                                    echo "<div class=\"status\">Status : Delivered</div><hr>";
+                                                    // Close the last order-summary div
+                                                    echo "</div>";
+                                                }
+                                                ?>
+
+                                </div><!-- Modal content habis sini -->
+                        </div>
+
+                        </div>
 
                     <div class="order my-3 bg-light" id="info-order">
                         <div class="row">
@@ -320,15 +380,7 @@
                                     <div class="fs-8"><?php echo date('d M Y | h:i A', strtotime($displayorder['order_date'])); ?></div>
                                     
 
-                                    <!-- <div class="rating d-flex align-items-center pt-1">
-                                        <img src="https://www.freepnglogos.com/uploads/like-png/like-png-hand-thumb-sign-vector-graphic-pixabay-39.png"
-                                            alt=""><span class="px-2">Rating:</span>
-                                        <span class="fas fa-star"></span>
-                                        <span class="fas fa-star"></span>
-                                        <span class="fas fa-star"></span>
-                                        <span class="far fa-star"></span>
-                                        <span class="far fa-star"></span>
-                                    </div> -->
+
                                 </div>
                             </div>
                             <div class="col-lg-8">
@@ -337,26 +389,9 @@
                                     <div class="blue-label ms-auto text-uppercase" style="margin-right: 186px;margin-top: 2px;"><?php echo $order_status ?></div>
                                     <div class="btn btn-primary text-uppercase" id="btnOrderinfo" onclick="displayInfoOrder()">order info</div>
                                 </div>
-                                <div class="progressbar-track">
-                                    <ul class="progressbar">
-                                        <li id="step-1" class="text-muted green">
-                                            <span class="fas fa-gift"></span>
-                                        </li>
-                                        <li id="step-2" class="text-muted green">
-                                            <span class="fas fa-check"></span>
-                                        </li>
-                                        <li id="step-3" class="text-muted green">
-                                            <span class="fas fa-box"></span>
-                                        </li>
-                                        <li id="step-4" class="text-muted green">
-                                            <span class="fas fa-truck"></span>
-                                        </li>
-                                        <li id="step-5" class="text-muted green">
-                                            <span class="fas fa-box-open"></span>
-                                        </li>
-                                    </ul>
-                                    <div id="tracker"></div>
+                            
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -590,5 +625,30 @@
             displayInfoOrder();
         }
     }
+            // Get the modal
+            var modal = document.getElementById("myModalOrder");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myModalOrderBtn");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks the button, open the modal 
+            btn.onclick = function() {
+            modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+            modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            }
     </script>
 </html>
