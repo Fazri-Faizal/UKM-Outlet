@@ -5,7 +5,7 @@
     $mysqli1 = new mysqli($servername, $username, $password, $dbname);
     $mysqli2 = new mysqli($servername, $username, $password, $dbname);
     try {
-      $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = '$sessionname'");
+      $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_customer WHERE username = '$sessionname'");
       $stmt1->execute();
       $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
       if(count($handler) == 0) {
@@ -16,6 +16,7 @@
       
       foreach($handler as $cust) {
         $custId = $cust['id'];
+        $custname=$cust['username'];
       }
       
       $stmt2 = $mysqli2->prepare("SELECT COUNT(cart_id) AS Count FROM tbl_cart WHERE customer_id = '$custId'");
@@ -92,7 +93,7 @@
             </svg>
             </a>
          </div> --> 
-        <div class="noti-icon" style="margin-right: 1px">
+        <div class="noti-icon" style="margin-right: 6px">
           <a href="#" id="myBtn">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#804444" class="bi bi-bell" viewBox="0 0 16 16">
               <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
@@ -109,7 +110,7 @@
             </div>
           </div> 
         </div>
-        <div class="cart-icon">
+        <div class="cart-icon" style="margin-right: -13px;">
           <?php if($cartNum == 0) { ?>
               <a href="#" onclick="noitem()">
                   <div class="icon">
@@ -135,7 +136,7 @@
                   </div>
             <?php } ?>          
         </div>
-        <div class="chat-icon" >
+        <div class="chat-icon" style="margin-right: 0px;">
             <a href="\chat" >
         
             <div class="icon">
@@ -155,7 +156,7 @@
                 </div>
             </a>
         </div>
-        <div class="user-icon">
+        <div class="user-icon" style="margin-left: 5px">
             <a href="\user-profile">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#804444" class="bi bi-person-circle" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -163,7 +164,7 @@
             </svg>
             </a>
         </div>
-        <div class="user-icon" style="margin-left: 18px">
+        <div class="user-icon" style="margin-left: 25px">
             <a href="/destroy">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#804444" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
