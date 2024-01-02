@@ -302,6 +302,12 @@ Route::get('/pay', function () {
 Route::get('/order_success', function () {
     return view('order_success');
 });
+Route::get('/chatcrud', function () {
+    return view('chatcrud');
+});
+Route::get('/crudchatedwith', function () {
+    return view('crudchatedwith');
+});
 Route::get('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
 Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
 Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');

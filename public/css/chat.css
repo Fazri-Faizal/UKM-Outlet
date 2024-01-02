@@ -293,7 +293,7 @@
 .footer-chat input *::-moz-placeholder {
   color: #C0C0C0;
   font-size: 13pt;
-  margin-left:5px;
+
 }
 .footer-chat input *:-ms-input-placeholder {
   color: #C0C0C0;
@@ -302,4 +302,8 @@
 
 .clickable {
   cursor: pointer;
+}
+
+.chat {
+  overflow-x: auto; /* Enables horizontal scrollbar if content overflows */
 }
