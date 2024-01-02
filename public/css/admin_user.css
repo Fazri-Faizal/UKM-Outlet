@@ -532,14 +532,25 @@ button:hover {
     background-color: #c0b093;
 }
 
-.button-report {
+.button-report-monthly {
     background-color: #47362f;
     color: #fff8f8;
     width: 165px;
     border-radius:10px;
 }
 
-.button-report:hover {
+.button-report-monthly:hover {
+    background-color: #c0b093;
+}
+
+.button-report-annually {
+    background-color: #47362f;
+    color: #fff8f8;
+    width: 165px;
+    border-radius:10px;
+}
+
+.button-report-annually:hover {
     background-color: #c0b093;
 }
 
@@ -781,9 +792,8 @@ input[type=text]:focus, input[type=password]:focus {
   
 .divmodal {
     padding: 13px 20px;
-    height: 45px;
+    height: 64px;
     width: 165px;
-    margin-left: 10px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
