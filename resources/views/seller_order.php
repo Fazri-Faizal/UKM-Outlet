@@ -1,11 +1,16 @@
 
 <head>
+
     <style>
         /* Webpixels CSS */
 /* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
 /* URL: https://github.com/webpixels/css */
 
+
+
 @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+
 
 /* Bootstrap Icons */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
@@ -61,6 +66,17 @@ button:not([type="reset"]) {
 
 button:hover {
     background-color: #d43a3a;
+}
+
+.button-view {
+    background-color: #47362f;
+    color: #fff8f8;
+    width: 165px;
+    border-radius:10px;
+}
+
+.button-view:hover {
+    background-color: #c0b093;
 }
     </style>
 </head>
@@ -329,13 +345,13 @@ button:hover {
                                                 <span class="badge badge-lg badge-dot">
                                                 <?php 
                                                 
-                                                if ($orderstatus == "Processed"){
+                                                if ($orderstatus == "Completed"){
 
-                                                    echo '<i class="bg-success"></i>Processed';
+                                                    echo '<i class="bg-success"></i>Completed';
                                                 }
-                                                else if ($orderstatus == "To Process"){
+                                                else if ($orderstatus == "To Ship"){
 
-                                                    echo '<i class="bg-warning"></i>To Process';
+                                                    echo '<i class="bg-warning"></i>To Ship';
                                                 }
                                                 else {
                                                     echo '<i class="bg-dark"></i>Cancelled';
@@ -345,11 +361,7 @@ button:hover {
                                                 </span>
                                             </td>
                                             <td class="text-end">
-                                                <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                                <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </td>
+                                               
                                         </tr>
                                     <?php } } ?>                                  
                             </tbody>
@@ -363,3 +375,23 @@ button:hover {
         </main>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" data-keyboard="false" data-backdrop="false">
+	    <div class="modal-dialog modal-lg">
+	    
+	        <!-- Modal content-->
+	        <div class="modal-content">
+	            <!-- <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal">&times;</button>
+	                <h4 class="modal-title">Generated Report</h4>
+	            </div> -->
+	            <div class="modal-body">
+
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
