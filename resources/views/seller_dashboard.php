@@ -314,9 +314,9 @@
                                     </td>
                                     <td class="text-end">
                                         <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                        <!-- <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
                                             <i class="bi bi-trash"></i>
-                                        </button>
+                                        </button> -->
                                     </td>
                                 </tr>
                                 <?php } ?>
