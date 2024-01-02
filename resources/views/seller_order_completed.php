@@ -212,8 +212,8 @@ button:hover {
                                             $totalprice = $row['total_price'];
                                             $orderstatus = $row['prod_status'];
                                             $quantity= $row['prod_qty'];
-                                            $customerId= $row['customer_id'];  
-                                            $productId= $row['product_id']; 
+                                            $customerId= $row['cust_id'];  
+                                            $productId= $row['prod_id']; 
                                             
                                             $stmt2 = $conn->prepare("SELECT * from tbl_customer WHERE id = '$customerId' ");
     
@@ -284,8 +284,8 @@ button:hover {
                                             $totalprice = $row['total_price'];
                                             $orderstatus = $row['prod_status'];
                                             $quantity= $row['prod_qty'];
-                                            $customerId= $row['customer_id'];  
-                                            $productId= $row['product_id']; 
+                                            $customerId= $row['cust_id'];  
+                                            $productId= $row['prod_id']; 
                                             
                                             $stmt2 = $conn->prepare("SELECT * from tbl_customer WHERE id = '$customerId' ");
     
@@ -332,12 +332,6 @@ button:hover {
                                                     <i class="bg-success"></i>
                                                     <?php echo $orderstatus ?>   
                                                 </span>
-                                            </td>
-                                            <td class="text-end">
-                                                <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                                <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
                                             </td>
                                         </tr>
                                     <?php } } ?>      

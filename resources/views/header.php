@@ -103,9 +103,26 @@
           <div id="myModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
-              <h4>Notifications</h4>
+              <?php
+                $mysqli4 = new mysqli($servername, $username, $password, $dbname);
+
+                $stmt3 = $mysqli4->prepare("SELECT order_id, prod_status FROM tbl_order WHERE cust_id = ? AND prod_status IN ('Completed', 'Cancelled', 'To Ship')");
+                $stmt3->bind_param("i", $custId);
+                $stmt3->execute();
+                $orderUpdates = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
+
+                // Prepare the notifications HTML using PHP
+                $notificationsHTML = '';
+                foreach ($orderUpdates as $update) {
+                    $statusMessage = "Your order {$update['order_id']} status is: {$update['prod_status']}";
+                    $notificationsHTML .= "<div>{$statusMessage}<span class='close'>&times;</span></div>";
+                }
+
+                $stmt3->close();
+                $mysqli4->close();
+              ?>
               <div class="notification-list">
-                <div>Your order UO001 from shop SUMBUL has been delivered<span class="close">&times;</span></div>
+                <div><?php echo $notificationsHTML; // Output the notifications ?><span class="close">&times;</span></div>
               </div>
             </div>
           </div> 
@@ -206,14 +223,18 @@
       </script>
            
       <script>
+      // NOTIFICATIONS ----------------------------------------------
+
+
+
       // Get the modal
       var modal = document.getElementById("myModal");
 
       // Get the button that opens the modal
       var btn = document.getElementById("myBtn");
 
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close")[0];
+      // Get all <span> elements that close the modals
+      var spans = document.getElementsByClassName("close");
 
       // When the user clicks the button, open the modal 
       btn.onclick = function() {
@@ -221,16 +242,18 @@
       }
 
       // When the user clicks on <span> (x), close the modal
+      Array.from(spans).forEach(function(span) {
       span.onclick = function() {
-        modal.style.display = "none";
+        this.parentElement.style.display = "none";
       }
+       }); 
 
-      // When the user clicks anywhere outside of the modal, close it
+       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
         if (event.target == modal) {
-          modal.style.display = "none";
+            modal.style.display = "none";
         }
-      }
+      }   
 
       // Test Cart
       let itemsCountDiv = document.querySelector(".itemsCount");
