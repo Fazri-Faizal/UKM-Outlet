@@ -159,7 +159,7 @@ body.dark li a:hover:before{
 } */
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name{
-    color: var(--primary-color);
+    color: #2c1414;
 }
 body.dark .nav-links li a:hover i,
 body.dark .nav-links li a:hover .link-name{

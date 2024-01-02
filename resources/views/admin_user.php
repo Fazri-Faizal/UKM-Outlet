@@ -7,7 +7,7 @@
         $matrics= $_GET['matrics'];    
         
         $mysqli1 = new mysqli($servername, $username, $password, $dbname);
-        $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_customer");
+        $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_customer ORDER BY role");
         $stmt1->execute();
 
         $arr = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -47,18 +47,18 @@
                             <i class="uil uil-estate"></i>
                             <span class="link-name">Dashboard</span>
                         </a></li>   
-                        <li><a href="#">
+                        <li><a href="admin_report">
                             <i class="uil uil-files-landscapes"></i>
                             <span class="link-name">Report</span>
                         </a></li>
                         <li><a href="admin_user">
                             <i class="uil uil-user"></i>
-                            <span class="link-name">User</span>
+                            <span class="link-name" style="color: #2c1414; text-decoration: underline #804444 1.5px;">User</span>
                         </a></li>
                     </ul>
                     
                     <ul class="logout-mode">
-                        <li><a href="/destroy">
+                        <li><a href="/destroy-admin">
                             <i class="uil uil-signout"></i>
                             <span class="link-name">Logout</span>
                         </a></li>
@@ -152,7 +152,7 @@
     } else {
     
     $mysqli1 = new mysqli($servername, $username, $password, $dbname);
-    $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_customer");
+    $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_customer ORDER BY role");
     $stmt1->execute();
 
     $arr = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -194,13 +194,13 @@
                     <i class="uil uil-estate"></i>
                     <span class="link-name">Dashboard</span>
                 </a></li>   
-                <li><a href="#">
+                <li><a href="admin_report">
                     <i class="uil uil-files-landscapes"></i>
                     <span class="link-name">Report</span>
                 </a></li>
                 <li><a href="admin_user">
                     <i class="uil uil-user"></i>
-                    <span class="link-name" style="color: #2c1414">User</span>
+                    <span class="link-name" style="color: #2c1414; text-decoration: underline #804444 1.5px;">User</span>
                 </a></li>
             </ul>
             
@@ -240,7 +240,7 @@
                             <input type="text" name="inputId" placeholder="Enter User Name" >                                  
                             <div class="button-group">
                                 <button type="submit" name="searchUser">Search</button>
-                                <!-- <button type="reset">Reset</button> -->
+                                <button type="reset" onclick="location.href='\admin_user'">Reset</button>
                             </div>                                  
                         </div>                        
                     </div>
@@ -325,7 +325,32 @@
                                             <?php echo $email?>
                                     </td>
                                     <td style="text-align: center">
-                                            <?php echo $password ?>
+                                        <span id="spanpassword" style="display: inline-flex">
+                                            
+                                            <p style="width: fit-content" id="<?php echo 'displaypassword'.$count ?>">********</p>
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16" style="cursor: pointer; margin-left: 10px; margin-top: -5px;" id="<?php echo 'iconclosed'.$count ?>" onclick="
+                                                (function(){
+                                                    document.getElementById('<?php echo 'displaypassword'.$count ?>').innerHTML = '<?php echo $password ?>';
+                                                    document.getElementById('<?php echo 'iconclosed'.$count ?>').style.display = 'none';
+                                                    document.getElementById('<?php echo 'iconopen'.$count ?>').style.display = '';
+                                                })();return false;
+                                            ">
+                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                            </svg>
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16" style="display: none; cursor: pointer; margin-left: 10px;" id="<?php echo 'iconopen'.$count ?>" onclick="
+                                                (function(){
+                                                    document.getElementById('<?php echo 'displaypassword'.$count ?>').innerHTML = '********';
+                                                    document.getElementById('<?php echo 'iconclosed'.$count ?>').style.display = '';
+                                                    document.getElementById('<?php echo 'iconopen'.$count ?>').style.display = 'none';
+                                                })();return false;
+                                            ">
+                                                <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                                                <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                                            </svg>
+                                        </span>
                                     </td>
                                     <td style="text-align: center">
                                             <?php echo $role ?>
@@ -345,6 +370,7 @@
                                     <?php
                             } 
                         }         else{
+                            $count = 0;
                             foreach($arr as $userlist) {
                                 $fullname = $userlist['Fullname'];
                                 $username = $userlist['username'];
@@ -376,7 +402,32 @@
                                     <?php echo $userlist['user_email'] ?>
                                 </td>
                                 <td style="text-align: center">
-                                    <?php echo $userlist['passwords'] ?>
+                                    <span id="spanpassword" style="display: inline-flex">
+                                        
+                                        <p style="width: fit-content" id="<?php echo 'displaypassword'.$count ?>">********</p>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16" style="cursor: pointer; margin-left: 10px; margin-top: -5px;" id="<?php echo 'iconclosed'.$count ?>" onclick="
+                                            (function(){
+                                                document.getElementById('<?php echo 'displaypassword'.$count ?>').innerHTML = '<?php echo $userlist['passwords'] ?>';
+                                                document.getElementById('<?php echo 'iconclosed'.$count ?>').style.display = 'none';
+                                                document.getElementById('<?php echo 'iconopen'.$count ?>').style.display = '';
+                                            })();return false;
+                                        ">
+                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                        </svg>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16" style="display: none; cursor: pointer; margin-left: 10px;" id="<?php echo 'iconopen'.$count ?>" onclick="
+                                            (function(){
+                                                document.getElementById('<?php echo 'displaypassword'.$count ?>').innerHTML = '********';
+                                                document.getElementById('<?php echo 'iconclosed'.$count ?>').style.display = '';
+                                                document.getElementById('<?php echo 'iconopen'.$count ?>').style.display = 'none';
+                                            })();return false;
+                                        ">
+                                            <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                                            <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                                        </svg>
+                                    </span>
                                 </td>
                                 <td style="text-align: center">
                                     <?php echo $userlist['role'] ?>
@@ -395,7 +446,8 @@
                             </form>
                         </tr>
                         <?php
-                            }}
+                            $count++;
+                        }}
                         ?>
                     </tbody>
                 </table>
