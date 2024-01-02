@@ -20,12 +20,16 @@
                 <div class="grid-container">
                     <div>
                         <div class="input-group"> 
-                            <input type="text" name="username" required> 
-                            <label for="">Username</label> 
-                        </div> 
+                            <input type="text" name="fullname" required> 
+                            <label for="">Full name</label> 
+                        </div>
                         <div class="input-group"> 
                             <input type="email" name="email" required> 
                             <label for="">Email</label> 
+                        </div> 
+                        <div class="input-group"> 
+                            <input type="text" name="username" required> 
+                            <label for="">Username</label> 
                         </div> 
                         <div class="input-group"> 
                             <input type="password" name="password" required> 
@@ -35,9 +39,14 @@
                             <input type="password" name="confirmpass"required> 
                             <label for="">Confirm Password</label> 
                         </div> 
+                        
                     </div>
                 
                     <div class="question"> 
+                        <div class="input-group"> 
+                            <input type="tel" name="phonenumber" required> 
+                            <label for="">Phone number</label> 
+                        </div> 
                         <label>Verification question</label> 
 
                         <div class="select-group" class="listbox"> 
@@ -182,20 +191,20 @@ function choise3() {
                 
                 
                 
-<script>
-function choise1() {
-  var x = document.getElementById("q1").value;
-  document.getElementById("choiseq1").placeholder = "What is your "+x+" ?";
-}
-function choise2() {
-  var x = document.getElementById("q2").value;
-  document.getElementById("choiseq2").placeholder = "What is your "+x+" ?";
-}
-function choise3() {
-  var x = document.getElementById("q3").value;
-  document.getElementById("choiseq3").value = "What is your "+x+" ?";
-}
-</script>
+                    <script>
+                    function choise1() {
+                    var x = document.getElementById("q1").value;
+                    document.getElementById("choiseq1").placeholder = "What is your "+x+" ?";
+                    }
+                    function choise2() {
+                    var x = document.getElementById("q2").value;
+                    document.getElementById("choiseq2").placeholder = "What is your "+x+" ?";
+                    }
+                    function choise3() {
+                    var x = document.getElementById("q3").value;
+                    document.getElementById("choiseq3").value = "What is your "+x+" ?";
+                    }
+                    </script>
             </form> 
         </div>
 

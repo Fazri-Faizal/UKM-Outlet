@@ -617,3 +617,173 @@ textarea #newaddress {
 .see-all-orders-btn:hover {
     background-color: #804444;
 }
+.noselect {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+          -webkit-tap-highlight-color: transparent;
+  }
+  
+  #delete2 {
+      width: 123px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      background: red;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+      background: #e62222;
+  }
+  
+  #delete2, #delete2 span {
+      transition: 220ms;
+  }
+  
+  #delete2 .text {
+      transform: translateX(25px);
+      color: white;
+      /* font-weight: bold; */
+      font-size: medium;
+  }
+  
+  #delete2 .icon {
+      position: absolute;
+      border-left: 1px solid #c41b1b;
+      transform: translateX(110px);
+      height: 40px;
+      width: 27px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: -17px;
+  }
+  
+  #delete2 svg {
+      width: 15px;
+      fill: #eee;
+      /* margin-right: 11px; */
+  }
+  
+  #delete2:hover {
+      background: #ff3636;
+  }
+  
+  #delete2:hover .text {
+      color: transparent;
+  }
+  
+  #delete2:hover .icon {
+      width: 150px;
+      border-left: none;
+      transform: translateX(0);
+  }
+  
+  #delete2tton:focus {
+      outline: none;
+  }
+
+  .btnedit, .btnedit span {
+    transition: 220ms;
+}
+
+.btnedit .text {
+    transform: translateX(25px);
+    color: white;
+    /* font-weight: bold; */
+    font-size: medium;
+}
+
+.btnedit .icon {
+    position: absolute;
+    border-left: 1px solid #efe783;
+    transform: translateX(110px);
+    height: 40px;
+    width: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -17px;
+}
+
+.btnedit svg {
+    width: 15px;
+    fill: #eee;
+    /* margin-right: 11px; */
+}
+
+.btnedit:hover {
+    background: #ffc107;
+}
+
+.btnedit:hover .text {
+    color: transparent;
+}
+
+.btnedit:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+}
+
+.btnedit:focus {
+    outline: none;
+}
+.btn-for-add  {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.btn-for-cancel  {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+.add-address {
+    background-color: #99dfa3;
+    border: none;
+    /* border-color: #8a6d3b; */
+    border-radius: 19px;
+    /* background: white; */
+    width: 100px;
+    height: 50px;
+    color: black
+}
+
+.add-address:hover {
+    background-color: #39b64b;
+    border: none;
+    /* border-color: #8a6d3b; */
+    border-radius: 19px;
+    /* background: white; */
+    width: 100px;
+    height: 50px;
+    color:white;
+    transition: 0.5s;
+}
+
+.cancel-address {
+    background-color: #919792;
+    border: none;
+    /* border-color: #8a6d3b; */
+    border-radius: 19px;
+    /* background: white; */
+    width: 100px;
+    height: 50px;
+    color: black
+}
+
+.cancel-address:hover {
+    background-color: #b22227;
+    border: none;
+    /* border-color: #8a6d3b; */
+    border-radius: 19px;
+    /* background: white; */
+    width: 100px;
+    height: 50px;
+    color:white;
+    transition: 0.5s;
+}
