@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="/css/button_edit.css">
 </head>
 <body>
-    <button class="btnedit" id="btnedit">
+    <button class="btnedit" id="btnedit" type="submit" name="editaddress">
         <span class='text'>Edit</span>
         <span class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
