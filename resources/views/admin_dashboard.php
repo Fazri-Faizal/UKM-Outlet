@@ -88,9 +88,9 @@
             <ul class="nav-links">
                 <li><a href="admin_dashboard">
                     <i class="uil uil-estate"></i>
-                    <span class="link-name">Dashboard</span>
+                    <span class="link-name" style="color: #2c1414; text-decoration: underline #804444 1.5px;">Dashboard</span>
                 </a></li>   
-                <li><a href="#">
+                <li><a href="admin_report">
                     <i class="uil uil-files-landscapes"></i>
                     <span class="link-name">Report</span>
                 </a></li>
@@ -106,16 +106,16 @@
                     <span class="link-name">Logout</span>
                 </a></li>
 
-                <li class="mode">
+                <!-- <li class="mode">
                     <a href="#">
                         <i class="uil uil-moon"></i>
                     <span class="link-name">Dark Mode</span>
-                </a>
+                    </a>
 
-                <div class="mode-toggle">
-                  <span class="switch"></span>
-                </div>
-            </li>
+                    <div class="mode-toggle">
+                    <span class="switch"></span>
+                    </div>
+                </li> -->
             </ul>
         </div>
     </nav>
