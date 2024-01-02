@@ -94,17 +94,30 @@
           </div> 
         </div>
         <div class="cart-icon">
-            <a href="\cart">
-                <div class="icon">
-                  <?php if($cartNum == 0) { ?>
-                    <div class="itemsCount"></div>
-                    <i class="fas fa-shopping-cart cartIcon"></i>
-                  <?php } else { ?>
-                    <div class="itemsCount appear" style="display: block"><?php echo $cartNum ?></div>
-                    <i class="fas fa-shopping-cart cartIcon flicker"></i>
-                  <?php } ?>
-                </div>
-              </a>
+          <?php if($cartNum == 0) { ?>
+              <a href="#" onclick="noitem()">
+                  <div class="icon">
+                    <?php if($cartNum == 0) { ?>
+                      <div class="itemsCount"></div>
+                      <i class="fas fa-shopping-cart cartIcon"></i>
+                    <?php } else { ?>
+                      <div class="itemsCount appear" style="display: block"><?php echo $cartNum ?></div>
+                      <i class="fas fa-shopping-cart cartIcon flicker"></i>
+                    <?php } ?>
+                  </div>
+                </a>
+            <?php } else { ?>
+              <a href="\cart">
+                  <div class="icon">
+                    <?php if($cartNum == 0) { ?>
+                      <div class="itemsCount"></div>
+                      <i class="fas fa-shopping-cart cartIcon"></i>
+                    <?php } else { ?>
+                      <div class="itemsCount appear" style="display: block"><?php echo $cartNum ?></div>
+                      <i class="fas fa-shopping-cart cartIcon flicker"></i>
+                    <?php } ?>
+                  </div>
+            <?php } ?>          
         </div>
         <div class="chat-icon" >
             <a href="\chat" >
@@ -211,6 +224,11 @@
               
               itemsCount++;
             }
+      
+      function noitem() {
+        alert("There are no item(s) in your cart!");
+      }
+
 
       // Get the modal
       var modal = document.getElementById("myModal");

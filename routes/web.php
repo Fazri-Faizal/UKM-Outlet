@@ -284,9 +284,24 @@ Route::get('/crud_admin_adduser', function () {
 Route::get('/crud_admin_edituser', function () {
     return view('crud_admin_edituser');
 });
-Route::get('/admin_report', function () {
+Route::get(' /admin_report', function () {
     return view('admin_report');
 });
 Route::get('/admin_report_generate', function () {
     return view('admin_report_generate');
 });
+Route::get('/create', function () {
+    return view('create');
+});
+Route::get('/secrets', function () {
+    return view('secrets');
+});
+Route::get('/pay', function () {
+    return view('pay');
+});
+Route::get('/order_success', function () {
+    return view('order_success');
+});
+Route::get('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
+Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
+Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
