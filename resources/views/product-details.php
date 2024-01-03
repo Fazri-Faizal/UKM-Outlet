@@ -125,7 +125,7 @@
 
          let itemsCountDiv = document.querySelector(".itemsCount");
           let cartIcon = document.querySelector(".cartIcon");
-          let itemsCount = <?php $cartNum ?>;
+          let itemsCount = <?php echo $cartNum ?>;
           function displayItemsCount() {
             itemsCountDiv.style.display = "block";
             itemsCountDiv.classList.add("appear");
