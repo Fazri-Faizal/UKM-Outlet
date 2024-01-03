@@ -216,10 +216,10 @@ button:hover {
         
           <label for="seller_type"><b>Seller Type</b></label>
           <div class="radio-group">
-            <input type="radio" id="individual" name="sellerType" value="individual" checked>
+            <input type="radio" id="individual" name="sellerType" value="Individual" checked>
             <label for="individual">Individual</label>
               
-            <input type="radio" id="business" name="sellerType" value="business">
+            <input type="radio" id="business" name="sellerType" value="Business">
             <label for="business">Registered Business</label>
           </div>
 
