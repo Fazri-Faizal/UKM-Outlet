@@ -222,6 +222,8 @@
     <form action="\function_addtocart" method="get">
       <input type="hidden" name="prodId" value="<?php echo $id; ?>">
       <input type="hidden" name="custId" value="<?php echo $custId; ?>">
+      <input type="hidden" name="prodPrice" value="<?php echo $productprice; ?>">
+      <input type="hidden" name="SellerId" value="<?php echo $sellerid; ?>">
 
       <table class="container-custom">
         <tr>
@@ -396,6 +398,7 @@
         $shopname=$pname['shop_name'];
         $productpic=$pname['pic'];
         $productrating=$pname['product_Rating'];
+        $productprice=$pname['product_price'];
 
     }
 
@@ -452,6 +455,8 @@
     <form action="\function_addtocart" method="get">
       <input type="hidden" name="prodId" value="<?php echo $id; ?>">
       <input type="hidden" name="custId" value="<?php echo $custId; ?>">
+      <input type="hidden" name="prodPrice" value="<?php echo $productprice; ?>">
+      <input type="hidden" name="SellerId" value="<?php echo $sellerid; ?>">
 
       <table class="container-custom">
         <tr>

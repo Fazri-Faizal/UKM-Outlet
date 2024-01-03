@@ -168,6 +168,18 @@ nav ul li a .cart::after {
 
 .order .order-summary {
     height: 100%;
+    background-color: #fff4f4;
+    padding: 1%;
+    margin: 1%;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-height: 80vh; /* 80% of the viewport height */
+    
+}
+.order .order-summary-recent {
+    height: 100%;
+    
+    
 }
 
 .order .blue-label {
@@ -556,7 +568,7 @@ textarea #newaddress {
     border-color: #8a6d3b;
     border-radius: 10px;
 }
-.modal {
+.modal-order {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1000; /* Sit on top */
@@ -564,22 +576,23 @@ textarea #newaddress {
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   
   /* Modal Content */
-  .modal-content {
+  .modal-content-order {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin-top: 5%;
+    margin-left: 10%; /* 15% from the top and centered */
     padding: 20px;
     z-index: 1001; /* Sit on top */
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 100%; /* Could be more or less, depending on screen size */
     position: relative;
     max-height: 80vh; /* 80% of the viewport height */
     overflow-y: auto; /* enables vertical scrolling if content overflows */
+    border-radius: 10px;
   }
   
   /* The Close Button */

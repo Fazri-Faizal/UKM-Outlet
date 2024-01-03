@@ -1,6 +1,7 @@
 <?php 
 include_once 'session.php';
 include 'database.php';
+var_dump($_GET);
 
 $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -11,10 +12,12 @@ function redirectToProductDetails($productId) {
 }
 
 // Check if the addToCart operation is set
-if (isset($_GET['addToCart'], $_GET['prodId'], $_GET['prodQuantity'], $_GET['custId'])) {
+if (isset($_GET['addToCart'], $_GET['prodId'], $_GET['prodQuantity'], $_GET['custId'], $_GET['prodPrice'], $_GET['SellerId'])) {
     $id = $_GET['prodId'];
     $prodQuantity = $_GET['prodQuantity'];
     $custId = $_GET['custId'];
+    $prodPrice = $_GET['prodPrice'];
+    $SellerId = $_GET['SellerId'];
     $prodSize = isset($_GET['prodSize']) ? $_GET['prodSize'] : 'no size'; // Default to 'no size' if not set
 
     try {
@@ -37,11 +40,13 @@ if (isset($_GET['addToCart'], $_GET['prodId'], $_GET['prodQuantity'], $_GET['cus
         }
 
         // Insert into cart with the checkout_session_id
-        $stmt = $conn->prepare("INSERT INTO tbl_cart(product_id, product_size, quantity, customer_id, checkout_session_id) VALUES(:prodId, :prodSize, :prodQuantity, :custId, :checkoutSessionId)");
+        $stmt = $conn->prepare("INSERT INTO tbl_cart(product_id, product_Price, product_size, quantity, customer_id, seller_Id, checkout_session_id) VALUES(:prodId, :prodPrice, :prodSize, :prodQuantity, :custId, :SellerId, :checkoutSessionId)");
         $stmt->bindParam(':prodId', $id, PDO::PARAM_STR);
+        $stmt->bindParam(':prodPrice', $prodPrice, PDO::PARAM_STR);
         $stmt->bindParam(':prodSize', $prodSize, PDO::PARAM_STR);
         $stmt->bindParam(':prodQuantity', $prodQuantity, PDO::PARAM_INT);
         $stmt->bindParam(':custId', $custId, PDO::PARAM_STR);
+        $stmt->bindParam(':SellerId', $SellerId, PDO::PARAM_STR);
         $stmt->bindParam(':checkoutSessionId', $checkoutSessionId, PDO::PARAM_INT);
         $stmt->execute();
 

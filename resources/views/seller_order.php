@@ -276,12 +276,6 @@ button:hover {
                                                     <?php echo $orderstatus ?>   
                                                 </span>
                                             </td>
-                                            <td class="text-end">
-                                                <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                                <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </td>
                                         </tr>
                                     <?php } } 
                                         
@@ -345,9 +339,9 @@ button:hover {
                                                 <span class="badge badge-lg badge-dot">
                                                 <?php 
                                                 
-                                                if ($orderstatus == "Completed"){
+                                                if ($orderstatus == "Shipped"){
 
-                                                    echo '<i class="bg-success"></i>Completed';
+                                                    echo '<i class="bg-success"></i>Shipped';
                                                 }
                                                 else if ($orderstatus == "To Ship"){
 
@@ -360,12 +354,7 @@ button:hover {
                                             ?>  
                                                 </span>
                                             </td>
-                                            <td class="text-end">
-                                                <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                                <!-- <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                    <i class="bi bi-trash"></i>
-                                                </button> -->
-                                            </td>
+
                                         </tr>
                                     <?php } } ?>                                  
                             </tbody>
