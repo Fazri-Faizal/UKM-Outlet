@@ -1,3 +1,4 @@
+
 <?php 
 include_once 'session.php';
 include 'database.php';
@@ -29,56 +30,7 @@ try {
   $newSessionId = $maxSessionId + 1;
 
   // Insert new order with incremented checkout_session_id
-  $stmt3 = $mysqli1->prepare("INSERT INTO tbl_order (cust_id, prod_id, prod_qty, checkout_session_id) SELECT customer_id, product_id, quantity, ? FROM tbl_cart WHERE customer_id = ?");
-  $stmt3->bind_param('ii', $newSessionId, $custId);
-  $stmt3->execute();
-
-  // Delete the cart items after placing the order
-  $stmt4 = $mysqli1->prepare("DELETE FROM tbl_cart WHERE customer_id = ?");
-  $stmt4->bind_param('i', $custId);
-  $stmt4->execute();
-
-  $stmt1->close();
-  $stmt2->close();
-  $stmt3->close();
-  $stmt4->close();
-
-} catch(PDOException $e) {
-  echo "Error: " . $e->getMessage();
-}
-?>
-<?php 
-include_once 'session.php';
-include 'database.php';
-
-$mysqli1 = new mysqli($servername, $username, $password, $dbname);
-try {
-  // Get the customer id based on the session name
-  $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = ?");
-  $stmt1->bind_param('s', $sessionname);
-  $stmt1->execute();
-  $result = $stmt1->get_result();
-  $custRow = $result->fetch_assoc();
-  
-  if (!$custRow) {
-    header("Location: /login-web");
-    exit;
-  }
-  
-  $custId = $custRow['id'];
-
-  // Get the maximum checkout_session_id from tbl_order
-  $stmt2 = $mysqli1->prepare("SELECT MAX(checkout_session_id) as max_session_id FROM tbl_order");
-  $stmt2->execute();
-  $result2 = $stmt2->get_result();
-  $row = $result2->fetch_assoc();
-  $maxSessionId = $row ? (int)$row['max_session_id'] : 0;
-
-  // Increment the session id
-  $newSessionId = $maxSessionId + 1;
-
-  // Insert new order with incremented checkout_session_id
-  $stmt3 = $mysqli1->prepare("INSERT INTO tbl_order (cust_id, prod_id, prod_qty, checkout_session_id) SELECT customer_id, product_id, quantity, ? FROM tbl_cart WHERE customer_id = ?");
+  $stmt3 = $mysqli1->prepare("INSERT INTO tbl_order (cust_id, prod_id, total_price, prod_qty, seller_id, checkout_session_id) SELECT customer_id, product_id, product_Price, quantity, seller_Id, ? FROM tbl_cart WHERE customer_id = ?");
   $stmt3->bind_param('ii', $newSessionId, $custId);
   $stmt3->execute();
 
@@ -196,6 +148,9 @@ try {
 	<div style="text-align: center; margin: auto; padding: 25px;">	
 		<h3>Order Succesful!</h3>
         <p> Redirecting to user profile page in <span id="countdowntimer">4</span> Seconds</p>
+        <?php if (isset($_SESSION['totprice'])): ?>
+        <p>Total Price: <?php echo htmlspecialchars($_SESSION['totprice']); ?></p>
+    <?php endif; ?>
 	</div>
 </body>
 </html>

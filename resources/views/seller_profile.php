@@ -1,49 +1,72 @@
-<?php 
-    include_once'session.php';
-    include 'database.php';
-    
-    $mysqli1 = new mysqli($servername, $username, $password, $dbname);
-    $stmt1 = $mysqli1->prepare("SELECT * FROM tbl_customer WHERE username = '$sessionname'");
-    $stmt1->execute();
-
-    $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
-
-    foreach($handler as $seller) {
-      $sellerId = $seller['id'];
-      $shop_name = $seller['shop_name'];
-      $shop_bio = $seller['shop_bio'];
-      $shop_address = $seller['shop_add'];
-    }
-
-    $stmt1->close();
-?>
-
 <?php
-    $mysqli2 = new mysqli($servername, $username, $password,$dbname);
+include_once 'session.php';
+include 'database.php';
 
-    $stmt2 = $mysqli2->prepare("SELECT * FROM tbl_products");
-    $stmt2->execute();
-    
-    $arr = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
-    
-    if(!$arr) exit('no rows');
-    
-    $stmt2->close();
+// Create a single mysqli object for the database connection.
+$mysqli = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+// Prepare the statement to select customer details.
+$stmt1 = $mysqli->prepare("SELECT * FROM tbl_customer WHERE username = ?");
+$stmt1->bind_param("s", $sessionname); // Bind $sessionname as a string parameter.
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+
+// Check if we got a result.
+if ($seller = $result1->fetch_assoc()) {
+    $sellerId = $seller['id'];
+    $shop_name = $seller['shop_name'];
+    $shop_bio = $seller['shop_bio'];
+    $shop_address = $seller['shop_add'];
+} else {
+    exit('No seller found');
+}
+
+$stmt1->close();
+
+// Prepare the statement to select products.
+$stmt2 = $mysqli->prepare("SELECT * FROM tbl_products WHERE seller_ids = ?");
+$stmt2->bind_param("i", $sellerId); // Bind $sellerId as an integer parameter.
+$stmt2->execute();
+$result2 = $stmt2->get_result();
+
+if (!$arr = $result2->fetch_all(MYSQLI_ASSOC)) {
+    exit('No products');
+}
+
+$stmt2->close();
+
+// Prepare the statement to select product reviews.
+$stmt3 = $mysqli->prepare("SELECT * FROM tbl_product_review LEFT JOIN tbl_customer ON tbl_product_review.cust_Id = tbl_customer.Id");
+$stmt3->execute();
+$result3 = $stmt3->get_result();
+
+if (!$arrview = $result3->fetch_all(MYSQLI_ASSOC)) {
+    exit('No reviews');
+}
+
+$stmt3->close();
+
+$stmt4 = $mysqli->prepare("SELECT * FROM tbl_customer WHERE id = $sellerId");
+$stmt4->execute();
+$result4 = $stmt4->get_result();
+
+if ($pickup = $result4->fetch_assoc()) {
+    $pickupVariable = $pickup['pickup'];
+    $pickupLocation = $pickup['pickup_location'];
+} else {
+    exit('No pickup data found');
+}
+
+$stmt4->close();
+
+// Close the database connection.
+$mysqli->close();
 ?>
-
-<?php
-    $mysqli3 = new mysqli($servername, $username, $password,$dbname);
-
-    $stmt3 = $mysqli3->prepare("SELECT * FROM tbl_product_review LEFT JOIN tbl_customer ON tbl_product_review.cust_Id = tbl_customer.Id");
-    $stmt3->execute();
-    
-    $arrview = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
-    
-    if(!$arrview) exit('no rows kot');
-    
-    $stmt3->close();
-?>
-
 <html>
 <head>
     <style>
@@ -55,6 +78,13 @@
 
     /* Bootstrap Icons */
     @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+    :root {
+    --switches-bg-color: goldenrod;
+    --switches-label-color: white ;
+    --switch-bg-color: white;
+    --switch-text-color: goldenrod ;
+}
 
     .profile{
         height: 200px;
@@ -86,6 +116,8 @@
         width: 3090px;
         border: 1px solid #ccc;
         padding: 15px;
+        background: #ffffff;
+        border-radius: 10px;
         /* margin: auto; */
         margin-top: 20px;
     }
@@ -269,7 +301,71 @@
         text-decoration: none;
         font-size: 14px;
     }
-            
+
+/* container for all of the switch elements 
+    - adjust "width" to fit the content accordingly 
+*/
+
+.form-container {
+  background-color: #fff;
+  max-width: 90%;
+  margin: 40px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-container input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.form-container select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.form-container select:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+}
+
+.form-container select:not(:disabled) {
+  cursor: pointer;
+}
+
+.form-container select:not(:disabled):hover {
+  border-color: #aaa;
+}
+
+.form-container input[type="checkbox"]:hover + label {
+  color: #000;
+}
+
+/* Style the dropdown arrow */
+.form-container select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l-4-5h8z" fill="%23333"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 12px 12px;
+}
+
     </style>
     <title>UKM Outlet Seller Profile</title>
 </head>
@@ -349,7 +445,7 @@
 
                 <ul class="nav nav-tabs mt-4 overflow-x border-0">
                     <li class="nav-item" id="products">
-                        <a href="#" class="nav-link active" id="activeProduct" onclick="displayProduct()">All Product</a>
+                        <a href="#" class="nav-link" id="activeProduct" onclick="displayProduct()">All Product</a>
                     </li>
                     <li class="nav-item" id="orders">
                         <a href="#" class="nav-link" id="activeOrder" onclick="displayOrders()">All Orders</a>
@@ -357,7 +453,12 @@
                     <li class="nav-item" id="reviews">
                         <a href="#" class="nav-link" id="activeReview" onclick="displayReviews()">All Reviews</a>
                     </li>
+                    <li class="nav-item" id="delivery">
+                        <a href="#" class="nav-link" id="activeDelivery" onclick="displayDelivery()">Delivery Options</a>
+                    </li>
+                    
                 </ul> 
+                
                 
                 <!-- All Products -->
                 <div class="table-responsive" style="margin-top: 20px;" id="display-products">
@@ -384,8 +485,8 @@
                                         <?php echo $productlist['product_Name'] ?>
                                     </a>
                                 </td>
-                                <td style="text-align: center">
-                                    RM X.XX
+                                <td style="text-align: center">RM 
+                                <?php echo $productlist['product_price'] ?>
                                 </td>
                                 <td style="text-align: center">
                                     <?php echo $productlist['product_Type'] ?>
@@ -601,8 +702,59 @@
                     <?php
                         }
                     ?>
-                </div>                                   
-        </div>
+                </div> 
+                <!-- Delivery Options -->
+                <div class="table-responsive" style="margin-top: 20px;" id="display-delivery">
+                    <div class="form-container">
+                        <form action="/update_delivery" method=get>
+                            <label for="enableDropdown">
+                            <?php
+                            // Assuming you've already fetched the 'pickup' value into $pickupVariable
+                            // For example, $pickupVariable might have been set like this:
+                            // $pickupVariable = $seller['pickup']; (after fetching the $seller from the database)
+
+                            // Check if the pickup value is 1 and set the checkbox checked attribute accordingly
+                            $isChecked = $pickupVariable == '1' ? 'checked' : '';
+                            ?>
+                            <input type="hidden" id="seller_id" value="<?php echo $sellerId ?>" name="seller_id" >
+                            <input type="checkbox"  id="enableDropdown" name="enableDropdown" onchange="toggleDropdown()" <?php echo $isChecked; ?>>Choose Pickup Location
+                            </label>
+                            <select id="myDropdown" name="myDropdown" <?php echo $isChecked ? '' : 'disabled'; ?>>
+                            <option value="<?php echo $pickupLocation?>" selected ><?php echo $pickupLocation?></option>
+                            <option value="NP">No Pickup</option>
+                            <option value="KAB">Kolej Aminuddin Baki</option>
+                            <option value="KBH">Kolej Burhanuddin Helmi</option>
+                            <option value="KDO">Kolej Dato' Onn</option>
+                            <option value="KIY">Kolej Ibrahim Yaakub</option>
+                            <option value="KIZ">Koleb Ibu Zain</option>
+                            <option value="KKM">Kolej Keris Mas</option>
+                            <option value="KPZ">Kolej Pendeta Za'aba</option>
+                            <option value="KRK">Kolej Rahim Kajai</option>
+                            <option value="KTDI">Kolej Tun Dr Ismail</option>
+                            <option value="KTHO">Kolej Tun Hussein Onn</option>
+                            <option value="KTSN">Kolej Tun Syed Nasir</option>
+                            <option value="KUO">Kolej Ungku Omar</option>
+                            <option value="FSSK">Fakulti Sains Sosial dan Kemanusiaan</option>
+                            <option value="FUU">Fakulti Undang-Undang</option>
+                            <option value="FPERG">Fakulti Pergigian</option>
+                            <option value="FKAB">Fakulti Kejuruteraan dan Alam Bina</option>
+                            <option value="FST">Fakulti Sains dan Teknologi</option>
+                            <option value="FPEND">Fakulti Pendidikan</option>
+                            <option value="FEP">Fakulti Ekonomi dan Pengurusan</option>
+                            <option value="FPER">Fakulti Perubatan</option>
+                            <option value="FARMASI">Fakulti Farmasi</option>
+                            <option value="FTSM">Fakulti Teknologi dan Sains Maklumat</option>
+                            <option value="FPI">Program yang ditawarkan</option>
+                            <option value="FSK">Fakulti Sains Kesihatan</option>
+                            <option value="GSB">Pusat Pengajian Siswazah Perniagaan, UKM-GSB</option>
+                            <option value="CITRA">Pusat Pengajian Citra Universiti</option>
+                            </select>
+                            <button type="submit" name="editPickupLocation" >Save</button>
+                        </form>
+                    </div>
+                </div>
+        
+    </div>
     </body>
     
     <script>
@@ -611,8 +763,10 @@
 
                 document.getElementById("display-orders").style.display = "none";
                 document.getElementById("display-reviews").style.display = "none";
+                document.getElementById("display-delivery").style.display = "none";
 
                 document.getElementById("display-products").style.display = "";
+                
             } else {
                 document.getElementById("products").classList.add('productactive');
                 displayProduct();
@@ -621,6 +775,7 @@
             document.getElementById("activeProduct").classList.add('active');
             document.getElementById("activeOrder").classList.remove('active');
             document.getElementById("activeReview").classList.remove('active');
+            document.getElementById("activeDelivery").classList.remove('active');
         }
 
         function displayOrders() {
@@ -628,8 +783,10 @@
 
                 document.getElementById("display-products").style.display = "none";
                 document.getElementById("display-reviews").style.display = "none";
+                document.getElementById("display-delivery").style.display = "none";
 
                 document.getElementById("display-orders").style.display = "";
+                
             } else {
                 document.getElementById("orders").classList.add('orderactive');
                 displayOrders();
@@ -638,6 +795,7 @@
             document.getElementById("activeProduct").classList.remove('active');
             document.getElementById("activeOrder").classList.add('active');
             document.getElementById("activeReview").classList.remove('active');
+            document.getElementById("activeDelivery").classList.remove('active');
         }
 
         function displayReviews() {
@@ -645,8 +803,10 @@
 
                 document.getElementById("display-products").style.display = "none";
                 document.getElementById("display-orders").style.display = "none";
+                document.getElementById("display-delivery").style.display = "none";
 
                 document.getElementById("display-reviews").style.display = "";
+                
             } else {
                 document.getElementById("reviews").classList.add('reviewsactive');
                 displayReviews();
@@ -655,6 +815,34 @@
             document.getElementById("activeProduct").classList.remove('active');
             document.getElementById("activeOrder").classList.remove('active');
             document.getElementById("activeReview").classList.add('active');
+            document.getElementById("activeDelivery").classList.remove('active');
+        }
+        function displayDelivery() {
+            if(document.getElementById("delivery").classList.contains("deliveryactive")) {
+
+                document.getElementById("display-products").style.display = "none";
+                document.getElementById("display-orders").style.display = "none";
+                document.getElementById("display-reviews").style.display = "none";
+
+                document.getElementById("display-delivery").style.display = "";
+            } else {
+                document.getElementById("delivery").classList.add('deliveryactive');
+                displayReviews();
+            }
+
+            document.getElementById("activeProduct").classList.remove('active');
+            document.getElementById("activeOrder").classList.remove('active');
+            document.getElementById("activeReview").classList.remove('active');
+            document.getElementById("activeDelivery").classList.add('active');
+        }
+        function toggleDropdown() {
+        var checkbox = document.getElementById('enableDropdown');
+        var dropdown = document.getElementById('myDropdown');
+
+        dropdown.disabled = !checkbox.checked;
+
+        // Optional: Send the new state to the server to update the database
+        // updateDatabase(checkbox.checked); // You would define this function to make an AJAX call
         }
     </script>
 </html>
