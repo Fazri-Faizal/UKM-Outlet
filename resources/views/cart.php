@@ -66,7 +66,7 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   $arr3 = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
 
   
-if(!$arr3) exit ('No item in your cart');
+if(!$arr3) exit ('No item in your cart'); 
 
 
 ?>

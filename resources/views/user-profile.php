@@ -40,6 +40,8 @@ foreach ($handler2 as $orderdetail) {
     $order_status = $orderdetail['prod_status'];
     $order_date = $orderdetail['order_date'];
     $CSId = $orderdetail['checkout_session_id'];
+    $price = $orderdetail['total_price'];
+    $quantity = $orderdetail['prod_qty'];
     // Do something with the order details...
 }
 
@@ -425,23 +427,27 @@ $mysqli->close();
                     </div>
 
                         <!-- The Modal -->
-                        <div id="myModalOrder" class="modal">
+                        <div id="myModalOrder" class="modal-order">
 
                             <!-- Modal content -->
-                            <div class="modal-content" style="background-color: #fefefe;
+                            <div class="modal-content-order" style="background-color: #fefefe;
                                                             padding: 20px;
                                                             border: 1px solid #888;
                                                                         width: 80%; /* Could be more or less, depending on screen size */">
+                                                                       
                                             <span class="close">&times;</span>
                                             <div class="order my-3 "  id="info-order-detail">
+                                            <h1 style="text-align:center;">All Orders</h1>
                                             <?php
                                                 
                                                 $previousCSId = null;
                                                 $isFirstProduct = true; // Flag to check if the product is the first in the order
+                                                $totalprice = 0; // Initialize total price
 
                                                 foreach ($handler2 as $modalcontent) {
                                                     $currentCSId = $modalcontent['checkout_session_id'];
                                                     $prodStatus = $modalcontent['prod_status'];
+
 
                                                     // Start a new order block if this is a new checkout_session_id
                                                     if ($currentCSId != $previousCSId) {
@@ -449,18 +455,23 @@ $mysqli->close();
                                                         if (!$isFirstProduct) {
                                                             // Close the previous order details
                                                             echo "</div>"; // Close the product details div
-                                                            echo "<div class=\"fs-8\">Order Date : " . date('d M Y | h:i A', strtotime($previousOrderDate)) . "</div>";
-                                                            echo "<div class=\"status\">Status : $prodStatus</div><hr>";
+                                                            echo "<div class=\"fs-8\">Total Price : RM {$totalprice}</div>";
+                                                            echo "<div class=\"fs-8\">Order Date : " . date('d M Y ', strtotime($previousOrderDate)) . "</div>";
+                                                            echo "<div class=\"status\">Status : $prodStatus</div>";
                                                             echo "</div>"; // Close the order-summary div
                                                         }
+                                                        $totalprice = 0;
                                                         // Start new order block
                                                         echo "<div class=\"order-summary\">";
                                                         echo "<div class=\"text-uppercase\">Order #OU{$modalcontent['checkout_session_id']}</div>";
                                                         echo "<div class=\"product-details\">"; // Open a div for product details
                                                     }
+                                                     // Calculate the total price
+                                                    $productTotalPrice = $modalcontent['total_price'] * $modalcontent['prod_qty'];
+                                                    $totalprice += $productTotalPrice;
 
                                                     // Display product details
-                                                    echo "<div class=\"fs-8\">{$modalcontent['product_Name']} x {$modalcontent['prod_qty']} (RM{$modalcontent['total_price']})</div>";
+                                                    echo "<div class=\"fs-8\"> Product: {$modalcontent['product_Name']} x {$modalcontent['prod_qty']} (RM{$modalcontent['total_price']})</div>";
 
                                                     // Update tracking variables
                                                     $previousCSId = $currentCSId;
@@ -473,8 +484,9 @@ $mysqli->close();
                                                     // Close the product details div
                                                     echo "</div>";
                                                     // Print the order date and status for the last order
-                                                    echo "<div class=\"fs-8\">Order Date : " . date('d M Y | h:i A', strtotime($previousOrderDate)) . "</div>";
-                                                    echo "<div class=\"status\">Status : Delivered</div><hr>";
+                                                    echo "<div class=\"fs-8\">Total Price : RM {$totalprice}</div>";
+                                                    echo "<div class=\"fs-8\">Order Date : " . date('d M Y ', strtotime($previousOrderDate)) . "</div>";
+                                                    echo "<div class=\"status\">Status : Delivered</div>";
                                                     // Close the last order-summary div
                                                     echo "</div>";
                                                 }
@@ -485,38 +497,66 @@ $mysqli->close();
                     </div>
 
                     <div class="order my-3 bg-light" id="info-order">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="d-flex flex-column justify-content-between order-summary">
-                                    <div class="d-flex align-items-center">
-                                        <div class="text-uppercase">Order #OU001</div>
-                                    </div>
+                    <div>
+                                                                       
+                                            <span class="close">&times;</span>
+                                            <div class="order my-3 "  id="info-order-detail">
+                                            
+                                            <?php
+                                                
+                                                $previousCSId = null;
+                                                $isFirstProduct = true; // Flag to check if the product is the first in the order
+                                                $totalprice = 0; // Initialize total price
 
-                                    <?php
-                                        foreach($handler2 as $displayorder) {    
-                                    ?>
-                                    <div class="fs-8"><?php echo $displayorder['product_Name']?></div>
-                                    <?php
-                                        }
-                                    ?>
-
-                                    <div class="fs-8"><?php echo date('d M Y | h:i A', strtotime($displayorder['order_date'])); ?></div>
-                                    
+                                                foreach ($handler2 as $modalcontent) {
+                                                    $currentCSId = $modalcontent['checkout_session_id'];
+                                                    $prodStatus = $modalcontent['prod_status'];
 
 
-                                </div>
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="d-sm-flex align-items-sm-start justify-content-sm-between">
-                                    <div class="status">Status : Delivered</div>
-                                    <div class="blue-label ms-auto text-uppercase" style="margin-right: 186px;margin-top: 2px;"><?php echo $order_status ?></div>
-                                    <div class="btn btn-primary text-uppercase" id="btnOrderinfo" onclick="displayInfoOrder()">order info</div>
-                                </div>
-                            
-                                </div>
+                                                    // Start a new order block if this is a new checkout_session_id
+                                                    if ($currentCSId != $previousCSId) {
+                                                        // If it's not the first product, close the previous order block
+                                                        if (!$isFirstProduct) {
+                                                            // Close the previous order details
+                                                            echo "</div>"; // Close the product details div
+                                                            echo "<div class=\"fs-8\">Total Price : RM {$totalprice}</div>";
+                                                            echo "<div class=\"fs-8\">Order Date : " . date('d M Y ', strtotime($previousOrderDate)) . "</div>";
+                                                            echo "<div class=\"status\">Status : $prodStatus</div>";
+                                                            echo "</div>"; // Close the order-summary div
+                                                        }
+                                                        $totalprice = 0;
+                                                        // Start new order block
+                                                        echo "<div class=\"order-summary\">";
+                                                        echo "<div class=\"text-uppercase\">Order #OU{$modalcontent['checkout_session_id']}</div>";
+                                                        echo "<div class=\"product-details\">"; // Open a div for product details
+                                                    }
+                                                     // Calculate the total price
+                                                    $productTotalPrice = $modalcontent['total_price'] * $modalcontent['prod_qty'];
+                                                    $totalprice += $productTotalPrice;
 
-                            </div>
-                        </div>
+                                                    // Display product details
+                                                    echo "<div class=\"fs-8\"> Product: {$modalcontent['product_Name']} x {$modalcontent['prod_qty']} (RM{$modalcontent['total_price']})</div>";
+
+                                                    // Update tracking variables
+                                                    $previousCSId = $currentCSId;
+                                                    $isFirstProduct = false;
+                                                    $previousOrderDate = $modalcontent['order_date']; // Keep track of the order date to print it later
+                                                }
+
+                                                // After the loop, close the last order block, if there was at least one product
+                                                if (!$isFirstProduct) {
+                                                    // Close the product details div
+                                                    echo "</div>";
+                                                    // Print the order date and status for the last order
+                                                    echo "<div class=\"fs-8\">Total Price : RM {$totalprice}</div>";
+                                                    echo "<div class=\"fs-8\">Order Date : " . date('d M Y ', strtotime($previousOrderDate)) . "</div>";
+                                                    echo "<div class=\"status\">Status : Delivered</div>";
+                                                    // Close the last order-summary div
+                                                    echo "</div>";
+                                                }
+                                                ?>
+
+                            </div><!-- Modal content habis sini -->
                     </div>
 
                     <div class="order my-3 bg-light" style="display:none;" id="info-order-detail">
