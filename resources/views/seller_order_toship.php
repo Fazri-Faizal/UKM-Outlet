@@ -1,21 +1,16 @@
-<?php
-    include ('database.php');
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $conn->prepare("SELECT * from tbl_order WHERE seller_id='2' AND prod_status='To Ship'");
-
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-?>
 
 <head>
+
     <style>
         /* Webpixels CSS */
 /* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
 /* URL: https://github.com/webpixels/css */
 
+
+
 @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+
 
 /* Bootstrap Icons */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
@@ -59,7 +54,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button[type="reset"] {
+button [type="reset"] {
     background-color: #ccc;
     color: #333;
 }
@@ -71,6 +66,17 @@ button:not([type="reset"]) {
 
 button:hover {
     background-color: #d43a3a;
+}
+
+.button-view {
+    background-color: #47362f;
+    color: #fff8f8;
+    width: 165px;
+    border-radius:10px;
+}
+
+.button-view:hover {
+    background-color: #c0b093;
 }
     </style>
 </head>
@@ -95,6 +101,14 @@ button:hover {
                 <!-- Navigation -->
                 <?php 
                 include('seller_sidebar.php');
+                include ('database.php');
+                    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        $stmt = $conn->prepare("SELECT * from tbl_order WHERE seller_id = $sellerId AND prod_status = 'To Ship'");
+
+                        $stmt->execute();
+                        $result = $stmt->fetchAll();
 
                 ?>
             </div>
@@ -132,10 +146,10 @@ button:hover {
                     <!-- Nav -->
                     <ul class="nav nav-tabs mt-4 overflow-x border-0">
                         <li class="nav-item ">
-                            <a href="seller_order" class="nav-link font-regular">All Orders</a>
+                            <a href="seller_order" class="nav-link">All Orders</a>
                         </li>
                         <li class="nav-item">
-                            <a href="seller_order_toship" class="nav-link active">To Ship</a>
+                            <a href="seller_order_toship" class="nav-link font-regular active">To Ship</a>
                         </li>
                         <li class="nav-item">
                             <a href="seller_order_completed" class="nav-link font-regular">Completed</a>
@@ -158,7 +172,7 @@ button:hover {
                                     <input type="text" name="inputId" placeholder="Please input order ID">
                                 
                                     <div class="button-group">
-                                        <button type="submit" name="searchorder">Search</button>
+                                        <button type="submit" class="search" name="searchorder">Search</button>
                                             <!-- <button type="reset">Reset</button> -->
                                     </div>                                  
                                 </div>
@@ -175,46 +189,46 @@ button:hover {
                         <table class="table table-hover table-nowrap">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col" style="text-align: center">Name</th>
-                                    <th scope="col" style="text-align: center">Order Date</th>
-                                    <th scope="col" style="text-align: center">Product Name</th>
-                                    <th scope="col" style="text-align: center">Quantity</th>
-                                    <th scope="col" style="text-align: center">Total Price</th>
-                                    <th scope="col" style="text-align: center">Status</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Order Date</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total Price</th>
+                                    <th scope="col">Status</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
+                                    <?php
+
                                     if(isset($_GET['searchorder']))
                                     {
 
                                         $Id = $_GET['inputId'];
                                         if($Id==""){
-                                            $stmt4 = $conn->prepare("SELECT * from tbl_order WHERE seller_id='2' AND prod_status='To Ship'");
+                                            $stmt4 = $conn->prepare("SELECT * from tbl_order WHERE seller_id = $sellerId");
 
                                         }
                                         else{
                                        
-                                        $stmt4 = $conn->prepare("SELECT * from tbl_order WHERE order_Id = '$Id' AND prod_status='To Ship'");
+                                        $stmt4 = $conn->prepare("SELECT * from tbl_order WHERE order_Id = '$Id'");
                                         }
                                         $stmt4->execute();
                                         $result4 = $stmt4->fetchAll();
-
+                                        
                                         $count = 0;
-
+                                        
                                         foreach ($result4 as $row) {
 
                                             $count++;
-
                                             $orderId = $row['order_id'];
                                             $sellerId = $row['seller_id'];
                                             $orderdate = $row['order_date'];
                                             $totalprice = $row['total_price'];
                                             $orderstatus = $row['prod_status'];
                                             $quantity= $row['prod_qty'];
-                                            $customerId= $row['customer_id'];  
-                                            $productId= $row['product_id']; 
+                                            $customerId= $row['cust_id'];  
+                                            $productId= $row['prod_id']; 
                                             
                                             $stmt2 = $conn->prepare("SELECT * from tbl_customer WHERE id = '$customerId' ");
     
@@ -237,36 +251,48 @@ button:hover {
                                                 $picture = $row3['pic'];
                                             }
                                                                                
-                                ?>
+                                    ?>
                                         <tr>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <?php echo $fullname ?>
                                             </td>                                   
-                                            <td style="text-align: center">
+                                            <td >
                                                 <?php echo $orderdate ?>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <img alt="..." src="img/<?php echo $picture ?>" style="width: 80" alt="No picture">
                                                  &nbsp;&nbsp;
                                                 <?php echo $productname ?> 
                                             </td>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <?php echo $quantity ?>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <?php echo $totalprice ?>                                                    
                                             </td>
-                                            <td style="text-align: center">
+                                            <td >
                                                 <span class="badge badge-lg badge-dot">
-                                                    <i class="bg-success"></i>
-                                                    <?php echo $orderstatus ?>   
+                                                <?php 
+                                                
+                                                if ($orderstatus == "Shipped"){
+
+                                                    echo '<i class="bg-success"></i>Shipped';
+                                                }
+                                                else if ($orderstatus == "To Ship"){
+
+                                                    echo '<i class="bg-warning"></i>To Ship';
+                                                }
+                                                else {
+                                                    echo '<i class="bg-dark"></i>Cancelled';
+                                                }
+
+                                            ?>    
                                                 </span>
                                             </td>
                                             <td class="text-end">
-                                                <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                                <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
+                                            <a href='crud_update_status?order_id=<?=$orderId;?>' class="btn btn-sm btn-neutral">Mark as Shipped
+                                                <div type="button"></div>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php } } 
@@ -275,9 +301,7 @@ button:hover {
                                     else
                                     {
                                         $count = 0;
-
                                         foreach ($result as $row) {
-
                                             $count++;
 
                                             $orderId = $row['order_id'];
@@ -286,8 +310,8 @@ button:hover {
                                             $totalprice = $row['total_price'];
                                             $orderstatus = $row['prod_status'];
                                             $quantity= $row['prod_qty'];
-                                            $customerId= $row['customer_id'];  
-                                            $productId= $row['product_id']; 
+                                            $customerId= $row['cust_id'];  
+                                            $productId= $row['prod_id']; 
                                             
                                             $stmt2 = $conn->prepare("SELECT * from tbl_customer WHERE id = '$customerId' ");
     
@@ -312,31 +336,49 @@ button:hover {
                                                                                
                                 ?>
                                         <tr>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <?php echo $fullname ?>
                                             </td>                                   
-                                            <td style="text-align: center">
+                                            <td>
                                                 <?php echo $orderdate ?>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <img alt="..." src="img/<?php echo $picture ?>" style="width: 80" alt="No picture">
                                                  &nbsp;&nbsp;
                                                 <?php echo $productname ?> 
                                             </td>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <?php echo $quantity ?>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <?php echo $totalprice ?>                                                    
                                             </td>
-                                            <td style="text-align: center">
+                                            <td>
                                                 <span class="badge badge-lg badge-dot">
-                                                    <i class="bg-success"></i>
-                                                    <?php echo $orderstatus ?>   
+                                                <?php 
+                                                
+                                                if ($orderstatus == "Shipped"){
+
+                                                    echo '<i class="bg-success"></i>Shipped';
+                                                }
+                                                else if ($orderstatus == "To Ship"){
+
+                                                    echo '<i class="bg-warning"></i>To Ship';
+                                                }
+                                                else {
+                                                    echo '<i class="bg-dark"></i>Cancelled';
+                                                }
+
+                                            ?>  
                                                 </span>
                                             </td>
+                                            <td class="text-end">
+                                            <a href='crud_update_status?order_id=<?=$orderId;?>' class="btn btn-sm btn-neutral">Mark as Shipped
+                                                <div type="button"></div>
+                                                </a>
+                                            </td>
                                         </tr>
-                                    <?php } } ?>      
+                                    <?php } } ?>                                  
                             </tbody>
                         </table>
                     </div>
@@ -348,3 +390,23 @@ button:hover {
         </main>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" data-keyboard="false" data-backdrop="false">
+	    <div class="modal-dialog modal-lg">
+	    
+	        <!-- Modal content-->
+	        <div class="modal-content">
+	            <!-- <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal">&times;</button>
+	                <h4 class="modal-title">Generated Report</h4>
+	            </div> -->
+	            <div class="modal-body">
+
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>

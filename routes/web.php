@@ -317,6 +317,12 @@ Route::get('/edit_address', function () {
 Route::get('/address', function () {
     return view('address');
 });
+Route::get('/update_delivery', function () {
+    return view('update_delivery');
+});
+Route::get('/crud_update_status', function () {
+    return view('crud_update_status');
+});
 
 Route::get('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
 Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
