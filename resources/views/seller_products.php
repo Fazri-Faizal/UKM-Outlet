@@ -3,7 +3,7 @@
     $mysqli = new mysqli($servername, $username, $password,$dbname);
 
 
-    $stmt = $mysqli->prepare("SELECT * FROM tbl_products ORDER BY origin_id");
+    $stmt = $mysqli->prepare("SELECT * FROM tbl_products");
     $stmt->execute();
     
     $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -37,6 +37,7 @@
                 <!-- Navigation -->
                 <?php 
                 include('seller_sidebar.php');
+
                 ?>
             </div>
         </div>
@@ -87,29 +88,28 @@
             <div class="container-fluid">
                 
                 <!-- Search Products -->
-                <form action="" method="get"> 
                 <div class="row g-6 mb-6">
                     <div class="col-xl-12 col-sm-6 col-12">
                         <div class="card shadow border-0">
                             <div class="card-body">
                                 <div class="search-form">
                                     <div class="form-group">
-                                        <label>Product</label>
-                                        <input type="text" name="inputId" placeholder="Please input Product Name/Product Price/Product Type/Product Origin">
+                                        <label>Product Name</label>
+                                        <input type="text" placeholder="Please input at least first 2 characters of word">
                                         </div>
-                                        <!-- <div class="form-group">
+                                        <div class="form-group">
                                             <label>Category</label>
                                             <select>
                                                 <option>Select</option>
-                                                 Add more categories here
+                                                <!-- Add more categories here -->
                                             </select>
-                                        </div> -->
-                                        <!-- <div class="form-group">
+                                        </div>
+                                        <div class="form-group">
                                             <label>Stock</label>
                                             <input type="number" placeholder="Min">
                                             <span>-</span>
                                             <input type="number" placeholder="Max">
-                                        </div> -->
+                                        </div>
                                         <!-- <div class="form-group">
                                             <label>Sales</label>
                                             <input type="number" placeholder="Min">
@@ -117,15 +117,14 @@
                                             <input type="number" placeholder="Max">
                                         </div> -->
                                         <div class="button-group">
-                                            <button type="submit" name="searchorder">Search</button>
-                                            <button type="reset" onclick="location.href='\seller_products'">Reset</button>
+                                            <button>Search</button>
+                                            <button type="reset">Reset</button>
                                         </div>
                                     </div>
                                 </div>
                              </div>
                         </div>
                     </div>
-                </form>
                     
                 <div class="card shadow border-0 mb-7">
                     <div class="card-header">
@@ -145,73 +144,9 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    if(isset($_GET['searchorder'])) {
-
-                                        $Id = $_GET['inputId']; 
-
-                                        if($Id==""){
-                                            $stmt4 = $mysqli->prepare("SELECT * from tbl_products WHERE seller_ids = $sellerId ORDER BY origin_id");
-
-                                        }
-                                        else{
-
-                                        $Id = $_GET['inputId'];
-                            
-                                        $stmt4 =  $mysqli->prepare("SELECT * from tbl_products WHERE product_Name LIKE '%$Id%' OR product_price LIKE '%$Id%' OR product_Type LIKE '%$Id%' OR origin_id LIKE '%$Id%' ORDER BY origin_id");   
-
-                                        }
-                                        $stmt4->execute();
-
-                                        $result4 = $stmt4->get_result()->fetch_all(MYSQLI_ASSOC);
-
-                                        $productCounter = 1;
-                                        $count = 0;
-                                        foreach($result4 as $productlist) {
-                                            $count++;
-                                            $prodId = $productlist['product_Id'];
-                                ?> 
-                                        <tr>
-                                        <td>
-                                            <img alt="..." src="img/<?php echo $productlist['pic'] ?>" style="width: 80" alt="No picture">
-                                            &nbsp;&nbsp;
-                                            <a class="text-heading font-semibold" href="#">
-                                                <?php echo $productlist['product_Name'] ?>
-                                            </a>
-                                        </td>
-                                        <td style="text-align: center">
-                                        <?php echo $productlist['product_price'] ?>
-                                        </td>
-                                        <td style="text-align: center">
-                                            <?php echo $productlist['product_Type'] ?>
-                                        </td>
-                                        <td style="text-align: center">
-                                            <?php echo $productlist['origin_id'] ?>
-                                        </td>
-                                        <td style="text-align: center">
-                                            <?php echo $productlist['product_Description'] ?>
-                                        </td>
-                                        <td class="text-end" style="text-align: center">
-                                            <a href='/seller_delete_product?product_Id=<?=$prodId;?>'>
-                                                <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </a>
-                                            <form action="/update_product" method="get">
-                                            <button name="editProduct" style="background-color: #D3D329;" value="<?php echo $productlist['product_Id'] ?>"  class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                                    <i class="bi bi-pencil-fill"></i>
-                                            </button>
-                                            </form>
-                                            
-                                        </td>
-                                    </tr>
-                                <?php  }    
-                                    } else {
-                                        $count = 0;
-                                ?>
-                                <?php
                                     $productCounter = 1;
                                     foreach($arr as $productlist) {
-                                        $count++;
+
                                         $prodId = $productlist['product_Id'];
                                 ?>
                                     <tr>
@@ -250,13 +185,12 @@
                                     </tr>
                                 <?php
                                     }
-                                }
                                 ?>
                             </tbody>
                         </table>
                     </div>
                     <div class="card-footer border-0 py-5">
-                        <span class="text-muted text-sm">Showing <?php echo $count; ?> items out of <?php echo $count; ?> results found</span>
+                        <span class="text-muted text-sm">Showing 4 items out of 4 results found</span>
                     </div>
                 </div>
             </div>
