@@ -19,7 +19,7 @@ $custId = $result->fetch_assoc()['id'];
 $stmt->close();
 
 // Prepare and execute the query to count orders placed
-$stmt = $mysqli->prepare("SELECT COUNT(order_id) AS order_placed FROM tbl_order WHERE prod_status != 'Completed' AND cust_id = ?");
+$stmt = $mysqli->prepare("SELECT COUNT(order_id) AS order_placed FROM tbl_order WHERE prod_status = 'Processed' AND cust_id = ?");
 $stmt->bind_param("i", $custId);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -510,7 +510,7 @@ $mysqli->close();
                                 <div class="d-sm-flex align-items-sm-start justify-content-sm-between">
                                     <div class="status">Status : Delivered</div>
                                     <div class="blue-label ms-auto text-uppercase" style="margin-right: 186px;margin-top: 2px;"><?php echo $order_status ?></div>
-                                    <!-- <div class="btn btn-primary text-uppercase" id="btnOrderinfo" onclick="displayInfoOrder()">order info</div> -->
+                                    <div class="btn btn-primary text-uppercase" id="btnOrderinfo" onclick="displayInfoOrder()">order info</div>
                                 </div>
                             
                                 </div>
