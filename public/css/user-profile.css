@@ -583,16 +583,13 @@ textarea #newaddress {
   /* Modal Content */
   .modal-content-order {
     background-color: #fefefe;
-    margin-top: 5%;
-    margin-left: 10%; /* 15% from the top and centered */
-    padding: 20px;
     z-index: 1001; /* Sit on top */
     border: 1px solid #888;
     width: 100%; /* Could be more or less, depending on screen size */
     position: relative;
     max-height: 80vh; /* 80% of the viewport height */
     overflow-y: auto; /* enables vertical scrolling if content overflows */
-    border-radius: 10px;
+
   }
   
   /* The Close Button */
@@ -614,7 +611,8 @@ textarea #newaddress {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    margin-top: 50px;;
+    /* padding: 10px 0; */
 }
 
 .see-all-orders-btn {
@@ -800,3 +798,4 @@ textarea #newaddress {
     color:white;
     transition: 0.5s;
 }
+
