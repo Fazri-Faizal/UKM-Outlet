@@ -107,8 +107,8 @@
 }
 
 .desc-contact {
-  height: 43px;
-  width:50%;
+  /* height: 43px; */
+  /* width:50%; */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
