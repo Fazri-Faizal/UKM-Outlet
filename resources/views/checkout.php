@@ -44,7 +44,6 @@ foreach ($result as $row) {
   $user_email = $row['user_email'];
   $fullname = $row['Fullname'];
   $shop_add = $row['shop_add'];
-  $phonenum = $row['phone_number'];
 
 }
 
@@ -119,7 +118,7 @@ foreach ($result as $row) {
               <div class="address-details">
                 <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo $fullname ?></strong></h1>
                 <p><?php echo $shop_add ?></p>
-                <p><?php echo $phonenum ?> </p>
+                <p>01165240426 </p>
               </div>
             </div>
                 <!-- <div class="price">26.00</div>
@@ -137,28 +136,6 @@ foreach ($result as $row) {
           </div> -->
 
           <div class="payment">
-              <div style="margin-top: 30px;"><h3></h3></div>
-                
-            </div>
-          </div>
-
-        <!-- Pick Up Detail -->
-        <div id="displayPickup" style="display:none">
-        <div style="margin-top: 30px;"><h3>You can pick up your item at this location:</h3></div>
-          <div class="basket-pickup" id="display-pickup-kolej" >
-            <div class="pickup-content">
-              
-              <div class="item" style="margin-left: 20px;">
-                <div class="address-details">
-                  <h1><strong>KTHO</strong></h1>
-                  <p>Kolej Tun Hussein Onn</p>
-                  <p style="margin-top:1px">Bilik Kinabalu</p>
-                  <p>Syarif : 01165240426</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        <!-- <div class="payment">
           <div style="margin-top: 30px;"><h3>How would you like to pay?</h3></div>
             <button class="content-payment" id="payment-method" onclick="#">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
@@ -186,7 +163,55 @@ foreach ($result as $row) {
               </div>
             </button>
         </div>
-      </div> -->
+      </div>
+
+        <!-- Pick Up Detail -->
+        <div id="displayPickup" style="display:none">
+        <div style="margin-top: 30px;"><h3>You can pick up your item at this location:</h3></div>
+          <div class="basket-pickup" id="display-pickup-kolej" >
+            <div class="pickup-content">
+              
+              <div class="item" style="margin-left: 20px;">
+                <div class="address-details">
+                  <h1><strong>KTHO</strong></h1>
+                  <p>Kolej Tun Hussein Onn</p>
+                  <p style="margin-top:1px">Bilik Kinabalu</p>
+                  <p>Syarif : 01165240426</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="payment">
+          <div style="margin-top: 30px;"><h3>How would you like to pay?</h3></div>
+            <button class="content-payment" id="payment-method" onclick="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
+                <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
+              </svg>
+              <div class="details-payment">
+                <span>eWallet</span>    
+              </div>
+            </button>
+
+            <button class="content-payment" id="payment-method" onclick="#">
+              <img src="/img/fpx.png" alt="Italian Trulli" style="width: 64px;">
+              <div class="details-payment">
+                <span>Online Payment</span>    
+              </div>
+            </button>
+
+            <button class="content-payment" id="payment-method" onclick="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"/>
+              </svg>
+              <div class="details-payment">
+                <span>Cash</span>    
+              </div>
+            </button>
+        </div>
+      </div>
+
         </div>
       </div> 
 
@@ -256,14 +281,14 @@ foreach ($result as $row) {
                       if($size=="nosize"){
   
                       }else{
-                        $stmt4 = $mysqli->prepare("SELECT * FROM tbl_product_variation  WHERE fld_product_id = $productid");
-                        $stmt4->execute();
+                      //   $stmt4 = $mysqli->prepare("SELECT * FROM tbl_product_variation  WHERE fld_product_id = $productid");
+                      //   $stmt4->execute();
     
-                         $arr4 = $stmt4->get_result()->fetch_all(MYSQLI_ASSOC);
-                        foreach( $arr4 as $ukmcart) { 
+                      //    $arr4 = $stmt4->get_result()->fetch_all(MYSQLI_ASSOC);
+                      //   foreach( $arr4 as $ukmcart) { 
 
-                            $price= $ukmcart['fld_producy_price'];
-                      }
+                      //       $price= $ukmcart['fld_producy_price'];
+                      // }
                     }
                     $totalprice=$price*$quantity+$totalprice;         
             ?>

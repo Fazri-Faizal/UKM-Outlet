@@ -72,7 +72,7 @@ $mysqli4 = new mysqli($servername, $username, $password, $dbname);
                             <div class="online"></div>
                         </div>
                         <div class="desc-contact">
-                            <p class="name">' . htmlspecialchars($otherPartyUsername) . '</p>
+                            <p class="name" style="font-size: large">' . htmlspecialchars($otherPartyUsername) . '</p>
                             <input type="hidden" name="userchatedwith" value="' . $otherPartyUsername . '">
                             <input type="hidden" name="chatedid" value="' . $otherPartyId . '">
                         </div>
@@ -165,7 +165,7 @@ $mysqli4 = new mysqli($servername, $username, $password, $dbname);
               <form action="\chatcrud" method=get>      
                 <input type=hidden name="curentid" value=<?php echo $custId?>>
                 <input type="text" class="write-message" placeholder="Type your message here" name="chat" style="width: 900px">
-                <input type="submit" class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" value="send" name="sendmessage">
+                <input type="submit" class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" value="send" name="sendmessage" style="width: 100px">
               </form>
             </div>       
       </section>

@@ -12,7 +12,7 @@ function redirectToProductDetails($productId) {
 }
 
 // Check if the addToCart operation is set
-if (isset($_GET['addToCart'], $_GET['prodId'], $_GET['prodQuantity'], $_GET['custId'], $_GET['prodPrice'], $_GET['SellerId'])) {
+if (isset($_GET['addToCart'])) { //, $_GET['prodId'], $_GET['prodQuantity'], $_GET['custId'], $_GET['prodPrice'], $_GET['SellerId']
     $id = $_GET['prodId'];
     $prodQuantity = $_GET['prodQuantity'];
     $custId = $_GET['custId'];
@@ -54,10 +54,10 @@ if (isset($_GET['addToCart'], $_GET['prodId'], $_GET['prodQuantity'], $_GET['cus
         redirectToProductDetails($id);
     } catch (PDOException $e) {
         $conn->rollback();
-        echo "Error: " . $e->getMessage();
+        // echo "Error: " . $e->getMessage();
     }
 } else {
-    echo "Error: Required parameters are not set or addToCart operation is not specified.";
+    // echo "Error: Required parameters are not set or addToCart operation is not specified.";
 }
 
 $conn = null;

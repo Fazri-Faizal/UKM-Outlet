@@ -18,7 +18,6 @@
 <head>
     <title>UKM Outlet Seller Products</title>
     <style>
-        
         @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
 
         /* Bootstrap Icons */
@@ -783,43 +782,57 @@
                                 <label for="productDescription">Product Description:</label>
                                 <textarea id="productDescription" name="productDescription" rows="4" style="border: 1px solid #804444;" required></textarea>
                             </div>
+                            
+                            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-                            <!-- <label for="productImage">Product Image:</label>
-                            <div class="upload-container" id="uploadFile" onclick="uploadFile()">
+                            <label for="productImage">Product Image:</label>
+                            <div class="upload-container">
                                 <label for="file-upload">
-                                    <div class="upload-box">
+                                    <div class="upload-box" id="myModalBtn" href="javascript:void(0);" data-href="upload">
                                         <div class="icon">📸</div>
                                         Add Image
                                         <div class="counter">(0/24)</div>
                                     </div>
                                 </label>
-                                <input type="file" id="file-upload" name="uploadfile" multiple>    
-                            </div> -->
+                            </div>
 
-                            <!-- <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#video-about-us">
-                                @icon('oi oi-play-circle') Watch a video about us
-                            </button>
-
-                            <x-modal id="video-about-us" title="Modal with embed video">
-                                <x-slot name="body">
-                                <x-embed src="https://www.youtube.com/embed/1La4QzGeaaQ" format="21x9"/>
-
-                                <div class="text-muted mt-3">
-                                    We are Unify a creative studio focusing on culture, luxury,
-                                    editorial & art. Somewhere between sophistication and simplicity
-                                </div>
-                                </x-slot>
-
-                                <x-slot name="footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                                </x-slot>
-                            </x-modal> -->
+                            <script>
+                                $(document).ready(function(){
+                                    $('.upload-box').on('click',function(){
+                                        var dataURL = $(this).attr('data-href');
+                                            $('.modal-body').load(dataURL,function(){
+                                            $('#myModal').modal({show:true});
+                                        });
+                                    }); 
+                                });
+                            </script> 
 
                             <input type="hidden" name="sellerId" value="<?php echo $sellerId ?>"> 
 
                             <button type="submit" name="insertProduct">Add Product</button>
                         </form>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog" data-keyboard="false" data-backdrop="false">
+                            <div class="modal-dialog modal-lg">
+                            
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                        <h4 class="modal-title">Upload Image</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <script> 
                             function uploadFile() {
