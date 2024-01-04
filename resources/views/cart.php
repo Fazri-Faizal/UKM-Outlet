@@ -45,7 +45,15 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   <main>
     <div class="basket">
         <!-- voucher -->
-      
+      <?php
+        $stmt3 = $mysqli->prepare("SELECT * FROM tbl_cart  WHERE customer_id = $custId");
+        $stmt3->execute();
+          
+        $arr3 = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
+
+          
+        if(!$arr3) exit ('No item in your cart');
+      ?>
       <div class="bag"><strong style="font-size: 30px;">Cart</strong></div>
       <div class="basket-labels">
         <ul>
@@ -55,29 +63,13 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
           <li class="subtotal">Subtotal</li>
         </ul>
       </div>
-    <?php
-     
-
-
-       
-  $stmt3 = $mysqli->prepare("SELECT * FROM tbl_cart  WHERE customer_id = $custId");
-  $stmt3->execute();
-  
-  $arr3 = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
-
-  
-if(!$arr3) exit ('No item in your cart'); 
-
-
-?>
-
+    
       <form action="/cart_checkout" method="get">
       <input type="hidden" name="cust_id" value="<?php echo $custId; ?>">
       <?php
         foreach( $arr3 as $loop) { 
                 $count = 1;
-             
-             
+
                 $size=$loop['product_size'];
                 $productid= $loop['product_id'];
                 $cid=$loop['cart_id'];
@@ -87,12 +79,6 @@ if(!$arr3) exit ('No item in your cart');
                 
                 $arr2 = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
                   foreach( $arr2 as $ukmcarts) { 
-
-                    // if($count == 4) {
-                    //     $count = 1;
-                    //     echo '</tr>';
-                    //     echo '<tr>';
-                    // }
                  
                     $id=$ukmcarts['seller_ids'];
                
@@ -102,30 +88,7 @@ if(!$arr3) exit ('No item in your cart');
                  
                     $count++;
                     $price= $ukmcarts['product_price'];
-                  
-                 
                     }
-                    if($size=="nosize"){
-
-                    }else{
-                      $stmt4 = $mysqli->prepare("SELECT * FROM tbl_product_variation  WHERE fld_product_id = $productid");
-                      $stmt4->execute();
-  
-                       $arr4 = $stmt4->get_result()->fetch_all(MYSQLI_ASSOC);
-                      foreach( $arr4 as $ukmcart) { 
-
-                  
-                     
-                          $price= $ukmcart['fld_producy_price'];
-                       
-                        
-                    }
-             
-                  }
-                  
-                
-       
-               
             ?>
          <?php
         

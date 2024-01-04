@@ -7,6 +7,7 @@ if (isset($_GET['startchat'])) {
 
     $cid =  $_GET['cid'];
     $cun = $_GET['cn'];
+    $shn=$_GET['hn'];
     $sid= $_GET['sid'];
     $sun=$_GET['sn'];
 
@@ -30,12 +31,12 @@ if (isset($_GET['startchat'])) {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $stmt2 = $conn->prepare("INSERT INTO tbl_chatedwith (customerid,username,seller_id,customerusername) VALUES(:cid,:sun,:sids,:cun)");
+        $stmt2 = $conn->prepare("INSERT INTO tbl_chatedwith (customerid,username,seller_id,customerusername) VALUES(:cid,:shn,:sids,:cun)");
    
         $stmt2->bindParam(':cid', $cid, PDO::PARAM_STR);
         $stmt2->bindParam(':cun', $cun, PDO::PARAM_STR);
         $stmt2->bindParam(':sids', $sid, PDO::PARAM_STR);
-        $stmt2->bindParam(':sun', $sun, PDO::PARAM_STR);
+        $stmt2->bindParam(':shn', $shn, PDO::PARAM_STR);
 
         
            

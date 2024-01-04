@@ -400,8 +400,8 @@ $mysqli->close();
             <div class="col-lg-9 my-lg-0 my-1" id="id-order" style="display: none">
                 <div id="main-content" class="bg-white border">
                     <div class="d-flex flex-column">
-                        <div class="h5">Hello Abu Ahmad,</div>
-                        <div>Logged in as: abu&ahmad@gmail.com</div>
+                        <div class="h5">Hello <?= ($_SESSION['sessionname'])?>,</div>
+                        <!-- <div>Logged in as : <?//= ($_SESSION['role'])?></div> -->
                     </div>
                     <div class="d-flex my-4 flex-wrap">
                         <div class="box me-4 my-1 bg-light">
@@ -426,6 +426,9 @@ $mysqli->close();
                         <!-- <button id="myModalOrderBtn" class="see-all-orders-btn">See All Order</button> -->
                     </div>
 
+                    <?php 
+                        if($handler2 != NULL) {
+                    ?>
                         <!-- The Modal -->
                         <div id="myModalOrder" class="modal-order">
 
@@ -557,7 +560,7 @@ $mysqli->close();
                                                 ?>
 
                             </div><!-- Modal content habis sini -->
-                    </div>
+                    </div> 
                     </div>
 
                     <div class="order my-3 bg-light" style="display:none;" id="info-order-detail">
@@ -597,8 +600,14 @@ $mysqli->close();
                             
                         </div>
                     </div>
+                    <?php 
+                        } else { ?> 
+                        <p>No order history recorded</p>
+                    <?php 
+                        }
+                    ?>
                 </div>
-            </div>
+            </div>
             
         </div>
 

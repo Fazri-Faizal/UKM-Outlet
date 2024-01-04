@@ -55,22 +55,23 @@ $q = $_GET['ProductSearchBar'];
                                 <h3><?php echo $row['product_Name']?></h3>
                                 <?php 
                                     $id = $row['product_Id'];
-                                    $stmt2 = $mysqli->prepare("SELECT fld_producy_price FROM tbl_product_variation WHERE fld_product_id = $id");
-                                    $stmt2->execute();
-                                    $arr2 = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
+                                    $min = $row['product_price'];
+                                    // $stmt2 = $mysqli->prepare("SELECT fld_producy_price FROM tbl_product_variation WHERE fld_product_id = $id");
+                                    // $stmt2->execute();
+                                    // $arr2 = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
 
-                                    // if(!$arr2) exit('No rows');
-                                    $stmt2->close();
-                                    $min = 99999999;
-                                    foreach($arr2 as $row2) {
+                                    // // if(!$arr2) exit('No rows');
+                                    // $stmt2->close();
+                                    // $min = 99999999;
+                                    // foreach($arr2 as $row2) {
                                     
-                                        if($row2['fld_producy_price']<$min){
-                                            $min=$row2['fld_producy_price'];
-                                        }
-                                    }
+                                    //     if($row2['fld_producy_price']<$min){
+                                    //         $min=$row2['fld_producy_price'];
+                                    //     }
+                                    // }
                                 
                                 ?>
-                                <p class="price">RM<?php echo $min;?></p><br>
+                                <p class="price">RM<?php echo number_format($min, 2);?></p><br><br>
                             </div>
                 </button>
              </form>
