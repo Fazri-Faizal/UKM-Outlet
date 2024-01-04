@@ -222,8 +222,6 @@
     <form action="\function_addtocart" method="get">
       <input type="hidden" name="prodId" value="<?php echo $id; ?>">
       <input type="hidden" name="custId" value="<?php echo $custId; ?>">
-      <input type="hidden" name="prodPrice" value="<?php echo $productprice; ?>">
-      <input type="hidden" name="SellerId" value="<?php echo $sellerid; ?>">
 
       <table class="container-custom">
         <tr>
@@ -368,17 +366,17 @@
    
    
     $stmt1->close();  
-    $min = 99999999;
-    $max=0;
-     foreach( $variation1  as $row2) {
+    // $min = 99999999;
+    // $max=0;
+    //  foreach( $variation1  as $row2) {
                                     
-      if($row2['fld_producy_price']<$min){
-         $min=$row2['fld_producy_price'];
-        }
-        if($row2['fld_producy_price']>$max){
-            $max=$row2['fld_producy_price'];
-           }
-     }
+    //   if($row2['fld_producy_price']<$min){
+    //      $min=$row2['fld_producy_price'];
+    //     }
+    //     if($row2['fld_producy_price']>$max){
+    //         $max=$row2['fld_producy_price'];
+    //        }
+    //  }
     $mysqli2 = new mysqli($servername, $username, $password,$dbname);
     
     $stmt12 = $mysqli2->prepare("SELECT  * FROM tbl_products LEFT JOIN tbl_customer ON seller_ids = id where product_Id =$id");
@@ -398,7 +396,7 @@
         $shopname=$pname['shop_name'];
         $productpic=$pname['pic'];
         $productrating=$pname['product_Rating'];
-        $productprice=$pname['product_price'];
+        $productprice = $pname['product_price'];
 
     }
 
@@ -470,7 +468,7 @@
                   <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
                   <!-- Product Pricing -->
                   <div class="product-price">
-                      <span>RM <?php if($min==$max){ echo $max;}else { echo $min.' - RM'.$max;}?></span>
+                      <span>RM <?php echo number_format($productprice, 2);?></span>
                   </div>
                 </div>
             </td>
@@ -611,11 +609,11 @@
                         </div>
                     </button>
                     <script type="text/javascript" src="/js/button_addtocartv1.js"></script>
-                  <!--END Button Add To Cart-->
+                  <!--END Button Add To Cart
                   
-                  |
+                  | -->
                   <!--START Button Place Order-->
-                  <head>
+                  <!-- <head>
                     <link rel="stylesheet" href="/css/button_place_order.scss.css" />
                   </head>
                   <button class="place-order place-order--default" name="placeOrder">
@@ -628,7 +626,7 @@
                       <div class="box animation"></div>
                       <div class="done text">Done</div>
                   </button>
-                  <script type="text/javascript" src="/js/button_place_order.js"></script>
+                  <script type="text/javascript" src="/js/button_place_order.js"></script> -->
                   <!--END Button Place Order-->
                 </div>
             </td>

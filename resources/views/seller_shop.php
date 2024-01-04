@@ -69,6 +69,7 @@
        <form action="\crudchatedwith" method="get">
         <input type="hidden" name="sid" value="<?php echo $sellerid?>">
         <input type="hidden" name="sn" value="<?php echo $sellername?>">
+        <input type="hidden" name="hn" value="<?php echo $shopname?>">
         <input type="hidden" name="cid" value="<?php echo $custId?>">
         <input type="hidden" name="cn" value="<?php echo $custname?>">
         <span class="chat-btn" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16"> 
