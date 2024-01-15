@@ -222,6 +222,10 @@
     <form action="\function_addtocart" method="get">
       <input type="hidden" name="prodId" value="<?php echo $id; ?>">
       <input type="hidden" name="custId" value="<?php echo $custId; ?>">
+  
+      <input type="hidden" name="prodPrice" value="<?php echo $productprice; ?>">
+      <input type="hidden" name="SellerId" value="<?php echo $sellerid; ?>">
+
 
       <table class="container-custom">
         <tr>
@@ -654,76 +658,76 @@
         var num =parseInt(num);
         
         if(num==1){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_1']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_1']?>";
         }
         if(num==2){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_2']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_2']?>";
         }
         if(num==3){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_3']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_3']?>";
         }
         if(num==4){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_4']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_4']?>";
         }
         if(num==5){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_5']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_5']?>";
         }
         if(num==6){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_6']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_6']?>";
         }
         if(num==7){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_7']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_7']?>";
         }
         if(num==8){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_8']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_8']?>";
         }  
         if(num==9){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_9']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_9']?>";
         }  
         if(num==10){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_10']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_10']?>";
         }  
         if(num==11){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_11']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_11']?>";
         }  
         if(num==12){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_12']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_12']?>";
         }  
         if(num==13){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_13']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_13']?>";
         }  
         if(num==14){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_14']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_14']?>";
         }  
         if(num==15){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_15']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_15']?>";
         }  
         if(num==16){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_16']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_16']?>";
         }  
         if(num==17){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_17']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_17']?>";
         }  
         if(num==18){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_18']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_18']?>";
         }  
         if(num==19){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_19']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_19']?>";
         }  
         if(num==20){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_20']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_20']?>";
         }  
         if(num==21){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_21']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_21']?>";
         }  
         if(num==22){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_22']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_22']?>";
         }  
         if(num==23){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_23']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_23']?>";
         } 
         if(num==24){
-            document.getElementById("pic").src = "/img/3d/<?php echo $another['fld_image_24']?>";
+            document.getElementById("pic").src = "/img/<?php echo $another['fld_image_24']?>";
         }   
 
       }
