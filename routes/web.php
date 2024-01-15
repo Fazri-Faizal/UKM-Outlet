@@ -327,3 +327,17 @@ Route::get('/crud_update_status', function () {
 Route::get('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
 Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
 Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
+use App\Http\Controllers\ImageController;
+
+
+// Route::get('/seller_add_product', [ImageController::class, 'index']);
+// Route::post('/seller_add_product', [ImageController::class, 'store']);
+
+Route::get('/upload', function () {
+    return view('upload');
+},  [ImageController::class, 'index']);
+
+Route::post('/upload', [ImageController::class, 'store']);
+Route::get('/tempimagestore', function () {
+    return view('tempimagestore');
+});

@@ -19,7 +19,7 @@ $custId = $result->fetch_assoc()['id'];
 $stmt->close();
 
 // Prepare and execute the query to count orders placed
-$stmt = $mysqli->prepare("SELECT COUNT(order_id) AS order_placed FROM tbl_order WHERE prod_status = 'Processed' AND cust_id = ?");
+$stmt = $mysqli->prepare("SELECT COUNT(order_id) AS order_placed FROM tbl_order WHERE prod_status != 'Cancelled' AND cust_id = ?");
 $stmt->bind_param("i", $custId);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -256,7 +256,7 @@ $mysqli->close();
                                 <div id="displayAddress">
                                     <p><?php echo $al1; ?></p>
                                     <p><?php echo $al2; ?></p>
-                                    <p><?php echo $Pc; ?> , <?php echo $Ct; ?> , <?php echo $al1; ?></p>
+                                    <p><?php echo $Pc; ?> , <?php echo $Ct; ?> </p>
                                     <input type="hidden" name="a12" value="<?php echo $al2 ?>">
                                     <input type="hidden" name="pc" value="<?php echo $Pc ?>">
                                     <input type="hidden" name="ct" value="<?php echo $Ct ?>">
@@ -489,7 +489,7 @@ $mysqli->close();
                                                     // Print the order date and status for the last order
                                                     echo "<div class=\"fs-8\">Total Price : RM {$totalprice}</div>";
                                                     echo "<div class=\"fs-8\">Order Date : " . date('d M Y ', strtotime($previousOrderDate)) . "</div>";
-                                                    echo "<div class=\"status\">Status : Delivered</div>";
+                                                    echo "<div class=\"status\">Status : $prodStatus</div>";
                                                     // Close the last order-summary div
                                                     echo "</div>";
                                                 }
@@ -553,7 +553,7 @@ $mysqli->close();
                                                     // Print the order date and status for the last order
                                                     echo "<div class=\"fs-8\">Total Price : RM {$totalprice}</div>";
                                                     echo "<div class=\"fs-8\">Order Date : " . date('d M Y ', strtotime($previousOrderDate)) . "</div>";
-                                                    echo "<div class=\"status\">Status : Delivered</div>";
+                                                    echo "<div class=\"status\">Status : $prodStatus</div>";
                                                     // Close the last order-summary div
                                                     echo "</div>";
                                                 }
