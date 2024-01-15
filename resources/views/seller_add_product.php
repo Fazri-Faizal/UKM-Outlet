@@ -318,43 +318,7 @@
     </style>
 </head>
 
-<!-- Dashboard -->
-<div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
-    <!-- Vertical Navbar -->
-    <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical" >
-        <div class="container-fluid">
-            <!-- Toggler -->
-            <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Brand -->
-            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="seller_dashboard" >
-                <img src="\img\UKM OMELET LOGO 4.png"  alt="...">
-            </a>
-            <!-- User menu (mobile) -->
-            <div class="navbar-user d-lg-none">
-                <!-- Dropdown -->
-                <div class="dropdown">
-                    <!-- Toggle -->
-                    <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="avatar-parent-child">
-                            <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar- rounded-circle">
-                            <span class="avatar-child avatar-badge bg-success"></span>
-                        </div>
-                    </a>
-                   
-                </div>
-            </div>
-            <!-- Collapse -->
-            <div class="collapse navbar-collapse" id="sidebarCollapse">
-                <!-- Navigation -->
-                <?php 
-                include('seller_sidebar.php');
 
-                ?>
-            </div>
-        </div>
-    </nav>
     <!-- Main content -->
     <div class="h-screen flex-grow-1 overflow-y-lg-auto">
         <!-- Header -->
@@ -387,10 +351,10 @@
                     <!-- Nav -->
                     <ul class="nav nav-tabs mt-4 overflow-x border-0">
                         <li class="nav-item ">
-                            <a href="seller_products" class="nav-link font-regular">My Products</a>
+                            <a href="seller_products" class="nav-link font-regular" style="font-size:large;">My Products</a>
                         </li>
                         <li class="nav-item">
-                            <a href="seller_add_product" class="nav-link active">Add Products</a>
+                            <a href="seller_add_product" class="nav-link active" style="font-size:large;">Add Products</a>
                         </li>
                     </ul>
                 </div>
@@ -400,12 +364,44 @@
         <main class="py-6 bg-surface-secondary">
             <div class="container-fluid">
                 <!-- Card stats -->
+                <?php
+                $mysqli = new mysqli($servername, $username, $password, $dbname);
+                $stmt3 = $mysqli->prepare("SELECT * FROM tbl_product_pic ");
+                $stmt3->execute();
 
+                $handler = $stmt3->get_result()->fetch_all(MYSQLI_ASSOC);
+                $count=0;
+                $image=array(); 
+                foreach($handler as $row) {
+                $image[$count]=$row['foldername'];
+                $count++;
+                }
+                ?>
                 <div class="card shadow border-0 mb-7">
                     <div class="card-header">
                     
                         <h2>Add New Product</h2>
                         <form action="/crud_add_product" method="get" enctype="multipart/form-data">
+                            
+                        <label for="productImage">Product Image:</label>
+                            <div class="upload-container">
+                                <label for="file-upload">
+                                    <div class="upload-box" id="myModalBtn" href="javascript:void(0);" data-href="upload">
+                                        <div class="icon">📸</div>
+                                        Add Image
+                                        <div class="counter">(<?php echo $count; ?>/24)</div>
+                                    </div>
+                                </label>
+                              
+                            </div>
+                            <?php
+                                    foreach($handler as $row) {
+                                ?>
+                           
+                                <tr><img src="img/<?php echo $row['foldername']; ?>" style="width: 80px; height: 100px;"></tr>
+                                <?php
+                                    }
+                                ?>
                             <div class="form-group">
                                 <label for="productName">Product Name:</label>                       
                                 <input type="text" id="productName" name="productName" style="width: 100%; border: 1px solid #804444;" required>
@@ -425,7 +421,7 @@
                                         <option value="Lanyard">Lanyard</option>
                                         <option value="Hoodie">Hoodie</option>
                                         <option value="Cap">Cap</option>
-                                        <option value="ToteBag">ToteBag</option>
+                                        <option value="Tote Bag">ToteBag</option>
                                     </select>
                                 </div>
                             </div>
@@ -520,9 +516,9 @@
                             <br>
                             <br>
 
-                            <div class="form-group" style="display: grid; grid-template-columns: auto auto auto auto auto auto auto; text-align: center; margin-bottom: -50px;">
+                            <div class="form-group" style="display: grid; grid-template-columns: auto auto auto auto auto auto auto; text-align: center; margin-bottom: -50px; margin-top: 50px; ">
                                 <div id="productStockXS" style="display: none">
-                                    <div class="box">
+                                    <div class="box" >
                                         <div class="item">
                                             <input type="text" id="inputXS" name="stock[]" style="width: 78%; margin-top: -80px; text-align: center; border: 1px solid #804444;" placeholder="Stock (XS)">
                                         </div>
@@ -787,16 +783,6 @@
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-                            <label for="productImage">Product Image:</label>
-                            <div class="upload-container">
-                                <label for="file-upload">
-                                    <div class="upload-box" id="myModalBtn" href="javascript:void(0);" data-href="upload">
-                                        <div class="icon">📸</div>
-                                        Add Image
-                                        <div class="counter">(0/24)</div>
-                                    </div>
-                                </label>
-                            </div>
 
                             <script>
                                 $(document).ready(function(){
