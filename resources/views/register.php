@@ -37,12 +37,16 @@ if (isset($_GET['register'])) {
        
     $stmt->execute();
    
-    $stmt3->execute();
-    
+    echo "
+        <script>
+            window.onload = function() {
+                alert('New User Registered'); window.location.href='\login-web'; 
+            };
+        </script>";
     }
     else{
         echo '<script>alert("Make sure your password is same as confirm password")</script>';
-        header("Location: \login-web");
+        header("Location:\login-web");
     }
      
 }
