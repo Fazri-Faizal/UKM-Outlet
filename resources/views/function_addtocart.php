@@ -54,10 +54,10 @@ if (isset($_GET['addToCart'])) { //, $_GET['prodId'], $_GET['prodQuantity'], $_G
         redirectToProductDetails($id);
     } catch (PDOException $e) {
         $conn->rollback();
-        // echo "Error: " . $e->getMessage();
+        echo "Error: " . $e->getMessage();
     }
 } else {
-    // echo "Error: Required parameters are not set or addToCart operation is not specified.";
+    echo "Error: Required parameters are not set or addToCart operation is not specified.";
 }
 
 $conn = null;
