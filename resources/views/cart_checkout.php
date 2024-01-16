@@ -4,13 +4,14 @@ include('database.php');
 $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-if (isset($_GET['cust_id'], $_GET['qty'], $_GET['subtotal'], $_GET['orgid'], $_GET['cid'])) {
+if (isset($_GET['cust_id'], $_GET['qty'], $_GET['subtotal'], $_GET['orgid'], $_GET['cid'], $_GET['deliverymethod'])) {
     $cust_id = $_GET['cust_id'];
     $qty = $_GET['qty'];
     $subtotal = $_GET['subtotal'];
     $orgid = $_GET['orgid'];
     $prodsize = isset($_GET['prodsize']) ? $_GET['prodsize'] : "no size";
     $cid = $_GET['cid'];
+    $deliverymethod = $_GET['deliverymethod'];  
 
     // Start a transaction
     $conn->beginTransaction();
@@ -34,15 +35,24 @@ if (isset($_GET['cust_id'], $_GET['qty'], $_GET['subtotal'], $_GET['orgid'], $_G
 
         // Execute the INSERT statement
         $stmt->execute();
-
+        echo $deliverymethod;
         // Prepare the UPDATE statement for tbl_cart
-        $stmt2 = $conn->prepare("UPDATE tbl_cart SET quantity = :qty, checkout_session_id = :checkout_session_id WHERE cart_id = :cid");
+        $stmt2 = $conn->prepare("UPDATE tbl_cart SET quantity = :qty, delivery = :deliverymethod, checkout_session_id = :checkout_session_id WHERE cart_id = :cid");
         $stmt2->bindParam(':qty', $qty, PDO::PARAM_INT);
+        $stmt2->bindParam(':deliverymethod', $deliverymethod, PDO::PARAM_STR);
         $stmt2->bindParam(':checkout_session_id', $maxId, PDO::PARAM_INT);
         $stmt2->bindParam(':cid', $cid);
 
         // Execute the UPDATE statement
         $stmt2->execute();
+
+        // $stmt3 = $conn->prepare("INSERT INTO tbl_cart (delivery) VALUES (:deliverymethod) ");
+
+        // $stmt3->bindParam(':deliverymethod', $deliverymethod);      
+
+
+        // // Execute the INSERT statement
+        // $stmt3->execute();
 
         // Commit the transaction
         $conn->commit();

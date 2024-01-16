@@ -864,3 +864,24 @@ aside {
     margin-left: 20px;
     margin-top: 2px;
   }
+  .hidden-radio {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    top: 0;
+    left: 0;
+    z-index: 2; /* The z-index ensures that the
+  input is above the label content */
+  }
+  .hidden-radio:checked + label .plan-details {
+    border: 2px solid #804444; /* Example style, adjust as needed */
+  }
+  .plan-label {
+    position: relative; /* Allows absolute positioning inside the label */
+    display: inline-block; /* Adjust as needed for your layout */
+    cursor: pointer; /* Indicates the label is clickable */
+    padding: 10px; /* Adjust as needed */
+    /* Add other styles here for your labels */
+    }
