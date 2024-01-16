@@ -32,7 +32,7 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 $stmt->close();
 
-$stmt2 = $mysqli->prepare("SELECT * FROM tbl_customer WHERE username = '$sessionname'");
+$stmt2 = $mysqli->prepare("SELECT * FROM tbl_customer LEFT JOIN tbl_address ON tbl_customer.id = tbl_address.cust_id WHERE username = '$sessionname';");
 $stmt2->execute();
 
 $result = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -41,9 +41,16 @@ foreach ($result as $row) {
 
   $name = $row['username'];
   $role = $row['role'];
+  $pickup = $row['pickup_location'];
   $user_email = $row['user_email'];
   $fullname = $row['Fullname'];
   $shop_add = $row['shop_add'];
+  $phone_num = $row['phone_number'];
+  $al1 = $row['address_line1'];
+  $al2 = $row['address_line2'];
+  $city = $row['city'];
+  $states = $row['states'];
+  $pc = $row['postal_code'];
 
 }
 
@@ -61,7 +68,7 @@ foreach ($result as $row) {
 <body>
   <main>
     <div class="basket" style="margin-top:20px;">        
-      <div class="bag"><strong style="font-size: 20px;">How would you like to get your item?</strong></div>
+      <div class="bag"><strong style="font-size: 20px;">Your delivery and pick up details</strong></div>
                 <!-- <div class="delivery-select">
                     <div class="delivery-type">
                         <div class="item">
@@ -78,37 +85,36 @@ foreach ($result as $row) {
                         </div>
                     </div>
                 </div> -->
-                
-        <div class="container">
-          <div class="plans"> 
-            <label class="plan basic-plan" for="basic">
-              <div>
-                <button class="plan-content-method" id="delivery" onclick="editDelivery()">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-truck" viewBox="0 0 16 16">
-                    <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                  </svg>
-                  <div class="plan-details">
-                    <span>Delivery</span>    
-                  </div>
-                </button>
-              </div>             
-            </label>
+    <form action="/pay" method="get">
+        
+<div class="container">
+  <div class="plans">
+    <label class="plan basic-plan" for="basic" onclick="editDelivery()">
+      <input type="radio" name="deliverymethod" value="delivery" id="basic" />
+      <div class="plan-content">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-truck" viewBox="0 0 16 16">
+          <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+          </svg>
+        <div class="plan-details">
+          <span>Delivery</span>
+        </div>
+      </div>
+    </label>
 
-            <label class="plan complete-plan" for="complete">
-              <div>
-                <button class="plan-content-method" id="pickup" onclick="editPickup()">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
-                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                  </svg>
-                  <div class="plan-details">
-                    <span>Pick Up</span>    
-                  </div>
-                </button>
-              </div>
-            </label>
-          </div>
-        </div> 
+    <label class="plan complete-plan" for="complete" onclick="editPickup()">
+      <input type="radio" id="complete" name="deliverymethod" value="pickup"/>
+      <div class="plan-content">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-geo-alt" viewBox="0 0 16 16">
+          <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+          <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+        </svg>
+        <div class="plan-details">
+          <span>Pick Up</span>
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
           
         <!-- Delivery Detail-->
         <div id="displayDelivery">
@@ -117,15 +123,19 @@ foreach ($result as $row) {
             <div class="item">
               <div class="address-details">
                 <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo $fullname ?></strong></h1>
-                <p><?php echo $shop_add ?></p>
-                <p>01165240426 </p>
+                <p><?php echo $al1 ?></p>
+                <p><?php echo $al2 ?></p>
+                <p><?php echo $city ?></p>
+                <p><?php echo $states ?></p>
+                <p><?php echo $pc ?></p>
+                <p>Phone Number: <?php echo $phone_num ?></p>
               </div>
             </div>
                 <!-- <div class="price">26.00</div>
                 <div class="quantity">
                 <input type="number" value="4" min="1" class="quantity-field">
                 </div> -->
-            <a href="/user-profile"><div class="update-address">Change</div></a>
+            <a href="/user-profile"><div class="update-address">Edit</div></a>
           </div>  
 
           <!-- <div>
@@ -173,14 +183,130 @@ foreach ($result as $row) {
               
               <div class="item" style="margin-left: 20px;">
                 <div class="address-details">
-                  <h1><strong>KTHO</strong></h1>
-                  <p>Kolej Tun Hussein Onn</p>
-                  <p style="margin-top:1px">Bilik Kinabalu</p>
-                  <p>Syarif : 01165240426</p>
+                  
+                  <?php 
+                                                
+                   if ($pickup == "KAB"){
+                    echo '<h1><strong>Kolej Aminuddin Baki</h1></strong>';
+                  }
+                  else if ($pickup == "KBH"){
+                     echo '<h1><strong>Kolej Burhanuddin Helmi</h1></strong>';
+                  }
+                  else if ($pickup == "NP"){
+                    echo '<h1><strong>No Pickup Location</h1></strong>';
+                 }
+                  else if ($pickup == "KDO"){
+                     echo '<h1><strong>Kolej Dato Onn</h1></strong>';
+                  }
+                  else if ($pickup == "KIY"){
+                     echo '<h1><strong>Kolej Ibrahim Yaakub</h1></strong>';
+                  }
+                  else if ($pickup == "KIZ"){
+                     echo '<h1><strong>Koleb Ibu Zain</h1></strong>';
+                  }
+                  else if ($pickup == "KKM"){
+                     echo '<h1><strong>Kolej Keris Mas</h1></strong>';
+                  }
+                  else if ($pickup == "KPZ"){
+                     echo '<h1><strong>Kolej Pendeta Zaaba</h1></strong>';
+                  }
+                  else if ($pickup == "KRK"){
+                     echo '<h1><strong>Kolej Rahim Kajai</h1></strong>';
+                  }
+                  else if ($pickup == "KTDI"){
+                     echo '<h1><strong>Kolej Tun Dr Ismail</h1></strong>';
+                  }
+                  else if ($pickup == "KTHO"){
+                     echo '<h1><strong>Kolej Tun Hussein Onn</h1></strong>';
+                  }
+                  else if ($pickup == "KTSN"){
+                     echo '<h1><strong>Kolej Tun Syed Nasir</h1></strong>';
+                  }
+                  else if ($pickup == "KUO"){
+                     echo '<h1><strong>Kolej Ungku Omar</h1></strong>';
+                  }
+                  else if ($pickup == "FSSK"){
+                     echo '<h1><strong>Fakulti Sains Sosial dan Kemanusiaan</h1></strong>';
+                  }
+                  else if ($pickup == "FUU"){
+                     echo '<h1><strong>Fakulti Undang-Undang</h1></strong>';
+                  }
+                  else if ($pickup == "FPERG"){
+                     echo '<h1><strong>Fakulti Pergigian</h1></strong>';
+                  }
+                  else if ($pickup == "FKAB"){
+                     echo '<h1><strong>Fakulti Kejuruteraan dan Alam Bina</h1></strong>';
+                  }
+                  else if ($pickup == "FST"){
+                     echo '<h1><strong>Fakulti Sains dan Teknologi</h1></strong>';
+                  }
+                  else if ($pickup == "FPEND"){
+                     echo '<h1><strong>Fakulti Pendidikan</h1></strong>';
+                  }
+                  else if ($pickup == "FEP"){
+                     echo '<h1><strong>Fakulti Ekonomi dan Pengurusan</h1></strong>';
+                  }
+                  else if ($pickup == "FPER"){
+                     echo '<h1><strong>Fakulti Perubatan</h1></strong>';
+                  }
+                  else if ($pickup == "FARMASI"){
+                     echo '<h1><strong>Fakulti Farmasi</h1></strong>';
+                  }
+                  else if ($pickup == "FTSM"){
+                     echo '<h1><strong>Fakulti Teknologi dan Sains Maklumat</h1></strong>';
+                  }
+                  else if ($pickup == "FPI"){
+                     echo '<h1><strong>Program Pendidikan Islam</h1></strong>';
+                  }
+                  else if ($pickup == "FSK"){
+                     echo '<h1><strong>Fakulti Sains Kesihatan</h1></strong>';
+                  }
+                  else if ($pickup == "GSB"){
+                     echo '<h1><strong>Pusat Pengajian Siswazah Perniagaan, UKM-GSB</h1></strong>';
+                  }
+                  else {
+                      echo '<h1><strong>Pusat Pengajian Citra Universiti</h1></strong>';
+                  }
+
+                                            ?>  
+
+                  <p>Syarif : <?php echo $phone_num ?></p>
                 </div>
               </div>
             </div>
           </div>
+      <!-- <div style="visibility:hidden;">
+        <div class="container">
+          <div class="plans">
+          <label class="plan basic-plan" for="basic"  onclick="editDelivery()">
+          <input type="radio" name="deliverymethod" id="delivery" value="delivery"  > 
+              <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-truck" viewBox="0 0 16 16">
+                    <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                  </svg>
+                  <div class="plan-details">
+                    <span>Delivery</span>    
+                  </div>
+              </div>             
+            </label>
+
+           
+            <label class="plan complete-plan" for="complete" onclick="editPickup()">
+            <input type="radio" name="deliverymethod" value="pickup" id="pickup" checked> 
+              <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#804444" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                  </svg>
+                  <div class="plan-details">
+                    <span>Pick Up</span>    
+                  </div>
+               
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>  -->
 
           <div class="payment">
           <div style="margin-top: 30px; visibility:hidden;"><h3>How would you like to pay?</h3></div>
@@ -316,11 +442,11 @@ foreach ($result as $row) {
             <div class="total-value final-value" id="basket-total" style="margin-top:20px;"><?php echo number_format("$totalprice",2)."";?></div>
           </div>
           <div class="summary-checkout">
-              <form action="/pay" method="get">
+              
                 <input type="hidden" name="prodname" value="<?php echo $name;?>">
                 <input type="hidden" name="prodqty" value="<?php echo $quantity;?>">
             <button class="checkout-cta" name="totprice" value="<?php echo $totalprice;?>">Pay Now</button>
-            </form>
+  </form>
           </div>
       </aside>
   </main>
@@ -469,7 +595,7 @@ $("select").on("change" , function() {
 });
 
 function editDelivery() {
-  if(document.getElementById("delivery").classList.contains("editDeliveryactive")) {
+  if(document.getElementById("basic").classList.contains("editDeliveryactive")) {
 
     document.getElementById("displayPickup").style.display = "none";
 
@@ -477,13 +603,13 @@ function editDelivery() {
     document.getElementById("displayPayment").style.display = "";
 
   } else {
-    document.getElementById("delivery").classList.add('editDeliveryactive');
+    document.getElementById("basic").classList.add('editDeliveryactive');
     editDelivery();
   }
 }
 
 function editPickup() {
-  if(document.getElementById("pickup").classList.contains("editPickupactive")) {
+  if(document.getElementById("complete").classList.contains("editPickupactive")) {
 
     document.getElementById("displayPickup").style.display = "";
 
@@ -492,7 +618,7 @@ function editPickup() {
 
     
   } else {
-    document.getElementById("pickup").classList.add('editPickupactive');
+    document.getElementById("complete").classList.add('editPickupactive');
     editPickUp();
   }
 }

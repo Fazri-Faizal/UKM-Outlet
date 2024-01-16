@@ -35,18 +35,18 @@ $stmt2->execute();
 $result2 = $stmt2->get_result();
 
 if (!$arr = $result2->fetch_all(MYSQLI_ASSOC)) {
-    exit('No products');
+    
 }
 
 $stmt2->close();
 
 // Prepare the statement to select product reviews.
-$stmt3 = $mysqli->prepare("SELECT * FROM tbl_product_review LEFT JOIN tbl_customer ON tbl_product_review.cust_Id = tbl_customer.Id");
+$stmt3 = $mysqli->prepare("SELECT * FROM tbl_product_review LEFT JOIN tbl_customer ON tbl_product_review.cust_Id = tbl_customer.Id WHERE id = $sellerId ");
 $stmt3->execute();
 $result3 = $stmt3->get_result();
 
 if (!$arrview = $result3->fetch_all(MYSQLI_ASSOC)) {
-    exit('No reviews');
+    
 }
 
 $stmt3->close();
