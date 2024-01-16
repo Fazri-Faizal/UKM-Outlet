@@ -1,24 +1,34 @@
 <?php 
-    include_once'session.php';
-    include 'database.php';
-    
-    $mysqli1 = new mysqli($servername, $username, $password, $dbname);
-    $mysqli2 = new mysqli($servername, $username, $password, $dbname);
-    $stmt1 = $mysqli1->prepare("SELECT id FROM tbl_customer WHERE username = '$sessionname'");
-    $stmt1->execute();
-    $handler = $stmt1->get_result()->fetch_all(MYSQLI_ASSOC);
-    foreach($handler as $cust) {
-      $custId = $cust['id'];
-    }
-    $stmt2 = $mysqli2->prepare("SELECT COUNT(cart_id) AS Count FROM tbl_cart WHERE customer_id = '$custId'");
-    $stmt2->execute();
-    $holder = $stmt2->get_result()->fetch_all(MYSQLI_ASSOC);
-   
-    foreach($holder as $num) {
-      $cartNum = $num['Count'];
-    }
-    $stmt1->close();
-    $stmt2->close();
+include_once 'session.php';
+include 'database.php';
+
+// Single Database Connection
+$mysqli = new mysqli($servername, $username, $password, $dbname);
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+// Get Customer ID
+$stmt1 = $mysqli->prepare("SELECT id FROM tbl_customer WHERE username = ?");
+$stmt1->bind_param("s", $sessionname);
+$stmt1->execute();
+$result = $stmt1->get_result();
+$custId = $result->fetch_assoc()['id'];
+$stmt1->close();
+
+// Get Cart Count
+$stmt2 = $mysqli->prepare("SELECT COUNT(cart_id) AS Count FROM tbl_cart WHERE customer_id = ?");
+$stmt2->bind_param("i", $custId);
+$stmt2->execute();
+$result2 = $stmt2->get_result();
+$cartNum = $result2->fetch_assoc()['Count'];
+$stmt2->close();
+
+// Your HTML and other PHP code continues here...
+
+// Always close your connection at the end of your script
+$mysqli->close();
 ?>
 
 <!DOCTYPE html>
@@ -179,7 +189,27 @@
    
   
     $stmt13->close();
-   
+
+    $stmt14 = $mysqli->prepare("SELECT COUNT(rating) AS reviewCount FROM tbl_product_review WHERE product_id = $id;");
+    $stmt14->execute();
+    $ratecount = $stmt14->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    foreach($ratecount as $arrreview) {
+      $ratingcount = $arrreview['reviewCount'];
+    }
+
+    $stmt14->close();
+
+    $stmt15 = $mysqli->prepare("SELECT COUNT(prod_id) AS soldCount FROM tbl_order WHERE prod_id = $id;");
+    $stmt15->execute();
+    $sellcount = $stmt15->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    foreach($sellcount as $arrsold) {
+      $soldcount = $arrsold['soldCount'];
+    }
+
+    $stmt15->close();
+      
        ?>
        <!DOCTYPE html>
 <html>
@@ -233,10 +263,10 @@
               <div class="left-column">
                 <!-- Product Description -->
                 <div class="product-description">
-                  <span>Jersey</span>
+                  
                   <h1><?php echo $productname ?></h1>
                   <input type="hidden" name="prodName" value="<?php echo $productname; ?>">
-                  <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
+                  
                   <!-- Product Pricing -->
                   <div class="product-price">
                       <span>RM <?php echo $productprice;?></span>
@@ -271,7 +301,7 @@
                 </div>
 
                 <div style=" color: #86939E; font-size: 14px; margin-top: 20px;">
-                  95 ratings | 100 sold
+                  <?php echo $ratingcount?> ratings | <?php echo $ratingcount?> sold
                 </div>
                 
                 <div style="margin: 20px"></div>
@@ -413,6 +443,28 @@
    
   
     $stmt13->close();
+
+    $mysqli4 = new mysqli($servername, $username, $password,$dbname);
+    $stmt14 = $mysqli4->prepare("SELECT COUNT(rating) AS reviewCount FROM tbl_product_review WHERE product_id = $id;");
+    $stmt14->execute();
+    $ratecount = $stmt14->get_result()->fetch_all(MYSQLI_ASSOC);
+    foreach($ratecount as $arrreview) {
+      $ratingcount = $arrreview['reviewCount'];
+    }
+
+    $stmt14->close();
+
+    $mysqli5 = new mysqli($servername, $username, $password,$dbname);
+    $stmt15 = $mysqli5->prepare("SELECT COUNT(prod_id) AS soldCount FROM tbl_order WHERE prod_id = $id;");
+    $stmt15->execute();
+    $sellcount = $stmt15->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    foreach($sellcount as $arrsold) {
+      $soldcount = $arrsold['soldCount'];
+    }
+
+    $stmt15->close();
+      
 ?>
 
 <!DOCTYPE html>
@@ -466,10 +518,10 @@
               <div class="left-column">
                 <!-- Product Description -->
                 <div class="product-description">
-                  <span>Jersey</span>
+                  
                   <h1><?php echo $productname ?></h1>
                   <input type="hidden" name="prodName" value="<?php echo $productname; ?>">
-                  <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
+                  
                   <!-- Product Pricing -->
                   <div class="product-price">
                       <span>RM <?php echo number_format($productprice, 2);?></span>
@@ -504,7 +556,7 @@
                 </div>
 
                 <div style=" color: #86939E; font-size: 14px; margin-top: 20px;">
-                  95 ratings | 100 sold
+                <?php echo $ratingcount?> ratings | <?php echo $ratingcount?> sold
                 </div>
                 
                 <div style="margin: 20px"></div>

@@ -11,10 +11,10 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 if (isset($_GET['insertReview'])) {
  
   try {
-    $stmt = $conn->prepare("INSERT INTO tbl_product_review(cust_id, product_id, rating, subject_review, review) VALUES(:id, :prodid, :rating, :subject_review, :review)");
+    $stmt = $conn->prepare("INSERT INTO tbl_product_review(cust_id, product_id, rating, subject, review) VALUES(:id, :prodid, :rating, :subjectReview, :review)");
 
     $stmt->bindParam(':rating', $prodRate, PDO::PARAM_STR);
-    $stmt->bindParam(':subject_review', $prodSubject, PDO::PARAM_STR);
+    $stmt->bindParam(':subjectReview', $prodSubject, PDO::PARAM_STR);
     $stmt->bindParam(':review', $prodReview, PDO::PARAM_STR);
     $stmt->bindParam(':id', $userId, PDO::PARAM_STR);
     $stmt->bindParam(':prodid', $productId, PDO::PARAM_STR);
@@ -31,7 +31,7 @@ if (isset($_GET['insertReview'])) {
     echo "
         <script>
             window.onload = function() {
-                alert('You review already sent!'); window.location.href='\product-details'; 
+                alert('You review already sent!'); window.location.href='\product-details?id=$productId'; 
             };
         </script>";
     }
