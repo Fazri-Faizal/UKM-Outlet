@@ -58,7 +58,7 @@
             <button name="prodtype" value="Tote Bag" style="cursor:pointer;"><li>Tote Bag<span></span><span></span><span></span><span></span></li></button>
             <button name="prodtype" value="Hoodie" style="cursor:pointer;"><li>Hoodie<span></span><span></span><span></span><span></span></li></button>
             <button name="prodtype" value="Cap" style="cursor:pointer;"><li>Cap<span></span><span></span><span></span><span></span></li></button>
-            <button name="prodtype" value="" style="cursor:pointer;"><li>Others<span></span><span></span><span></span><span></span></li></button>
+            <button name="prodtype" value="Others" style="cursor:pointer;"><li>Others<span></span><span></span><span></span><span></span></li></button>
         </form>
     </ul>
 </nav>
