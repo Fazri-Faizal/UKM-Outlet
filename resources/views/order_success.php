@@ -30,7 +30,7 @@ try {
   $newSessionId = $maxSessionId + 1;
 
   // Insert new order with incremented checkout_session_id
-  $stmt3 = $mysqli1->prepare("INSERT INTO tbl_order (cust_id, prod_id, total_price, prod_qty, seller_id, checkout_session_id) SELECT customer_id, product_id, product_Price, quantity, seller_Id, ? FROM tbl_cart WHERE customer_id = ?");
+  $stmt3 = $mysqli1->prepare("INSERT INTO tbl_order (cust_id, prod_id, total_price, prod_qty, seller_id, deliveryMethod, checkout_session_id) SELECT customer_id, product_id, product_Price, quantity, seller_Id, delivery,  ? FROM tbl_cart WHERE customer_id = ?");
   $stmt3->bind_param('ii', $newSessionId, $custId);
   $stmt3->execute();
 

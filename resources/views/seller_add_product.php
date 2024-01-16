@@ -422,6 +422,7 @@
                                         <option value="Hoodie">Hoodie</option>
                                         <option value="Cap">Cap</option>
                                         <option value="Tote Bag">ToteBag</option>
+                                        <option value="Others">Others</option>
                                     </select>
                                 </div>
                             </div>
@@ -766,7 +767,7 @@
                                         <option value="FPER">Fakulti Perubatan</option>
                                         <option value="FARMASI">Fakulti Farmasi</option>
                                         <option value="FTSM">Fakulti Teknologi dan Sains Maklumat</option>
-                                        <option value="FPI">Program yang ditawarkan</option>
+                                        <option value="FPI">Program Pendidikan Islam</option>
                                         <option value="FSK">Fakulti Sains Kesihatan</option>
                                         <option value="GSB">Pusat Pengajian Siswazah Perniagaan, UKM-GSB</option>
                                         <option value="CITRA">Pusat Pengajian Citra Universiti</option>

@@ -104,8 +104,9 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
            
             <span  value="<?php echo $orginid ?>"><p>Product Origin - <?php echo $orginid  ?></p></span>
 
-             <input name="prodsize" value="<?php echo $size?>">
-             <input name="orgid" value="<?php echo $orginid ?>">
+             <input type="hidden" name="prodsize" value="<?php echo $size?>">
+             <input type="hidden" name="orgid" value="<?php echo $orginid ?>">
+             <br>
 
           </div>
         </div>
@@ -144,10 +145,12 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
           </div>
         </div>
         
-        <!-- <div class="basket-module">
-        <label for="promo-code">Enter a promotional code</label>
-        <input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
-        <button class="promo-code-cta" style="margin-bottom:10px;">Apply</button> -->
+        <div class="basket-module">
+        <label for="deliverymethod">Choose a delivery method </label>
+        <select name="deliverymethod"  id="deliverymethod" style="width:150px; height:22px; border-radius:5px;">
+          <option value="delivery" name="deliverymethod">Delivery</option>
+          <option value="pickup" name="deliverymethod">Pickup (location in the checkout page)</option>
+        </select>
       
         <div class="summary-total">
           <div class="total-title">Total</div>
@@ -163,8 +166,9 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     </aside>
   </main>
 </body>
-<?php include 'footer.php' ?>
+
 </html>
+<?php include 'footer.php' ?>
 <?php ?>
 <script>
 /* Set values + misc */
