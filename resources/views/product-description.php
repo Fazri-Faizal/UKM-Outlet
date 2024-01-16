@@ -1,3 +1,40 @@
+<?php
+include_once 'session.php';
+include 'database.php';
+
+// Create a single mysqli object for the database connection.
+$mysqli = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+$stmt1 = $mysqli->prepare("SELECT * FROM tbl_products WHERE product_id = $id");
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+
+foreach($result1 as $description) {
+	$prod_desc = $description['product_Description'];
+  }
+
+$stmt1->close();
+
+// Prepare the statement to select product reviews.
+$stmt3 = $mysqli->prepare("SELECT * FROM tbl_product_review LEFT JOIN tbl_customer ON tbl_product_review.cust_Id = tbl_customer.Id WHERE product_id = $id");
+$stmt3->execute();
+$result3 = $stmt3->get_result();
+
+if (!$arrview = $result3->fetch_all(MYSQLI_ASSOC)) {
+    
+}
+
+$stmt3->close();
+
+
+// Close the database connection.
+$mysqli->close();
+?>
 <!-- bootstrap? -->
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -20,12 +57,48 @@
 				</ul>
 				<div class="tab-content" id="myTabContent">
 				  	<div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-				  		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+				  		<?php echo $prod_desc?>
 				  	</div>
 					<!-- form review -->
 				  	<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-				  		<div class="review-heading">REVIEWS</div>
-				  		<p class="mb-20">There are no reviews yet.</p>
+					  <div class="reviews-container" id="display-reviews" style=" margin-top: 20px;" >
+                    <?php
+                        foreach($arrview as $reviewlist) {
+								$rating = $reviewlist['rating'];
+							
+                    ?>
+
+                    <!-- Review Item -->
+                    <div class="review-item">
+                        <div class="review-header">
+                            <strong><span class="reviewer-name"><?php echo $reviewlist['Fullname'] ?></span></strong>
+                            
+                        </div>
+                        <div class="review-rating">
+						<?php
+							$rate = $rating;
+
+							for($i=1; $i<=$rate; $i++) {
+							if($i>0.5)
+								echo '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#FEC20C" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
+
+							if(($rate-$i) == 0.5)
+								echo '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#FEC20C" class="bi bi-star-half" viewBox="0 0 16 16"><path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/></svg>';
+							}
+                  			?>
+
+						</div>
+                        <div class="review-title">Subject: <?php echo $reviewlist['subject'] ?></div>
+                        <div class="review-text">Review: <?php echo $reviewlist['review'] ?></div>
+						<hr>
+						
+                    </div>
+                    <?php
+                        }
+                    ?>
+                </div> 
+						
+				  		<div class="review-heading">Add a review</div>
 				  		<form class="review-form"  action="/crud_product_review">
 		        			<div class="form-group">
 			        			<label>Your rating</label>
@@ -51,7 +124,7 @@
 					        	</div>
 					        </div>
 		        			<div class="form-group">
-			        			<label>Your message</label>
+			        			<label>Your review</label>
 			        			<textarea class="form-control" rows="10" name="review"></textarea>
 			        		</div>
 			        		
@@ -59,10 +132,10 @@
 							<input type="hidden" name="prodid" value="<?php echo $id ?>"> 
 					        <button class="round-black-btn" name="insertReview">Submit Review</button>
 			        	</form>
-						<!-- review list -->
+						 <!-- review list  -->
 						<div class="reviewlist">
-							<p>The review will display anonymously</p>
-							<!-- box1 -->
+						
+							<!-- box1  -->
 							<div class="testimonial-box"></div>
 						</div>
 				  	</div>

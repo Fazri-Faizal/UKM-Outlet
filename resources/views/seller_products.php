@@ -1,17 +1,3 @@
-<?php
-    include ('database.php');
-    $mysqli = new mysqli($servername, $username, $password,$dbname);
-
-
-    $stmt = $mysqli->prepare("SELECT * FROM tbl_products");
-    $stmt->execute();
-    
-    $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    
-    if(!$arr) exit('no rows');
-    
-    $stmt->close();
-?>
 
 <head>
 <link rel="stylesheet" href="/css/seller_products.css"/>
@@ -37,6 +23,18 @@
                 <!-- Navigation -->
                 <?php 
                 include('seller_sidebar.php');
+                include ('database.php');
+                $mysqli = new mysqli($servername, $username, $password,$dbname);
+
+
+                $stmt = $mysqli->prepare("SELECT * FROM tbl_products WHERE seller_ids = $sellerId");
+                $stmt->execute();
+                
+                $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                
+                
+                
+                $stmt->close();
 
                 ?>
             </div>
