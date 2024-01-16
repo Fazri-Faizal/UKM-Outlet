@@ -17,6 +17,8 @@ class StripeController extends Controller
         $totprice = $request->input('totprice'); // It's better to use the Request object
         $prodname = $request->input('prodname');
         $prodqty = $request->input('prodqty');
+        $deliverymethod = $request->input('deliverymethod');
+        
 
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
