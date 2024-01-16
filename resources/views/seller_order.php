@@ -162,7 +162,7 @@ button:hover {
         <main class="py-6 bg-surface-secondary">
             <div class="container-fluid">
                 <!-- Card stats -->
-                <form action="" method="get">   
+                <!-- <form action="" method="get">   
                 <div class="row g-6 mb-6">
                     <div class="col-xl-12 col-sm-6 col-12">
                         <div class="card shadow border-0">
@@ -173,13 +173,13 @@ button:hover {
                                 
                                     <div class="button-group">
                                         <button type="submit" name="searchorder">Search</button>
-                                            <!-- <button type="reset">Reset</button> -->
+                                            <button type="reset">Reset</button>
                                     </div>                                  
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> -->
                 
                 <div class="card shadow border-0 mb-7">
                     <div class="card-header">

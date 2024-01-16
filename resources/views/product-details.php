@@ -274,7 +274,7 @@ $mysqli->close();
                 </div>
             </td>
             <td class="mid-column">
-              <img class="img-custom" id="pic" src="/img/<?php echo $productpic ?>">
+              <img class="img-custom" id="pic" src="/img/<?php echo $productpic ?>" width="100">
               <?php   if(!$variation3){  
 
               }else{
@@ -529,7 +529,7 @@ $mysqli->close();
                 </div>
             </td>
             <td class="mid-column">
-              <img class="img-custom" id="pic" src="/img/<?php echo $productpic ?>">
+              <img class="img-custom" id="pic" src="/img/<?php echo $productpic ?>" width="100">
               <?php   if(!$variation3){  
 
               }else{

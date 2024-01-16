@@ -297,13 +297,13 @@
                                         
                                             <?php 
                                                 
-                                                if ($ukmseller["prod_status"] == "Processed"){
+                                                if ($ukmseller["prod_status"] == "Shipped"){
 
-                                                    echo '<i class="bg-success"></i>Processed';
+                                                    echo '<i class="bg-success"></i>Shipped';
                                                 }
-                                                else if ($ukmseller["prod_status"] == "To Process"){
+                                                else if ($ukmseller["prod_status"] == "To Ship"){
 
-                                                    echo '<i class="bg-warning"></i>To Process';
+                                                    echo '<i class="bg-warning"></i>To Ship';
                                                 }
                                                 else {
                                                     echo '<i class="bg-dark"></i>Cancelled';
@@ -313,10 +313,7 @@
                                         </span>
                                     </td>
                                     <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                                        <!-- <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button> -->
+
                                     </td>
                                 </tr>
                                 <?php } ?>
