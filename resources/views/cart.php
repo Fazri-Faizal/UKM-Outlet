@@ -144,10 +144,10 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
           </div>
         </div>
         
-        <div class="basket-module">
+        <!-- <div class="basket-module">
         <label for="promo-code">Enter a promotional code</label>
         <input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
-        <button class="promo-code-cta" style="margin-bottom:10px;">Apply</button>
+        <button class="promo-code-cta" style="margin-bottom:10px;">Apply</button> -->
       
         <div class="summary-total">
           <div class="total-title">Total</div>

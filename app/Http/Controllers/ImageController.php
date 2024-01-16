@@ -23,7 +23,7 @@ class ImageController extends Controller
         $imageName = $originalName;
 
         // Move the file to the public/images directory with the original name
-        $request->image->move(public_path('img'), $imageName);
+        $request->image->move(public_path('img/'), $imageName);
 
         /* Optionally: Save $imageName in the database */
         $image = new tbl_product_pic;

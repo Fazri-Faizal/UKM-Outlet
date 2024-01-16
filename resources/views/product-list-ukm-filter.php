@@ -73,7 +73,11 @@ $stmt->close();
                                 </svg> <?php echo $ukmweb['product_Rating'] ?>
                             </p>
                             <h3><?php echo $ukmweb['product_Name'] ?></h3>
-                            <p class="price">RM 40.00</p><br>
+                            <?php
+                                    $id = $ukmweb['product_Id'];
+                                    $min = $ukmweb['product_price'];  
+                                ?>
+                                <p class="price">RM<?php echo number_format($min, 2);?></p><br>
                         </div>
                     </button>
                 </form>
