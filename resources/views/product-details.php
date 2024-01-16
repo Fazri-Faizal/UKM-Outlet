@@ -266,7 +266,7 @@ $mysqli->close();
                   
                   <h1><?php echo $productname ?></h1>
                   <input type="hidden" name="prodName" value="<?php echo $productname; ?>">
-                  
+                  <p style="visibility:hidden;">The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
                   <!-- Product Pricing -->
                   <div class="product-price">
                       <span>RM <?php echo $productprice;?></span>
@@ -301,7 +301,7 @@ $mysqli->close();
                 </div>
 
                 <div style=" color: #86939E; font-size: 14px; margin-top: 20px;">
-                  <?php echo $ratingcount?> ratings | <?php echo $ratingcount?> sold
+                  <?php echo $ratingcount?> ratings | <?php echo $soldcount?> sold
                 </div>
                 
                 <div style="margin: 20px"></div>
@@ -521,7 +521,7 @@ $mysqli->close();
                   
                   <h1><?php echo $productname ?></h1>
                   <input type="hidden" name="prodName" value="<?php echo $productname; ?>">
-                  
+                  <p style="visibility:hidden;">The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
                   <!-- Product Pricing -->
                   <div class="product-price">
                       <span>RM <?php echo number_format($productprice, 2);?></span>
@@ -556,7 +556,7 @@ $mysqli->close();
                 </div>
 
                 <div style=" color: #86939E; font-size: 14px; margin-top: 20px;">
-                <?php echo $ratingcount?> ratings | <?php echo $ratingcount?> sold
+                <?php echo $ratingcount?> ratings | <?php echo $soldcount?> sold
                 </div>
                 
                 <div style="margin: 20px"></div>
