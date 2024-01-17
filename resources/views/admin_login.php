@@ -27,7 +27,7 @@
                         <label for="psswrd">Password</label>
                     </div>
                     <button type="submit" name="login" class="btn">Log in</button>
-                    <a href="/home"><h2 style="margin-top: 15px; font-size:12px;">Back To Homepage</h2></a>
+                    <a href="/index"><h2 style="margin-top: 15px; font-size:12px;">Back To Homepage</h2></a>
                     </form>                  
         <div id="message"></div>
     </div>

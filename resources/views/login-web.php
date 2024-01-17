@@ -283,7 +283,7 @@ if (isset($_GET['login'])) {
         echo "<script>
         
         window.onload = function() {
-            alert('Welcome $name to UKM Outlet!'); window.location.href='/home'; 
+            alert('Welcome $name to UKM Outlet!'); window.location.href='/index'; 
         };
         </script>";
         // REDIRECT IF CORRECT

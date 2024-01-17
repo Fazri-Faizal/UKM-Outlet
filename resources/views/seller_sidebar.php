@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/home">
+                        <a class="nav-link" href="/index">
                             <i class="bi bi-box-arrow-left"></i> Back To Homepage
                         </a>
                     </li>
