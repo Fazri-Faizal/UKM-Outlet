@@ -146,11 +146,11 @@ $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         </div>
         
         <div class="basket-module">
-        <label for="deliverymethod">Choose a delivery method </label>
+        <!-- <label for="deliverymethod">Choose a delivery method </label>
         <select name="deliverymethod"  id="deliverymethod" style="width:150px; height:22px; border-radius:5px;">
           <option value="delivery" name="deliverymethod">Delivery</option>
           <option value="pickup" name="deliverymethod">Pickup (location in the checkout page)</option>
-        </select>
+        </select> -->
       
         <div class="summary-total">
           <div class="total-title">Total</div>

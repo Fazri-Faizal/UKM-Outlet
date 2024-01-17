@@ -51,7 +51,7 @@ $mysqli->close();
           </a>
          </div>
          <div class="nav-items" style="color: #804444;">
-            <li><a onclick="window.location.href='home'">Home</li>
+            <li><a onclick="window.location.href='index'">Home</li>
             <li><a onclick="window.location.href='faculty-list-web'">Faculty</a></li>
             <li><a onclick="window.location.href='college-list-web'">College</a></li>
             <li><a onclick="window.location.href='product-list-ukm-web'">UKM</a></li>
