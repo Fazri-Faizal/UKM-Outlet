@@ -27,6 +27,26 @@ if (isset($_GET['insertReview'])) {
     $productId = $_GET['prodid'];
  
     $stmt->execute();
+
+    $mysqli = new mysqli($servername, $username, $password, $dbname);
+
+    $stmt2 = $mysqli->prepare("SELECT Count(rating) AS count, AVG(rating) AS avgreview FROM `tbl_product_review` WHERE product_id = $productId");
+    $stmt2->execute();
+
+    $result = $stmt2->get_result();
+    
+    foreach($result as $average) {
+      $avg = $average['avgreview'];
+      $count = $average['count'];
+    }
+    
+    $stmt2->close();
+
+    $stmt3 = $conn->prepare("UPDATE tbl_products SET product_Rating = :avgrating WHERE product_Id = $productId");
+
+    $stmt3->bindParam(':avgrating', $avg, PDO::PARAM_STR);
+ 
+    $stmt3->execute();
    
     echo "
         <script>

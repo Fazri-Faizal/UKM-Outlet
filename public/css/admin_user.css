@@ -805,3 +805,16 @@ input[type=text]:focus, input[type=password]:focus {
 .divmodal:hover {
     background-color: #c0b093;
 }
+
+.button-delete {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 13px 18px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    height: 45px;
+  }
