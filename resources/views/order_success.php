@@ -2,7 +2,6 @@
 <?php 
 include_once 'session.php';
 include 'database.php';
-
 $mysqli1 = new mysqli($servername, $username, $password, $dbname);
 try {
   // Get the customer id based on the session name
