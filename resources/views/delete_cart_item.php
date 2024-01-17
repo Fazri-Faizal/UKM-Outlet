@@ -18,5 +18,5 @@ if ($deleteSuccess) {
 }
 
 $stmt->close();
-
+$stmt = $conn->prepare("UPDATE tbl_order SET prod_status = 'To Shipped' WHERE order_id = ';");
 ?>

@@ -36,7 +36,7 @@ if(isset($_GET['send']))
             echo "
             <script>
                 alert('Email not found'); 
-                window.location.href='/home'; 
+                window.location.href='/index'; 
             </script>";             
         }
     }
@@ -45,7 +45,7 @@ if(isset($_GET['send']))
         echo "
         <script>
             alert('tak dapat'); 
-            window.location.href='/home'; 
+            window.location.href='/index'; 
         </script>";          
     }
 }

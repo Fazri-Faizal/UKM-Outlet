@@ -1,7 +1,47 @@
+
 @php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ukm_outlet";
+ 
   $totprice = $_GET['totprice'];  
   $prodname = $_GET['prodname'];  
-  $prodqty = $_GET['prodqty']
+  $prodqty = $_GET['prodqty'];
+
+
+
+$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+    
+    $deliverymethod = $_GET['deliverymethod'];
+    $cid = $_GET['cid'];    
+
+    // Start a transaction
+    $conn->beginTransaction();
+
+    try {
+      
+        // Prepare the UPDATE statement for tbl_cart
+        $stmt2 = $conn->prepare("UPDATE tbl_cart SET delivery =:deliverymethod WHERE cart_id = :cid");
+        $stmt2->bindParam(':deliverymethod', $deliverymethod, PDO::PARAM_STR);
+        $stmt2->bindParam(':cid', $cid);
+
+        // Execute the UPDATE statement
+        $stmt2->execute();
+
+        // Commit the transaction
+        $conn->commit();
+
+        
+    } catch (Exception $e) {
+        // Rollback the transaction on error
+        $conn->rollback();
+        exit('Error processing your request: ' . $e->getMessage());
+    }
+$conn = null;
   
 @endphp
 <head>
@@ -95,6 +135,7 @@
     <input type="hidden" name="totprice" value="@php echo $totprice; @endphp">
     <input type="hidden" name="prodname" value="@php echo $prodname; @endphp">
     <input type="hidden" name="prodqty" value="@php echo $prodqty; @endphp">
+    <input type="hidden" name="deliverymethod" value="@php echo $deliverymethod; @endphp">
     <button type="submit" id="checkout-live-button" style="visibility: hidden"></button>
 </form>
 <div class="wrapper">

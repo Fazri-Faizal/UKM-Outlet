@@ -422,6 +422,7 @@ foreach ($result as $row) {
                 <div class="product-details">
                   <h1><strong><!-- <span class="item-quantity">4</span> --> <?php echo  $name ?></strong></h1>
                   Quantity :  <strong><?php echo $quantity; ?></strong>
+                  <input type="hidden" name="cid" value="<?php echo $cid;?>">
                   
               </div>
               <hr>
