@@ -178,7 +178,7 @@ $mysqli->close();
         $shopname=$pname['shop_name'];
         $productrating=$pname['product_Rating'];
         $productprice=$pname['product_price'];
-
+        $producttype=$pname['product_Type'];
     }
     $mysqli3 = new mysqli($servername, $username, $password,$dbname);
     
@@ -263,8 +263,8 @@ $mysqli->close();
               <div class="left-column">
                 <!-- Product Description -->
                 <div class="product-description">
-                  
-                  <h1><?php echo $productname ?></h1>
+                  <span><?php echo $producttype ?></span>
+                  <h1 style="margin-bottom: -112px;"><?php echo $productname ?></h1>
                   <input type="hidden" name="prodName" value="<?php echo $productname; ?>">
                   <p style="visibility:hidden;">The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
                   <!-- Product Pricing -->
@@ -285,18 +285,25 @@ $mysqli->close();
             <td class="right-column">
                 <!-- rating -->
                 <div style=" color: #86939E; font-size: 17px; margin-top: 20px;">
-                  <?php echo $productrating ?>
-                  
-                  <?php
+                  <?php 
                     $rate = $productrating;
+                    $wholenumrate = floor($rate);
 
-                    for($i=1; $i<=$rate; $i++) {
-                      if($i>0.5)
-                        echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#FEC20C" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
+                    if($rate - $wholenumrate == 0)
+                      echo $wholenumrate;
+                    else if($rate - $wholenumrate == 0.5)
+                      echo $productrating;
+                    else
+                      echo $productrating;
 
-                      if(($rate-$i) == 0.5)
-                        echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#FEC20C" class="bi bi-star-half" viewBox="0 0 16 16"><path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/></svg>';
+                    echo " ";
+
+                    for($i=1; $i<=$wholenumrate; $i++) {
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="26" fill="#FEC20C" class="bi bi-star-fill" viewBox="0 0 16 12"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
                     }
+
+                    if($rate - $wholenumrate >= 0.5)
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="26" fill="#FEC20C" class="bi bi-star-half" viewBox="0 0 16 12"><path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/></svg>';
                   ?><br> 
                 </div>
 
@@ -431,7 +438,7 @@ $mysqli->close();
         $productpic=$pname['pic'];
         $productrating=$pname['product_Rating'];
         $productprice = $pname['product_price'];
-
+        $producttype = $pname['product_Type'];
     }
 
     $mysqli3 = new mysqli($servername, $username, $password,$dbname);
@@ -518,8 +525,8 @@ $mysqli->close();
               <div class="left-column">
                 <!-- Product Description -->
                 <div class="product-description">
-                  
-                  <h1><?php echo $productname ?></h1>
+                  <span><?php echo $producttype ?></span>
+                  <h1 style="margin-bottom: -112px;"><?php echo $productname ?></h1>
                   <input type="hidden" name="prodName" value="<?php echo $productname; ?>">
                   <p style="visibility:hidden;">The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
                   <!-- Product Pricing -->
@@ -540,18 +547,25 @@ $mysqli->close();
             <td class="right-column">
                 <!-- rating -->
                 <div style=" color: #86939E; font-size: 17px; margin-top: 20px;">
-                  <?php echo $productrating ?>
-                  
                   <?php
                     $rate = $productrating;
+                    $wholenumrate = floor($rate);
 
-                    for($i=1; $i<=$rate; $i++) {
-                      if($i>0.5)
-                        echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#FEC20C" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
+                    if($rate - $wholenumrate == 0)
+                      echo $wholenumrate;
+                    else if($rate - $wholenumrate == 0.5)
+                      echo $productrating;
+                    else
+                      echo $productrating;
 
-                      if(($rate-$i) == 0.5)
-                        echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#FEC20C" class="bi bi-star-half" viewBox="0 0 16 16"><path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/></svg>';
+                    echo " ";
+
+                    for($i=1; $i<=$wholenumrate; $i++) {
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="26" fill="#FEC20C" class="bi bi-star-fill" viewBox="0 0 16 12"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
                     }
+
+                    if($rate - $wholenumrate >= 0.5)
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="26" fill="#FEC20C" class="bi bi-star-half" viewBox="0 0 16 12"><path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/></svg>';
                   ?><br> 
                 </div>
 

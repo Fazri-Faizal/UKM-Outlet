@@ -356,10 +356,8 @@
                                             <?php echo $role ?>
                                     </td>
                                     <td class="text-end" style="text-align: center">
-                                        <a style="display: contents" href='/delete_user?id=<?=$userId;?>'>
-                                            <button class="button-delete">
-                                                <i class="bi bi-trash" style="margin:-10px; font-size: 15px;"></i>
-                                            </button>
+                                        <a href="admin_delete_user?userIdDelete=<?=$row['id'];?>" class="button-delete">
+                                            <i class="bi bi-trash" style="margin:-10px; font-size: 15px;"></i>
                                         </a>
                                         <button type="submit" class="button-edit" id="buttonedit" name="edituser"> <!-- onclick="editAccount()" -->
                                             <i class="bi bi-pencil" style="margin:-10px; font-size: 15px;"></i>
@@ -434,11 +432,10 @@
                                 </td>
 
                                 <td class="text-end" style="text-align: center">
-                                    <a style="display: contents" href='/admin_delete_user?id=<?=$userId;?>'>
-                                        <button class="button-delete">
+                                        <a href="admin_delete_user?userIdDelete=<?=$userlist['id'];?>" class="button-delete">
                                             <i class="bi bi-trash" style="margin:-10px; font-size: 15px;"></i>
-                                        </button>
-                                    </a>
+                                        </a>
+
                                     <button class="button-edit" type="submit" id="buttonedit" name="edituser"> <!-- onclick="editAccount()" -->
                                         <i class="bi bi-pencil" style="margin:-10px; font-size: 15px;"></i>
                                     </button>
