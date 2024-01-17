@@ -47,9 +47,11 @@ class StripeController extends Controller
     public function success(Request $request)
     {
         // Retrieve flash data from the session
-        $totprice = Session::get('totprice'); // Or use the global session() helper
+        $totprice = Session::get('totprice');
+        $deliverymethod = Session::get('deliverymethod'); // Or use the global session() helper
 
         // Pass the total price to the view
-        return view('order_success', ['totprice' => $totprice]);
+        return view('order_success', ['totprice' => $totprice,
+                                      'deliverymethod' => $deliverymethod]);
     }
 }
