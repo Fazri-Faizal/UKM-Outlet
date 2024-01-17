@@ -2,7 +2,7 @@
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 include ('database.php');
 $mysqli = new mysqli($servername, $username, $password,$dbname);
-$userId=$_GET['id'];
+$userId=$_GET['userIdDelete'];
 
 $stmt = $mysqli->prepare("DELETE FROM tbl_customer WHERE id='".$userId."'");
 $stmt->execute();
