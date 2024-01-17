@@ -262,8 +262,8 @@ $mysqli->close();
                                     <input type="hidden" name="ct" value="<?php echo $Ct ?>">
                                     <input type="hidden" name="al1" value="<?php echo $al1 ?>">
                                     <input type="hidden" name="st" value="<?php echo $St ?>">
-                                    <input type="radio" name="default-address" id="address1" checked>
-                                    <label for="address1">Default Delivery Address</label>
+                                    <!-- <input type="radio" name="default-address" id="address1" checked>
+                                    <label for="address1">Default Delivery Address</label> -->
                                 </div>
                                 <!-- Delete Address -->
                                
