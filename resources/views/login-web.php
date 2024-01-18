@@ -231,6 +231,9 @@ function choise3() {
                     
                     <p>Don't have an account? <a href="#" class="signUp-link">Sign Up</a></p>
                 </div>
+                <div class="sign-link-admin">        
+                <p><a href="/admin_login">Admin Login</a></p>
+                </div>
                 </form>
             <div id="message"></div>
         </div>
