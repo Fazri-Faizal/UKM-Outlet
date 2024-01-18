@@ -3,6 +3,7 @@ $mysqli4 = new mysqli($servername, $username, $password, $dbname);
 ?>
 <html>
 <head>
+  <title>UKM Outlet - Chat</title>
   <link rel="stylesheet" href="/css/chat.css">
   <meta http-equiv="refresh" content="300">
     
@@ -171,6 +172,6 @@ $mysqli4 = new mysqli($servername, $username, $password, $dbname);
       </section>
     </div>
   </div>
-  <?php include('footer.php')?>
 </body>
+<?php include('footer.php')?>
 </html>
