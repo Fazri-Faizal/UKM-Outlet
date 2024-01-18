@@ -86,7 +86,7 @@
             <div class="container-fluid">
                 
                 <!-- Search Products -->
-                <div class="row g-6 mb-6">
+                <!-- <div class="row g-6 mb-6">
                     <div class="col-xl-12 col-sm-6 col-12">
                         <div class="card shadow border-0">
                             <div class="card-body">
@@ -99,7 +99,7 @@
                                             <label>Category</label>
                                             <select>
                                                 <option>Select</option>
-                                                <!-- Add more categories here -->
+                                                Add more categories here
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -108,12 +108,12 @@
                                             <span>-</span>
                                             <input type="number" placeholder="Max">
                                         </div>
-                                        <!-- <div class="form-group">
+                                        <div class="form-group">
                                             <label>Sales</label>
                                             <input type="number" placeholder="Min">
                                             <span>-</span>
                                             <input type="number" placeholder="Max">
-                                        </div> -->
+                                        </div>
                                         <div class="button-group">
                                             <button>Search</button>
                                             <button type="reset">Reset</button>
@@ -122,7 +122,7 @@
                                 </div>
                              </div>
                         </div>
-                    </div>
+                    </div> -->
                     
                 <div class="card shadow border-0 mb-7">
                     <div class="card-header">

@@ -478,7 +478,7 @@
                         function drawChart() {
                             var data = google.visualization.arrayToDataTable([
                             ['Product Type', 'sold'],
-                            ['Jearsy',    <?php echo $jersey; ?>],
+                            ['Jersey',    <?php echo $jersey; ?>],
                             ['Lanyard',   <?php echo  $lanyard;?>],
                             ['Hoodie',  <?php echo  $hoodie;?>],
                             ['Cap', <?php echo  $cap;?>],
