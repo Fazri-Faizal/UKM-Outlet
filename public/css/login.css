@@ -262,6 +262,25 @@ h2 {
 .sign-link p a:hover {
     text-decoration: underline;
 }
+.sign-link-admin {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.sign-link-admin p {
+    color: #333;
+}
+
+.sign-link-admin p a {
+    color: #aaaaaa;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.sign-link-admin p a:hover {
+    text-decoration: underline;
+}
 
 .forgot-link {
     color: #e91e63; 
